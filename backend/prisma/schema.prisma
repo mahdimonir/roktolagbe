@@ -1,0 +1,286 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+enum Role {
+  DONOR
+  MANAGER
+  ADMIN
+}
+
+enum BloodGroup {
+  A_POS
+  A_NEG
+  B_POS
+  B_NEG
+  AB_POS
+  AB_NEG
+  O_POS
+  O_NEG
+}
+
+enum RequestStatus {
+  OPEN
+  FULFILLED
+  EXPIRED
+  CANCELLED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  phone        String?  @unique
+  passwordHash String
+  role         Role
+  isVerified   Boolean  @default(false)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  donorProfile   DonorProfile?
+  managerProfile ManagerProfile?
+  notifications  Notification[]
+  rewards        RedeemedReward[]
+  sentMessages   Message[]      @relation("SentMessages")
+  receivedMessages Message[]    @relation("ReceivedMessages")
+  auditLogs      AuditLog[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model DonorProfile {
+  id               String     @id @default(cuid())
+  userId           String     @unique
+  name             String
+  bloodGroup       BloodGroup
+  division         String?
+  district         String?
+  thana            String?
+  isAvailable      Boolean    @default(true)
+  lastDonationDate DateTime?
+  totalDonations   Int        @default(0)
+  points           Int        @default(0)
+  address          String?
+  profileImage     String?
+  bio              String?
+  occupation       String?
+  fbUrl            String?
+  linkedinUrl      String?
+  
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  donations DonationHistory[]
+  memberOf  OrgMember[]
+  badges    DonorBadge[]
+  
+  @@index([bloodGroup, district, thana, isAvailable])
+}
+
+model ManagerProfile {
+  id           String  @id @default(cuid())
+  userId       String  @unique
+  name         String
+  type         String  // "hospital" | "organization"
+  district     String
+  contactPhone String
+  isVerified   Boolean @default(false)
+  logoUrl      String?
+  inviteToken  String  @unique @default(cuid())
+  description  String?
+  website      String?
+  address      String?
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bloodRequests BloodRequest[]
+  members       OrgMember[]
+  inventory     BloodInventory[]
+  rewards       Reward[]
+
+  @@index([district, isVerified, type])
+}
+
+model BloodInventory {
+  id        String     @id @default(cuid())
+  managerId String
+  group     BloodGroup
+  units     Int        @default(0)
+  updatedAt DateTime   @updatedAt
+
+  manager ManagerProfile @relation(fields: [managerId], references: [id], onDelete: Cascade)
+
+  @@unique([managerId, group])
+}
+
+model OrgMember {
+  id        String   @id @default(cuid())
+  managerId String
+  donorId   String
+  joinedAt  DateTime @default(now())
+
+  manager ManagerProfile @relation(fields: [managerId], references: [id], onDelete: Cascade)
+  donor   DonorProfile   @relation(fields: [donorId], references: [id], onDelete: Cascade)
+
+  @@unique([managerId, donorId])
+}
+
+model BloodRequest {
+  id           String        @id @default(cuid())
+  bloodGroup   BloodGroup
+  units        Int
+  division     String?
+  district     String
+  thana        String?
+  urgency      String        @default("NORMAL") // CRITICAL | HIGH | NORMAL
+  deadline     DateTime
+  notes        String?
+  patientCondition String?
+  hemoglobin   String?
+  hospitalName String        @default("Not Specified")
+  detailedAddress String?
+  status       RequestStatus @default(OPEN)
+  contactPhone String?       // Required for anonymous seeker requests
+  isEmergency  Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  managerId String?
+  manager   ManagerProfile? @relation(fields: [managerId], references: [id], onDelete: Cascade)
+  donations DonationHistory[]
+
+  @@index([bloodGroup, district, thana, status])
+  @@index([urgency, status])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  senderId  String
+  receiverId String
+  content   String
+  isRead    Boolean  @default(false)
+  isEmergency Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  sender   User @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@index([senderId])
+  @@index([receiverId])
+}
+
+enum DonationStatus {
+  COMMITTED
+  VERIFIED
+  DECLINED
+}
+
+model DonationHistory {
+  id           String         @id @default(cuid())
+  donorId      String
+  status       DonationStatus @default(COMMITTED)
+  requestId    String?
+  donatedAt    DateTime       @default(now())
+  pointsEarned Int            @default(0)
+  imagePath    String?
+  cardPath     String?
+  notes        String?
+
+  donor   DonorProfile  @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  request BloodRequest? @relation(fields: [requestId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+}
+
+model Reward {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  pointsCost  Int
+  category    String   // "Food" | "Health" | "Ecommerce"
+  imageUrl    String?
+  totalStock  Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  
+  managerId   String?
+  manager     ManagerProfile? @relation(fields: [managerId], references: [id], onDelete: Cascade)
+  redeemedBy  RedeemedReward[]
+}
+
+model Badge {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  icon        String   // SVG path constant name or URL
+  category    String   // "Milestone" | "Community" | "Special"
+  createdAt   DateTime @default(now())
+
+  donors      DonorBadge[]
+}
+
+model DonorBadge {
+  id        String   @id @default(cuid())
+  donorId   String
+  badgeId   String
+  awardedAt DateTime @default(now())
+
+  donor     DonorProfile @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  badge     Badge        @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([donorId, badgeId])
+}
+
+model RedeemedReward {
+  id           String   @id @default(cuid())
+  userId       String
+  rewardId     String
+  voucherCode  String   @unique
+  isUsed       Boolean  @default(false)
+  redeemedAt   DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reward Reward @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model SystemConfig {
+  id                String   @id @default("singleton")
+  globalAlertActive Boolean  @default(false)
+  globalAlertTitle  String?
+  globalAlertMessage String?
+  globalAlertType   String   @default("INFO") // INFO | WARNING | EMERGENCY
+  maintenanceMode   Boolean  @default(false)
+  apiVersion        String   @default("1.4.2")
+  updatedAt         DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String
+  action    String   // "CREATE" | "UPDATE" | "DELETE" | "BAN" | "VERIFY" | "CONFIG_CHANGE"
+  entity    String   // "USER" | "MANAGER" | "REQUEST" | "REWARD" | "BADGE" | "CONFIG"
+  entityId  String?
+  details   Json?
+  createdAt DateTime @default(now())
+
+  actor     User     @relation(fields: [actorId], references: [id], onDelete: Cascade)
+
+  @@index([actorId, action, entity])
+}
