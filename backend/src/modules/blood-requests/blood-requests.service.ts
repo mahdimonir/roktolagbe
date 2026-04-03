@@ -181,15 +181,10 @@ export const createRequest = async (userId: string, input: CreateRequestInput) =
 };
 
 export const createEmergencyRequest = async (input: EmergencyRequestInput) => {
-  const deadline = new Date();
-  deadline.setHours(deadline.getHours() + 24);
-
   const request = await prisma.bloodRequest.create({
     data: {
       ...input,
-      urgency: 'CRITICAL',
-      isEmergency: true,
-      deadline,
+      urgency: 'EMERGENCY',
     },
   });
 

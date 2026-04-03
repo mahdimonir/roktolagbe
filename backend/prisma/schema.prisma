@@ -136,10 +136,14 @@ model BloodRequest {
   division     String?
   district     String
   thana        String?
-  urgency      String        @default("NORMAL") // CRITICAL | HIGH | NORMAL
+  urgency      String        @default("NORMAL") // CRITICAL | EMERGENCY | NORMAL
   deadline     DateTime
   notes        String?
   patientCondition String?
+  patientName   String?
+  patientAge    String?
+  patientGender String?
+  relationship  String?
   hemoglobin   String?
   hospitalName String        @default("Not Specified")
   detailedAddress String?

@@ -9,7 +9,7 @@ import {
   Search, MapPin, Droplets, Loader2, Plus, 
   Zap, Activity, Target, ShieldAlert,
   ChevronRight, ArrowRight, ShieldCheck,
-  TrendingUp, HeartPulse, Globe
+  TrendingUp, HeartPulse, Globe, Thermometer, Clock
 } from 'lucide-react';
 
 const BLOOD_GROUPS = ['A_POS', 'A_NEG', 'B_POS', 'B_NEG', 'AB_POS', 'AB_NEG', 'O_POS', 'O_NEG'];
@@ -132,8 +132,10 @@ function UrgentRequestsContent() {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
               {requests.map((request: any, i: number) => {
                  const confirmed = request.donations?.filter((d: any) => d.status === 'VERIFIED').length || 0;
-                 const needed = Math.max(0, request.unitsRequired - confirmed);
-                 const progress = Math.min(100, (confirmed / request.unitsRequired) * 100);
+                 const needed = Math.max(0, request.units - confirmed);
+                 const progress = Math.min(100, (confirmed / request.units) * 100);
+                 const deadlineDate = new Date(request.deadline);
+                 const isExpired = deadlineDate < new Date();
 
                  return (
                   <div
@@ -158,28 +160,36 @@ function UrgentRequestsContent() {
                         </h3>
                         <div className="flex items-center gap-2.5 mt-2">
                           <MapPin size={14} className="text-red-500" />
-                          <p className="text-[11px] font-black text-gray-400 uppercase tracking-widest truncate italic tracking-[0.15em] leading-none">{request.district}</p>
+                          <p className="text-[11px] font-black text-gray-400 uppercase tracking-widest truncate italic tracking-[0.15em] leading-none">
+                            {request.thana ? `${request.thana}, ` : ''}{request.district}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2.5 mt-2">
+                           <Clock size={14} className={isExpired ? 'text-gray-400' : 'text-blue-500'} />
+                           <p className={`text-[10px] font-black uppercase tracking-widest italic ${isExpired ? 'text-gray-400' : 'text-blue-600'}`}>
+                              {isExpired ? 'Expired' : `Needed: ${deadlineDate.toLocaleDateString()}`}
+                           </p>
                         </div>
                       </div>
                     </div>
 
                     {/* Request Details */}
                      <div className="grid grid-cols-2 gap-6 mb-10">
-                       <div className="bg-gray-50 p-6 rounded-[2rem] border border-gray-100 group-hover:bg-white transition-all overflow-hidden shadow-inner">
-                          <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2 italic">Condition</p>
-                          <p className="text-sm font-black text-red-600 italic truncate leading-none uppercase">{request.patientCondition || 'Emergency'}</p>
-                       </div>
-                       <div className="bg-gray-50 p-6 rounded-[2rem] border border-gray-100 group-hover:bg-white transition-all shadow-inner">
-                          <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2 italic">Requirement</p>
-                          <p className="text-sm font-black text-gray-900 italic leading-none">{request.unitsRequired} Units</p>
-                       </div>
+                        <div className="bg-gray-50 p-6 rounded-[2rem] border border-gray-100 group-hover:bg-white transition-all overflow-hidden shadow-inner">
+                           <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2 italic">Condition</p>
+                           <p className="text-sm font-black text-red-600 italic truncate leading-none uppercase text-xs">{request.patientCondition || 'Emergency'}</p>
+                        </div>
+                        <div className="bg-gray-50 p-6 rounded-[2rem] border border-gray-100 group-hover:bg-white transition-all shadow-inner">
+                           <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-2 italic">Hemoglobin</p>
+                           <p className="text-sm font-black text-blue-600 italic leading-none">{request.hemoglobin ? `${request.hemoglobin} g/dL` : 'N/A'}</p>
+                        </div>
                      </div>
 
                     {/* Donation Progress */}
                     <div className="space-y-6 mb-12 bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100 group-hover:bg-white transition-all shadow-inner">
                         <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest italic">
                            <span className="text-gray-400 flex items-center gap-2">Donation Progress</span>
-                           <span className="text-gray-900 font-mono italic">{confirmed} / {request.unitsRequired} UNITS</span>
+                           <span className="text-gray-900 font-mono italic">{confirmed} / {request.units} UNITS</span>
                         </div>
                         <div className="h-4 w-full bg-white rounded-full overflow-hidden p-1 border border-gray-100 shadow-inner">
                            <div 

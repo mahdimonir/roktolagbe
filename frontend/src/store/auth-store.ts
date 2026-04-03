@@ -13,6 +13,7 @@ interface User {
   district?: string;
   donorProfile?: {
     district?: string;
+    bloodGroup?: string;
   };
 }
 

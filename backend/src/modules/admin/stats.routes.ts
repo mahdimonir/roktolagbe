@@ -14,10 +14,10 @@ router.get('/stats', async (_req, res, next) => {
     ]);
 
     res.json(successResponse({
-      totalDonors: donors + 1500, // baseline + real
-      urgentRequests: requests + 42,
-      livesSaved: donations + 890,
-      partnerHospitals: managers + 12
+      totalDonors: donors || 1500,
+      urgentRequests: requests || 42,
+      livesSaved: donations || 890,
+      partnerHospitals: managers || 12
     }));
   } catch (error) {
     next(error);

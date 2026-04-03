@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAuthStore } from '@/store/auth-store';
+import { canDonate } from '@/lib/utils/blood-compatibility';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -136,18 +137,52 @@ export default function RequestDetailsPage() {
                       </div>
                       <div>
                         <p className="text-[10px] font-black text-gray-400 uppercase italic mb-1">Time Criticality</p>
-                        <p className="text-sm font-bold text-gray-700 italic">Deadline: {new Date(request.deadline).toLocaleDateString(undefined, { dateStyle: 'full' })}</p>
+                        <p className="text-sm font-bold text-gray-700 italic">Deadline: {new Date(request.deadline).toLocaleString()}</p>
                       </div>
                    </div>
                    <div className="flex gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-gray-50 text-gray-500 flex items-center justify-center shrink-0">
-                        <User className="w-6 h-6" />
+                      <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
+                        <Droplets className="w-6 h-6" />
                       </div>
                       <div>
-                        <p className="text-[10px] font-black text-gray-400 uppercase italic mb-1">Seeker Hub</p>
-                        <p className="text-sm font-bold text-gray-700 italic">{request.manager?.name || 'Emergency Citizen Portal'}</p>
+                        <p className="text-[10px] font-black text-gray-400 uppercase italic mb-1">Clinical Details</p>
+                        <p className="text-sm font-bold text-gray-700 italic">{request.hemoglobin ? `Hb: ${request.hemoglobin} g/dL` : 'No Hb Data'}</p>
                       </div>
                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 bg-gray-50/50 p-8 rounded-[2.5rem] border border-gray-100">
+                    <div>
+                        <p className="text-[10px] font-black text-gray-400 uppercase italic mb-4 flex items-center gap-2">
+                            <User size={12} className="text-red-500" />
+                            Patient Information
+                        </p>
+                        <div className="space-y-3">
+                            <div className="flex justify-between border-b border-gray-200/50 pb-2">
+                                <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest italic">Name</span>
+                                <span className="text-xs font-black text-gray-900 italic uppercase">{request.patientName || 'Private'}</span>
+                            </div>
+                            <div className="flex justify-between border-b border-gray-200/50 pb-2">
+                                <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest italic">Age/Gender</span>
+                                <span className="text-xs font-black text-gray-900 italic uppercase">
+                                    {request.patientAge || 'N/A'}Y / {request.patientGender || 'N/A'}
+                                </span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest italic">Relationship</span>
+                                <span className="text-xs font-black text-gray-900 italic uppercase">{request.relationship || 'N/A'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p className="text-[10px] font-black text-gray-400 uppercase italic mb-4 flex items-center gap-2">
+                            <AlertCircle size={12} className="text-red-500" />
+                            Condition Details
+                        </p>
+                        <p className="text-xs font-bold text-gray-600 italic leading-relaxed bg-white p-4 rounded-xl border border-gray-100">
+                            {request.patientCondition || 'Emergency blood required for patient support.'}
+                        </p>
+                    </div>
                 </div>
 
                 {request.notes && (
@@ -261,15 +296,19 @@ export default function RequestDetailsPage() {
                     <h4 className="text-xl font-black italic uppercase text-gray-900 leading-tight">Mission Accepted</h4>
                     <p className="text-xs font-bold text-gray-400 italic mt-2">You are a true hero. The seeker has been notified of your commitment.</p>
                   </div>
-                ) : (
+                ) : !authUser.donorProfile?.bloodGroup ? (
+                   <Link href="/profile/setup" className="block w-full py-4 bg-gray-100 text-gray-600 rounded-2xl font-black uppercase tracking-widest italic text-[10px] text-center">
+                     Verify Blood Group to Help
+                   </Link>
+                ) : canDonate(authUser.donorProfile.bloodGroup, request.bloodGroup) ? (
                   <>
                     <div className="flex items-center gap-3 text-red-600 mb-2">
                       <Heart className="w-5 h-5 fill-current" />
-                      <span className="text-[10px] font-black uppercase tracking-widest italic">Donor Mission</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest italic">Compatible Donor Match</span>
                     </div>
                     <h4 className="text-xl font-black italic uppercase text-gray-900 leading-tight">Can you save this life?</h4>
                     <p className="text-xs font-bold text-gray-500 italic leading-relaxed">
-                      By clicking below, you notify the seeker that you are willing to donate. Please only commit if you are sure.
+                      Your blood group ({authUser.donorProfile.bloodGroup.replace('_POS','+').replace('_NEG','-')}) is a match for this request.
                     </p>
                     <button
                       onClick={() => commitMutation.mutate()}
@@ -280,6 +319,14 @@ export default function RequestDetailsPage() {
                       I Can Help 🩸
                     </button>
                   </>
+                ) : (
+                  <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100 text-center">
+                     <AlertCircle className="w-10 h-10 text-gray-300 mx-auto mb-4" />
+                     <p className="text-[10px] font-black text-gray-400 uppercase italic">Incompatible Blood Group</p>
+                     <p className="text-[9px] font-bold text-gray-400 mt-2 italic px-2">
+                        Only compatible donors ({authUser.donorProfile.bloodGroup.replace('_POS','+').replace('_NEG','-')} cannot give to {request.bloodGroup.replace('_POS','+').replace('_NEG','-')}) can accept this mission.
+                     </p>
+                  </div>
                 )}
               </div>
             )}

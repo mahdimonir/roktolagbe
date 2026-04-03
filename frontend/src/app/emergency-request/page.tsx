@@ -3,7 +3,7 @@ import { LocationSelector } from '@/components/common/LocationSelector';
 import { api } from '@/lib/api/axios';
 import { useMutation } from '@tanstack/react-query';
 import {
-  Activity, AlertTriangle, ChevronLeft,
+  Activity, AlertTriangle, Calendar, ChevronLeft,
   Droplets,
   Hospital,
   Info,
@@ -12,6 +12,7 @@ import {
   Send,
   ShieldCheck,
   Stethoscope, Thermometer,
+  User,
   Zap
 } from 'lucide-react';
 import Link from 'next/link';
@@ -32,8 +33,14 @@ export default function EmergencyRequestPage() {
     units: 1,
     hospitalName: '',
     patientCondition: '',
+    patientName: '',
+    patientAge: '',
+    patientGender: 'MALE',
+    relationship: '',
     hemoglobin: '',
+    deadline: '',
     detailedAddress: '',
+    isEmergency: true,
     notes: '',
   });
 
@@ -90,66 +97,127 @@ export default function EmergencyRequestPage() {
             <div className="bg-white p-10 lg:p-16 rounded-[4rem] shadow-2xl shadow-red-500/5 border border-gray-100 space-y-12">
                
                {/* Clinical Parameters */}
-               <div className="space-y-10">
-                  <h3 className="text-[11px] font-black uppercase text-gray-400 tracking-[0.4em] flex items-center gap-4 italic border-b border-gray-50 pb-6">
-                     <Stethoscope size={18} className="text-red-500" /> Clinical Data Protocol
-                  </h3>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Blood Group Matrix *</label>
-                      <div className="relative group">
-                        <select
-                          className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 transition-all font-black text-gray-900 appearance-none italic shadow-inner"
-                          value={formData.bloodGroup}
-                          onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
-                          required
-                        >
-                          <option value="">Select Group</option>
-                          {BLOOD_GROUPS.map(g => <option key={g} value={g}>{g.replace('_POS', '+').replace('_NEG', '-')}</option>)}
-                        </select>
-                        <Droplets className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-red-500 group-focus-within:animate-bounce" fill="currentColor" />
-                      </div>
-                    </div>
+                <div className="space-y-10">
+                   <h3 className="text-[11px] font-black uppercase text-gray-400 tracking-[0.4em] flex items-center gap-4 italic border-b border-gray-50 pb-6">
+                      <Stethoscope size={18} className="text-red-500" /> Clinical Data Protocol
+                   </h3>
+                   
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                     <div className="space-y-3">
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Blood Group Matrix *</label>
+                       <div className="relative group">
+                         <select
+                           className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 transition-all font-black text-gray-900 appearance-none italic shadow-inner"
+                           value={formData.bloodGroup}
+                           onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
+                           required
+                         >
+                           <option value="">Select Group</option>
+                           {BLOOD_GROUPS.map(g => <option key={g} value={g}>{g.replace('_POS', '+').replace('_NEG', '-')}</option>)}
+                         </select>
+                         <Droplets className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-red-500 group-focus-within:animate-bounce" fill="currentColor" />
+                       </div>
+                     </div>
 
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Volume (Bags) *</label>
-                      <input
-                        type="number"
-                        min="1"
-                        className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-black text-gray-900 italic shadow-inner"
-                        value={formData.units}
-                        onChange={(e) => setFormData({ ...formData, units: parseInt(e.target.value) })}
-                        required
-                      />
-                    </div>
+                     <div className="space-y-3">
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Volume (Bags) *</label>
+                       <input
+                         type="number"
+                         min="1"
+                         className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-black text-gray-900 italic shadow-inner"
+                         value={formData.units}
+                         onChange={(e) => setFormData({ ...formData, units: parseInt(e.target.value) })}
+                         required
+                       />
+                     </div>
 
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Patient Condition</label>
-                      <input
-                        type="text"
-                        placeholder="e.g. Critical Surgery"
-                        className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-bold italic shadow-inner"
-                        value={formData.patientCondition}
-                        onChange={(e) => setFormData({ ...formData, patientCondition: e.target.value })}
-                      />
-                    </div>
+                     <div className="space-y-3">
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Patient Name</label>
+                       <input
+                         type="text"
+                         placeholder="Full name of patient"
+                         className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-bold italic shadow-inner"
+                         value={formData.patientName}
+                         onChange={(e) => setFormData({ ...formData, patientName: e.target.value })}
+                       />
+                     </div>
 
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Hb Level (g/dL)</label>
-                      <div className="relative group">
-                         <input
-                           type="text"
-                           placeholder="e.g. 7.2"
-                           className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-12 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-black italic shadow-inner"
-                           value={formData.hemoglobin}
-                           onChange={(e) => setFormData({ ...formData, hemoglobin: e.target.value })}
-                         />
-                         <Thermometer className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-300 group-focus-within:text-blue-500 transition-colors" />
-                      </div>
-                    </div>
-                  </div>
-               </div>
+                     <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-3">
+                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Age</label>
+                          <input
+                            type="text"
+                            placeholder="e.g. 25"
+                            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-bold italic shadow-inner"
+                            value={formData.patientAge}
+                            onChange={(e) => setFormData({ ...formData, patientAge: e.target.value })}
+                          />
+                        </div>
+                        <div className="space-y-3">
+                          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Gender</label>
+                          <select
+                            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-black text-gray-900 appearance-none italic shadow-inner"
+                            value={formData.patientGender}
+                            onChange={(e) => setFormData({ ...formData, patientGender: e.target.value })}
+                          >
+                            <option value="MALE">Male</option>
+                            <option value="FEMALE">Female</option>
+                            <option value="OTHER">Other</option>
+                          </select>
+                        </div>
+                     </div>
+
+                     <div className="space-y-3">
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Relationship to Seeker</label>
+                       <input
+                         type="text"
+                         placeholder="e.g. Brother, Self, Friend"
+                         className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-bold italic shadow-inner"
+                         value={formData.relationship}
+                         onChange={(e) => setFormData({ ...formData, relationship: e.target.value })}
+                       />
+                     </div>
+
+                     <div className="space-y-3">
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Patient Condition</label>
+                       <input
+                         type="text"
+                         placeholder="e.g. Critical Surgery"
+                         className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-bold italic shadow-inner"
+                         value={formData.patientCondition}
+                         onChange={(e) => setFormData({ ...formData, patientCondition: e.target.value })}
+                       />
+                     </div>
+
+                     <div className="space-y-3">
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Hb Level (g/dL)</label>
+                       <div className="relative group">
+                          <input
+                            type="text"
+                            placeholder="e.g. 7.2"
+                            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-12 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-black italic shadow-inner"
+                            value={formData.hemoglobin}
+                            onChange={(e) => setFormData({ ...formData, hemoglobin: e.target.value })}
+                          />
+                          <Thermometer className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-300 group-focus-within:text-blue-500 transition-colors" />
+                       </div>
+                     </div>
+
+                     <div className="space-y-3">
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Required Before *</label>
+                       <div className="relative group">
+                          <input
+                            type="datetime-local"
+                            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-12 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-black italic shadow-inner"
+                            value={formData.deadline}
+                            onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
+                            required
+                          />
+                          <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-300 group-focus-within:text-red-500 transition-colors" />
+                       </div>
+                     </div>
+                   </div>
+                </div>
 
                {/* Logistics Cluster */}
                <div className="space-y-10">
@@ -196,40 +264,53 @@ export default function EmergencyRequestPage() {
                   </div>
                </div>
 
-               {/* Communications */}
-               <div className="space-y-10">
-                  <h3 className="text-[11px] font-black uppercase text-gray-400 tracking-[0.4em] flex items-center gap-4 italic border-b border-gray-50 pb-6">
-                     <Phone size={18} className="text-gray-900" /> Communcation Protocol
-                  </h3>
+                {/* Communications */}
+                <div className="space-y-10">
+                   <h3 className="text-[11px] font-black uppercase text-gray-400 tracking-[0.4em] flex items-center gap-4 italic border-b border-gray-50 pb-6">
+                      <Phone size={18} className="text-gray-900" /> Communcation Protocol
+                   </h3>
 
-                  <div className="grid grid-cols-1 gap-8">
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Emergency Contact Line *</label>
-                      <div className="relative group">
-                         <input
-                           type="tel"
-                           placeholder="Authorized 11-digit number"
-                           className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-12 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-black italic shadow-inner"
-                           value={formData.contactPhone}
-                           onChange={(e) => setFormData({ ...formData, contactPhone: e.target.value })}
-                           required
-                         />
-                         <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-300 group-focus-within:text-red-500 transition-colors" />
-                      </div>
-                    </div>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                     <div className="space-y-3">
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Emergency Contact Line *</label>
+                       <div className="relative group">
+                          <input
+                            type="tel"
+                            placeholder="Authorized 11-digit number"
+                            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-12 py-4 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-black italic shadow-inner"
+                            value={formData.contactPhone}
+                            onChange={(e) => setFormData({ ...formData, contactPhone: e.target.value })}
+                            required
+                          />
+                          <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-300 group-focus-within:text-red-500 transition-colors" />
+                       </div>
+                     </div>
 
-                    <div className="space-y-3">
-                      <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Platform Instructions (Optional)</label>
-                      <textarea
-                        rows={4}
-                        placeholder="Provide any additional mission context..."
-                        className="w-full bg-gray-50 border border-gray-100 rounded-3xl px-8 py-6 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-medium italic shadow-inner resize-none"
-                        value={formData.notes}
-                        onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                      />
-                    </div>
-                  </div>
-               </div>
+                     <div className="space-y-3">
+                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Prioritize as Emergency?</label>
+                        <div className="flex items-center gap-4 bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus-within:ring-4 focus-within:ring-red-500/10 focus-within:border-red-500 transition-all font-black text-gray-900 italic shadow-inner">
+                            <input
+                                type="checkbox"
+                                className="w-5 h-5 accent-red-600 rounded-lg cursor-pointer"
+                                checked={formData.isEmergency}
+                                onChange={(e) => setFormData({ ...formData, isEmergency: e.target.checked })}
+                            />
+                            <span className="text-xs uppercase tracking-wider">Yes, this is an critical SOS</span>
+                        </div>
+                     </div>
+
+                     <div className="space-y-3 md:col-span-2">
+                       <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic">Platform Instructions (Optional)</label>
+                       <textarea
+                         rows={4}
+                         placeholder="Provide any additional mission context..."
+                         className="w-full bg-gray-50 border border-gray-100 rounded-3xl px-8 py-6 outline-none focus:ring-4 focus:ring-red-500/10 focus:border-red-500 font-medium italic shadow-inner resize-none"
+                         value={formData.notes}
+                         onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                       />
+                     </div>
+                   </div>
+                </div>
 
                <button
                  type="submit"

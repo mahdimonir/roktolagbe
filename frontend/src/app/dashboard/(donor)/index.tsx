@@ -278,7 +278,7 @@ export default function DonorDashboard() {
                        <div className="flex justify-between items-start mb-4 italic">
                           <div className="space-y-1 italic">
                              <p className="font-black text-lg uppercase italic tracking-tighter text-gray-900 leading-none italic">
-                                {req.unitsRequired} Units Needed
+                                {req.units} Units Needed
                              </p>
                              <p className="text-[9px] text-gray-500 font-black uppercase tracking-widest italic">{req.hospitalName}</p>
                           </div>

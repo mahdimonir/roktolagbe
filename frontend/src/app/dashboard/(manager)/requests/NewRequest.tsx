@@ -25,7 +25,7 @@ export default function NewRequestPage() {
   
   const [formData, setFormData] = useState({
     bloodGroup: '',
-    unitsRequired: 1,
+    units: 1,
     hospitalName: '',
     detailedAddress: '',
     district: '',
@@ -111,8 +111,8 @@ export default function NewRequestPage() {
                            type="number"
                            min="1"
                            className="w-full bg-gray-50 border-2 border-transparent rounded-[1.8rem] py-5 px-10 outline-none font-black italic text-gray-900 focus:bg-white focus:border-red-600 transition-all shadow-inner"
-                           value={formData.unitsRequired}
-                           onChange={(e) => setFormData({...formData, unitsRequired: parseInt(e.target.value)})}
+                           value={formData.units}
+                           onChange={(e) => setFormData({...formData, units: parseInt(e.target.value)})}
                         />
                      </div>
                   </div>
