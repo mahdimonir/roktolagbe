@@ -7,6 +7,7 @@ import {
   Droplets, Microscope, Fingerprint
 } from 'lucide-react';
 import Link from 'next/link';
+import CTASection from '@/components/common/CTASection';
 
 export default function AboutPage() {
   const stats = [
@@ -119,33 +120,14 @@ export default function AboutPage() {
       </section>
 
       {/* 4. CTA Section */}
-      <section className="px-6 relative z-10 pt-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-gray-900 rounded-[4rem] p-16 md:p-28 text-center relative overflow-hidden group shadow-2xl">
-            <div className="relative z-10 space-y-12">
-               <div className="flex justify-center gap-6">
-                  <Droplets className="w-12 h-12 text-red-600 animate-bounce" />
-               </div>
-               <div className="space-y-6">
-                  <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-[0.8] italic uppercase italic">
-                    Ready to <br /> <span className="text-red-600 italic">Join Us</span>?
-                  </h2>
-                  <p className="text-gray-400 text-lg md:text-xl font-medium italic max-w-3xl mx-auto leading-relaxed">
-                    Join our growing community of life-savers. Register today and start making a difference in your community.
-                  </p>
-               </div>
-               <div className="flex flex-col md:flex-row justify-center items-center gap-8">
-                 <Link href="/register" className="w-full md:w-auto bg-red-600 text-white px-16 py-6 rounded-[2rem] text-[12px] font-black uppercase tracking-[0.4em] shadow-xl hover:bg-white hover:text-gray-900 transition-all active:scale-95 italic flex items-center justify-center gap-4 group/btn">
-                    Register Now <ArrowRight size={20} className="group-hover/btn:translate-x-3 transition-transform" />
-                 </Link>
-                 <Link href="/urgent-requests" className="text-gray-400 hover:text-red-500 text-[11px] font-black uppercase tracking-[0.4em] border-b-2 border-transparent hover:border-red-600 pb-2 transition-all italic">
-                    View Urgent Requests →
-                 </Link>
-               </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CTASection 
+        title="READY TO JOIN US?"
+        subtitle="Join our growing community of life-savers. Register today and start making a difference in your community."
+        primaryBtnText="REGISTER NOW"
+        primaryBtnLink="/register"
+        secondaryBtnText="URGENT REQUESTS"
+        secondaryBtnLink="/urgent-requests"
+      />
     </div>
   );
 }

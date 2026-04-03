@@ -2,6 +2,7 @@
 
 import { Heart, Mail, MapPin, MessageSquare, Phone, Send, Zap } from 'lucide-react';
 import Link from 'next/link';
+import CTASection from '@/components/common/CTASection';
 
 export default function ContactPage() {
   return (
@@ -128,14 +129,15 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Team Quote */}
-      <section className="py-24 bg-gray-50/50 text-center border-t border-gray-100 mb-20 italic">
-         <div className="max-w-2xl mx-auto px-4">
-            <Heart className="w-12 h-12 text-red-600 mx-auto mb-8" />
-            <p className="text-xl font-black text-gray-900 italic tracking-tighter uppercase mb-6">"Communication is the heart of coordination."</p>
-            <p className="text-gray-400 text-xs italic font-bold uppercase tracking-widest">- The RoktoLagbe Team</p>
-         </div>
-      </section>
+      {/* Team Quote CTA */}
+      <CTASection 
+        title="COMMUNICATION IS KEY."
+        subtitle="Our team is available 24/7 to coordinate emergency responses. Connect with us to ensure no request goes unanswered."
+        primaryBtnText="START CONVERSATION"
+        primaryBtnLink="mailto:team@roktolagbe.com"
+        secondaryBtnText="FAQ CENTER"
+        secondaryBtnLink="/faq"
+      />
     </div>
   );
 }

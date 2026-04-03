@@ -21,6 +21,8 @@ export default function Footer() {
               <li><Link href="/urgent-requests" className="hover:text-red-500">Urgent Requests</Link></li>
               <li><Link href="/donors" className="hover:text-red-500">Find Donors</Link></li>
               <li><Link href="/register" className="hover:text-red-500">Become a Donor</Link></li>
+              <li><Link href="/saved-lives" className="hover:text-red-500 italic">Saved Lives Stories 🩸</Link></li>
+              <li><Link href="/rewards" className="hover:text-red-500 italic font-bold text-red-600">Donor Rewards 🎁</Link></li>
             </ul>
           </div>
 

@@ -13,6 +13,7 @@ import { getDivisions, getDistricts, getThanas } from '@/constants/locations';
 const BLOOD_GROUPS = ['A_POS', 'A_NEG', 'B_POS', 'B_NEG', 'AB_POS', 'AB_NEG', 'O_POS', 'O_NEG'];
 
 import { Suspense } from 'react';
+import CTASection from '@/components/common/CTASection';
 
 function DonorsList() {
   const searchParams = useSearchParams();
@@ -345,14 +346,14 @@ function DonorsList() {
       </section>
 
       {/* Call to Action Footer Accent */}
-      <div className="bg-white py-40 border-t border-gray-100 relative overflow-hidden group">
-         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-12">
-            <h2 className="text-4xl md:text-6xl text-gray-900 font-black tracking-tighter italic uppercase leading-none italic">Help Save a Life.<br/><span className="text-red-600 italic">Become a Donor Today.</span></h2>
-            <p className="text-gray-500 font-medium italic text-lg max-w-2xl mx-auto leading-relaxed">
-               RoktoLagbe connects people with life-saving blood donors. Join our community and help make a difference.
-            </p>
-         </div>
-      </div>
+      <CTASection 
+        title="HELP SAVE A LIFE."
+        subtitle="RoktoLagbe connects people with life-saving blood donors. Join our community and help make a difference. Become a donor today and start your journey."
+        primaryBtnText="BECOME A DONOR"
+        primaryBtnLink="/register"
+        secondaryBtnText="HOW IT WORKS"
+        secondaryBtnLink="/how-it-works"
+      />
     </>
   );
 }

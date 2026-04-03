@@ -8,6 +8,7 @@ import {
   ClipboardCheck, TrendingUp, Users
 } from 'lucide-react';
 import Link from 'next/link';
+import CTASection from '@/components/common/CTASection';
 
 export default function HowItWorks() {
   const steps = [
@@ -158,32 +159,14 @@ export default function HowItWorks() {
       </section>
 
       {/* 4. Final CTA */}
-      <section className="px-6 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-gray-900 rounded-[4rem] p-16 md:p-32 text-center relative overflow-hidden group border border-gray-800 shadow-2xl">
-            <div className="relative z-10 space-y-12">
-               <div className="flex justify-center gap-6">
-                  <Sparkles className="w-12 h-12 text-yellow-500" />
-                  <HeartPulse className="w-12 h-12 text-red-600" />
-               </div>
-               <div className="space-y-6">
-                  <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-[0.8] italic uppercase">
-                    Ready to <br /> <span className="text-red-600 italic">save a life</span>?
-                  </h2>
-                  <p className="text-gray-400 text-xl font-medium italic max-w-2xl mx-auto leading-relaxed">
-                    Start your journey today. Join the world's most advanced professional blood donation network.
-                  </p>
-               </div>
-               <div className="flex justify-center">
-                 <Link href="/register" className="bg-red-600 text-white px-16 py-6 rounded-[2.5rem] text-[12px] font-black uppercase tracking-[0.4em] shadow-2xl shadow-red-600/30 hover:bg-white hover:text-gray-900 transition-all active:scale-95 italic flex items-center gap-4 group/btn">
-                    Register Now <ChevronRight size={20} className="group-hover/btn:translate-x-3 transition-transform" />
-                 </Link>
-               </div>
-            </div>
-            <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-red-600/10 rounded-full blur-[150px] pointer-events-none group-hover:bg-red-600/[0.15] transition-all duration-1000"></div>
-          </div>
-        </div>
-      </section>
+      <CTASection 
+        title="READY TO SAVE A LIFE?"
+        subtitle="Start your journey today. Join the world's most advanced professional blood donation network."
+        primaryBtnText="REGISTER NOW"
+        primaryBtnLink="/register"
+        secondaryBtnText="LEARN MORE"
+        secondaryBtnLink="/about"
+      />
     </div>
   );
 }

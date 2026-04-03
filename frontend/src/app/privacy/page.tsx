@@ -2,6 +2,7 @@
 
 import { ChevronRight, Eye, FileText, Lock, Shield } from 'lucide-react';
 import Link from 'next/link';
+import CTASection from '@/components/common/CTASection';
 
 export default function PrivacyPolicy() {
   const sections = [
@@ -130,15 +131,14 @@ export default function PrivacyPolicy() {
       </section>
 
       {/* Quick Contact CTA */}
-      <section className="py-24 bg-white text-center border-t border-gray-100">
-         <div className="max-w-2xl mx-auto px-4">
-            <h2 className="text-4xl font-black mb-6 tracking-tighter uppercase italic">Have Privacy <span className="text-red-600 italic">Questions?</span></h2>
-            <p className="text-gray-500 mb-10 italic font-medium">If you have any questions about our data practices, our privacy hero is here to help.</p>
-            <Link href="/contact" className="bg-red-500 text-white px-12 py-5 rounded-full font-black text-xs uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-xl shadow-red-500/20">
-               Contact Support
-            </Link>
-         </div>
-      </section>
+      <CTASection 
+        title="HAVE PRIVACY QUESTIONS?"
+        subtitle="If you have any questions about our data practices, our privacy hero is here to help. Your security is our highest priority."
+        primaryBtnText="CONTACT SUPPORT"
+        primaryBtnLink="/contact"
+        secondaryBtnText="LEGAL TERMS"
+        secondaryBtnLink="/terms"
+      />
     </div>
   );
 }

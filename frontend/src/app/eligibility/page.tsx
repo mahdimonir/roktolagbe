@@ -16,6 +16,7 @@ import {
    Zap
 } from 'lucide-react';
 import Link from 'next/link';
+import CTASection from '@/components/common/CTASection';
 
 export default function Eligibility() {
   const requirements = [
@@ -225,28 +226,14 @@ export default function Eligibility() {
       </section>
 
       {/* Rewards/CTA */}
-      <section className="py-24 bg-white text-gray-900 border-t border-gray-100 shadow-2xl shadow-gray-200/50 rounded-t-[4rem]">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-           <div className="w-20 h-20 bg-red-50 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 border border-red-100 relative group cursor-pointer hover:bg-red-500 transition-colors">
-              <Zap className="w-10 h-10 text-red-600 group-hover:text-white transition-colors animate-pulse" />
-              <div className="absolute inset-0 bg-red-500 blur-xl opacity-0 group-hover:opacity-40 transition-opacity rounded-[2.5rem]"></div>
-           </div>
-           <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter uppercase italic leading-none">
-             Eligible? <span className="text-red-600 italic">Join the elite</span>.
-           </h2>
-           <p className="text-gray-400 mb-12 italic font-bold max-w-xl mx-auto">
-             If you meet our criteria, you are already halfway to being a hero. Register now to join the premium network of verified lifesavers.
-           </p>
-           <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <Link href="/register" className="btn-primary px-12 py-5 text-sm uppercase tracking-widest font-black shadow-xl shadow-red-500/20">
-                Finalize Hero Profile
-              </Link>
-              <Link href="/contact" className="bg-white border-2 border-red-500 text-red-500 px-12 py-5 rounded-full text-sm uppercase tracking-widest font-black hover:bg-red-500 hover:text-white transition-all">
-                Ask a Medical Hero
-              </Link>
-           </div>
-        </div>
-      </section>
+      <CTASection 
+        title="ELIGIBLE? JOIN THE ELITE."
+        subtitle="If you meet our criteria, you are already halfway to being a hero. Register now to join the premium network of verified lifesavers."
+        primaryBtnText="FINALIZE PROFILE"
+        primaryBtnLink="/register"
+        secondaryBtnText="ASK A MEDICAL HERO"
+        secondaryBtnLink="/contact"
+      />
     </div>
   );
 }

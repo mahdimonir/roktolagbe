@@ -1,15 +1,22 @@
 'use client';
 
+import CTASection from '@/components/common/CTASection';
 import { api } from '@/lib/api/axios';
 import { useQuery } from '@tanstack/react-query';
-import { 
-  Activity, ArrowRight, Clock, Droplets, Heart, 
-  Hospital, MapPin, Search, ShieldCheck, 
-  UserPlus, Users, Zap, Globe, Sparkles,
-  ShieldAlert, HeartPulse, TrendingUp, HandHelping, Target, Award
+import {
+   Activity, ArrowRight,
+   Award,
+   Droplets,
+   Globe,
+   HeartPulse,
+   Hospital, MapPin,
+   ShieldCheck,
+   Target,
+   Thermometer,
+   UserPlus, Users
 } from 'lucide-react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
    // 1. Fetch Stats
@@ -31,10 +38,10 @@ export default function Home() {
    });
 
    const stats = [
-      { label: 'Verified Donors', value: statsData?.totalDonors || '1,842', icon: <Users className="w-6 h-6 text-red-600" /> },
-      { label: 'Active Requests', value: statsData?.urgentRequests || '43', icon: <Activity className="w-6 h-6 text-red-600" /> },
-      { label: 'Lives Saved', value: statsData?.livesSaved || '922', icon: <HeartPulse className="w-6 h-6 text-red-600" /> },
-      { label: 'Partner Hospitals', value: statsData?.partnerHospitals || '21', icon: <Hospital className="w-6 h-6 text-red-600" /> },
+      { label: 'Verified Donors', value: statsData?.totalDonors?.toLocaleString() || '1,500', icon: <Users className="w-6 h-6 text-red-600" /> },
+      { label: 'Active Requests', value: statsData?.urgentRequests?.toLocaleString() || '42', icon: <Activity className="w-6 h-6 text-red-600" /> },
+      { label: 'Lives Saved', value: statsData?.livesSaved?.toLocaleString() || '890', icon: <HeartPulse className="w-6 h-6 text-red-600" /> },
+      { label: 'Partner Hospitals', value: statsData?.partnerHospitals?.toLocaleString() || '12', icon: <Hospital className="w-6 h-6 text-red-600" /> },
    ];
 
    const steps = [
@@ -69,7 +76,7 @@ export default function Home() {
    return (
       <main className="min-h-screen bg-white pb-32 italic">
          {/* 1. Hero Section */}
-         <section className="relative pt-32 pb-48 overflow-hidden bg-gray-50/50 border-b border-gray-100">
+         <section className="relative pt-24 pb-48 overflow-hidden bg-gray-50/50 border-b border-gray-100">
             <div className="absolute top-0 right-0 -mt-32 -mr-32 w-[45rem] h-[45rem] bg-red-600/[0.05] rounded-full blur-[150px] pointer-events-none animate-pulse"></div>
             
             <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -207,7 +214,9 @@ export default function Home() {
                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
                   {displayRequests.length > 0 ? displayRequests.map((req: any, i: number) => {
                      const confirmed = req.donations?.filter((d: any) => d.status === 'VERIFIED').length || 0;
-                     const progress = Math.min(100, (confirmed / req.unitsRequired) * 100);
+                     const progress = Math.min(100, (confirmed / req.units) * 100);
+                     const deadlineDate = new Date(req.deadline);
+                     const isExpired = deadlineDate < new Date();
 
                      return (
                         <div key={i} className="bg-white p-10 rounded-[3.5rem] border border-gray-100 hover:shadow-2xl transition-all duration-700 group relative overflow-hidden flex flex-col" style={{ transitionDelay: `${i * 150}ms` }}>
@@ -218,11 +227,16 @@ export default function Home() {
                                  </p>
                                  <span className="text-[8px] font-black uppercase tracking-widest opacity-50 italic">Group</span>
                               </div>
-                              {(req.urgency === 'EMERGENCY' || req.isEmergency) && (
-                                 <span className="bg-red-600 text-white text-[10px] font-black px-6 py-2.5 rounded-full uppercase italic tracking-widest animate-pulse shadow-xl shadow-red-600/20">
-                                    Emergency
+                              <div className="flex flex-col items-end gap-2">
+                                 {(req.urgency === 'EMERGENCY' || req.isEmergency) && (
+                                    <span className="bg-red-600 text-white text-[10px] font-black px-6 py-2.5 rounded-full uppercase italic tracking-widest animate-pulse shadow-xl shadow-red-600/20">
+                                       Emergency
+                                    </span>
+                                 )}
+                                 <span className={`text-[9px] font-black uppercase px-4 py-1.5 rounded-full border italic ${isExpired ? 'bg-gray-100 text-gray-500 border-gray-200' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
+                                    {isExpired ? 'Mission Expired' : `Needed: ${deadlineDate.toLocaleDateString()}`}
                                  </span>
-                              )}
+                              </div>
                            </div>
 
                            <div className="space-y-6 mb-12 flex-1">
@@ -232,36 +246,54 @@ export default function Home() {
                                  </h3>
                                  <div className="flex items-center gap-3 text-[11px] font-black text-gray-400 uppercase tracking-widest italic pt-1">
                                     <MapPin className="w-4 h-4 text-red-500" />
-                                    <span className="truncate">{req.district}, {req.thana || 'CENTER'}</span>
+                                    <span className="truncate">{req.thana ? `${req.thana}, ` : ''}{req.district}</span>
                                  </div>
                               </div>
                               
                               <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden border border-gray-100">
                                  <div className="h-full bg-red-600 rounded-full transition-all duration-1000" style={{ width: `${progress || 0}%` }} />
-                              </div>
-                              
-                              <div className="flex flex-wrap items-center gap-4 pt-2">
-                                 <div className="flex items-center gap-2.5 bg-gray-50 text-gray-500 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest italic border border-gray-100">
-                                    <Droplets className="w-4 h-4 text-red-500" />
-                                    <span>{req.unitsRequired} Units Goal</span>
-                                 </div>
-                                 <div className="flex items-center gap-2.5 bg-red-50 text-red-600 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest italic border border-red-100">
-                                    <HeartPulse className="w-4 h-4" />
-                                    <span>{req.urgency} Priority</span>
-                                 </div>
-                              </div>
-                           </div>
+                               </div>
+                               
+                               <div className="flex flex-wrap items-center gap-4 pt-2">
+                                  <div className="flex items-center gap-2.5 bg-gray-50 text-gray-500 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest italic border border-gray-100">
+                                     <Droplets className="w-4 h-4 text-red-500" />
+                                     <span>{req.units} Units</span>
+                                  </div>
+                                  {req.hemoglobin && (
+                                     <div className="flex items-center gap-2.5 bg-blue-50 text-blue-600 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest italic border border-blue-100">
+                                        <Thermometer className="w-4 h-4" />
+                                        <span>Hb: {req.hemoglobin}</span>
+                                     </div>
+                                  )}
+                                  <div className="flex items-center gap-2.5 bg-red-50 text-red-600 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest italic border border-red-100">
+                                     <HeartPulse className="w-4 h-4" />
+                                     <span>{req.urgency}</span>
+                                  </div>
+                               </div>
+                            </div>
 
                            <Link href={`/urgent-requests/${req.id}`} className="w-full bg-gray-900 text-white py-6 rounded-[2rem] text-[11px] font-black uppercase tracking-widest hover:bg-red-600 transition-all flex items-center justify-center gap-4 active:scale-95 italic group/btn shadow-xl">
-                              Respond Now <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform" />
+                               Respond Now <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform" />
                            </Link>
                         </div>
                      );
-                  }) : (
-                     <div className="col-span-full py-44 text-center bg-white rounded-[5rem] border-4 border-dashed border-gray-100">
-                        <ShieldCheck size={80} className="mx-auto text-gray-200 mb-10" />
-                        <h3 className="text-3xl font-black text-gray-900 uppercase italic tracking-tighter mb-4">No Requests Found</h3>
-                        <p className="text-gray-400 italic text-sm font-medium mb-10 max-w-sm mx-auto">There are no active blood requests at the moment.</p>
+}) : (
+                     <div className="col-span-full">
+                        <div className="bg-white border-4 border-dashed border-gray-100 rounded-[3.5rem] p-16 md:p-24 text-center space-y-8 animate-in fade-in duration-1000">
+                           <div className="max-w-3xl mx-auto space-y-8">
+                              <h3 className="text-4xl md:text-6xl font-black text-gray-200 tracking-tighter uppercase italic leading-[0.8] mb-4">
+                                 We&apos;re on standby. <br /> No urgent calls.
+                              </h3>
+                              <p className="text-gray-400 italic text-base md:text-lg font-medium max-w-xl mx-auto leading-relaxed opacity-80">
+                                 The blood network is currently stable with no matching emergencies. Join our verified donor community today and be ready to save a life when the next call comes.
+                              </p>
+                              <div className="pt-4">
+                                 <Link href="/register" className="inline-flex items-center justify-center bg-gray-50 text-gray-400 px-14 py-6 rounded-full text-[11px] font-black uppercase tracking-[0.3em] hover:bg-red-600 hover:text-white transition-all italic active:scale-95 shadow-sm border border-gray-100">
+                                    Join the network
+                                 </Link>
+                              </div>
+                           </div>
+                        </div>
                      </div>
                   )}
                </div>
@@ -269,35 +301,14 @@ export default function Home() {
          </section>
 
          {/* 5. CTA Section */}
-         <section className="py-24 px-6 relative overflow-hidden">
-            <div className="max-w-6xl mx-auto">
-               <div className="bg-red-600 rounded-[5rem] p-16 md:p-32 text-center relative overflow-hidden shadow-2xl">
-                  <div className="relative z-10 space-y-12">
-                     <div className="flex justify-center gap-8">
-                        <Heart className="w-16 h-16 text-white" />
-                        <Sparkles className="w-16 h-16 text-white" />
-                     </div>
-                     <div className="space-y-6">
-                        <h2 className="text-5xl md:text-8xl font-black text-white mb-8 tracking-tighter leading-[0.8] italic uppercase leading-none">
-                           Start Saving <br /> <span className="text-gray-900 italic">Lives Today</span>.
-                        </h2>
-                        <p className="text-white/90 text-xl md:text-2xl font-medium italic max-w-3xl mx-auto leading-relaxed">
-                           Join our community of donors and make a difference. Every donation can save up to three lives.
-                        </p>
-                     </div>
-                     <div className="flex flex-col md:flex-row justify-center items-center gap-10">
-                        <Link href="/register" className="w-full md:w-auto bg-gray-900 text-white px-16 py-7 rounded-[2.5rem] text-[13px] font-black uppercase tracking-widest shadow-2xl hover:bg-white hover:text-gray-900 transition-all active:scale-95 italic flex items-center justify-center gap-4 group/btn">
-                           Register Now <ShieldCheck size={24} />
-                        </Link>
-                        <Link href="/how-it-works" className="text-white/80 hover:text-white text-[12px] font-black uppercase tracking-widest border-b-2 border-transparent hover:border-white pb-2 transition-all italic">
-                           Learn More →
-                        </Link>
-                     </div>
-                  </div>
-                  <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-white/[0.05] blur-[120px] rounded-full" />
-               </div>
-            </div>
-         </section>
+         <CTASection 
+            title="START SAVING LIVES TODAY."
+            subtitle="Join our community of donors and make a difference. Every donation can save up to three lives. Whether you're looking to donate or you're in an emergency, our platform is built to help you instantly."
+            primaryBtnText="REGISTER NOW"
+            primaryBtnLink="/register"
+            secondaryBtnText="LEARN MORE"
+            secondaryBtnLink="/how-it-works"
+         />
       </main>
    );
 }

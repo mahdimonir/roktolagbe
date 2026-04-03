@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import CTASection from '@/components/common/CTASection';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -113,28 +114,15 @@ export default function FAQ() {
         </div>
       </section>
 
-      {/* Still Have Questions - Refactored from bg-gray-900 */}
-      <section className="py-24 bg-white text-gray-900 text-center rounded-t-[4rem] px-4 italic border-t border-gray-100 shadow-2xl shadow-gray-200">
-         <div className="max-w-2xl mx-auto">
-            <div className="w-20 h-20 bg-red-50 rounded-[2.5rem] flex items-center justify-center mx-auto mb-10 border border-red-100">
-               <MessageCircle className="w-10 h-10 text-red-600 animate-bounce" />
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter uppercase italic leading-none">
-              Still have <span className="text-red-600 italic">questions?</span>
-            </h2>
-            <p className="text-gray-400 mb-12 italic font-bold">
-              Our 24/7 support hero is ready to assist you with any inquiries regarding blood donation or platform usage.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-6">
-                <Link href="/contact" className="btn-primary px-12 py-5 text-sm uppercase tracking-widest font-black shadow-xl shadow-red-500/20">
-                  Connect With Support
-                </Link>
-                <Link href="/how-it-works" className="bg-white border-2 border-red-500 text-red-500 px-12 py-5 rounded-full text-sm uppercase tracking-widest font-black hover:bg-red-500 hover:text-white transition-all shadow-xl shadow-red-500/5">
-                  The Journey Step by Step
-                </Link>
-            </div>
-         </div>
-      </section>
+      {/* Still Have Questions CTA */}
+      <CTASection 
+        title="STILL HAVE QUESTIONS?"
+        subtitle="Our 24/7 support hero is ready to assist you with any inquiries regarding blood donation or platform usage. Connect with us instantly."
+        primaryBtnText="CONNECT WITH SUPPORT"
+        primaryBtnLink="/contact"
+        secondaryBtnText="HOW IT WORKS"
+        secondaryBtnLink="/how-it-works"
+      />
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import { CheckCircle2, HelpCircle, Info, Scale, Shield } from 'lucide-react';
 import Link from 'next/link';
+import CTASection from '@/components/common/CTASection';
 
 export default function TermsOfService() {
   const sections = [
@@ -118,16 +119,14 @@ export default function TermsOfService() {
       </section>
 
       {/* Help CTA */}
-      <section className="py-24 bg-white text-center border-t border-gray-100 mb-20">
-         <div className="max-w-2xl mx-auto px-4">
-            <HelpCircle className="w-16 h-16 text-gray-200 mx-auto mb-8" />
-            <h2 className="text-4xl font-black mb-6 tracking-tighter uppercase italic leading-none">Confused about <span className="text-red-600 italic">Terms?</span></h2>
-            <p className="text-gray-500 mb-10 italic font-bold">Our support team is available 24/7 to clarify any governance questions you may have.</p>
-            <Link href="/contact" className="bg-gray-900 text-white px-12 py-5 rounded-full font-black text-xs uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-xl shadow-gray-200">
-               Support Dispatch
-            </Link>
-         </div>
-      </section>
+      <CTASection 
+        title="CONFUSED ABOUT TERMS?"
+        subtitle="Our support team is available 24/7 to clarify any governance questions you may have. Your trust is our foundation."
+        primaryBtnText="SUPPORT DISPATCH"
+        primaryBtnLink="/contact"
+        secondaryBtnText="PRIVACY POLICY"
+        secondaryBtnLink="/privacy"
+      />
     </div>
   );
 }

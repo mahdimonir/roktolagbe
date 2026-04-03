@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api/axios';
 import Link from 'next/link';
+import CTASection from '@/components/common/CTASection';
 
 export default function OrganizationsPage() {
   const { data: managersData, isLoading } = useQuery({
@@ -73,15 +74,14 @@ export default function OrganizationsPage() {
       )}
 
       {/* Join CTA */}
-      <div className="mt-20 bg-gradient-to-br from-red-500 to-red-600 p-12 rounded-[3rem] text-white text-center shadow-2xl shadow-red-500/20">
-         <h2 className="text-3xl font-bold mb-4 text-white">Represent an Organization?</h2>
-         <p className="max-w-xl mx-auto mb-8 text-red-50 opacity-90">
-           Join our network to manage your blood bank efficiently and reach thousands of volunteer donors instantly.
-         </p>
-         <Link href="/register" className="bg-white text-red-500 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-red-50 transition-colors shadow-lg">
-           Register Manager Account
-         </Link>
-      </div>
+      <CTASection 
+        title="REPRESENT AN ORGANIZATION?"
+        subtitle="Join our network to manage your blood bank efficiently and reach thousands of volunteer donors instantly. Register as a medical partner today."
+        primaryBtnText="REGISTER NOW"
+        primaryBtnLink="/register"
+        secondaryBtnText="ABOUT PARTNERSHIP"
+        secondaryBtnLink="/about"
+      />
     </div>
   );
 }
