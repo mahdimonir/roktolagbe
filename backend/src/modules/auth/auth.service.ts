@@ -86,12 +86,19 @@ export const register = async (input: RegisterInput & { orgRef?: string }) => {
           email: input.email,
           passwordHash,
           isVerified: false, // Reset verification for new email
-          ...(input.role === 'DONOR' && existingPhone.donorProfile && {
+          ...(input.role === 'DONOR' && {
             donorProfile: {
-              update: {
-                name: input.name!,
-                bloodGroup: input.bloodGroup!,
-                district: input.district!,
+              upsert: {
+                create: {
+                  name: input.name!,
+                  bloodGroup: input.bloodGroup!,
+                  district: input.district!,
+                },
+                update: {
+                  name: input.name!,
+                  bloodGroup: input.bloodGroup!,
+                  district: input.district!,
+                }
               }
             }
           }),
@@ -255,6 +262,8 @@ export const login = async (input: LoginInput) => {
       role: user.role,
       name: user.role === 'DONOR' ? user.donorProfile?.name : user.managerProfile?.name,
       image: user.role === 'DONOR' ? user.donorProfile?.profileImage : user.managerProfile?.logoUrl,
+      bloodGroup: user.donorProfile?.bloodGroup,
+      district: user.role === 'DONOR' ? user.donorProfile?.district : user.managerProfile?.district,
     },
   };
 };
@@ -303,5 +312,7 @@ export const getMe = async (userId: string) => {
     createdAt: user.createdAt,
     name: user.role === 'DONOR' ? user.donorProfile?.name : user.managerProfile?.name,
     image: user.role === 'DONOR' ? user.donorProfile?.profileImage : user.managerProfile?.logoUrl,
+    bloodGroup: user.donorProfile?.bloodGroup,
+    district: user.role === 'DONOR' ? user.donorProfile?.district : user.managerProfile?.district,
   };
 };

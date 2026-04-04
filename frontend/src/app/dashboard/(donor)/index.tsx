@@ -75,10 +75,14 @@ export default function DonorDashboard() {
                  <ShieldCheck size={14} className="text-green-500 italic" />
                  Donor Profile
                </div>
-               <div className="flex items-center gap-2 text-[10px] text-red-600 font-black uppercase tracking-widest bg-gray-50 px-4 py-1.5 rounded-full border border-gray-100 italic italic">
-                 <Zap size={14} className="text-amber-500 italic" />
-                 Rank: {stats.rank || 'Bronze'}
-               </div>
+                <div className="flex items-center gap-2 text-[10px] text-red-600 font-black uppercase tracking-widest bg-gray-50 px-4 py-1.5 rounded-full border border-gray-100 italic italic">
+                  <Droplet size={14} className="text-red-500 italic" />
+                  Group: {user?.bloodGroup?.replace('_POS', '+')?.replace('_NEG', '-') || 'N/A'}
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-red-600 font-black uppercase tracking-widest bg-gray-50 px-4 py-1.5 rounded-full border border-gray-100 italic italic">
+                  <Zap size={14} className="text-amber-500 italic" />
+                  Rank: {stats.rank || 'Bronze'}
+                </div>
             </div>
             
             <div className="space-y-2 italic">

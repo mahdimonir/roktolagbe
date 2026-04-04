@@ -297,7 +297,7 @@ export default function RequestDetailsPage() {
                     <p className="text-xs font-bold text-gray-400 italic mt-2">You are a true hero. The seeker has been notified of your commitment.</p>
                   </div>
                 ) : !authUser.donorProfile?.bloodGroup ? (
-                   <Link href="/profile/setup" className="block w-full py-4 bg-gray-100 text-gray-600 rounded-2xl font-black uppercase tracking-widest italic text-[10px] text-center">
+                   <Link href="/dashboard?tab=profile" className="block w-full py-4 bg-gray-100 text-gray-600 rounded-2xl font-black uppercase tracking-widest italic text-[10px] text-center">
                      Verify Blood Group to Help
                    </Link>
                 ) : canDonate(authUser.donorProfile.bloodGroup, request.bloodGroup) ? (

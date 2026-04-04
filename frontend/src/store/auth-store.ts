@@ -11,6 +11,7 @@ interface User {
   isVerified: boolean;
   points?: number;
   district?: string;
+  bloodGroup?: string;
   donorProfile?: {
     district?: string;
     bloodGroup?: string;
