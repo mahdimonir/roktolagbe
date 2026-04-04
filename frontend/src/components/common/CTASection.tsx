@@ -24,18 +24,18 @@ export default function CTASection({
   noPadding = false
 }: CTASectionProps) {
   return (
-    <section className={`${noPadding ? 'py-0' : 'py-12'} px-6 relative overflow-hidden bg-white ${className}`}>
+    <section className={`${noPadding ? 'py-0' : 'py-12 md:py-16'} px-4 md:px-6 relative overflow-hidden bg-white ${className}`}>
       <div className="max-w-7xl mx-auto">
-        <div className="bg-[#f2f4f7] rounded-[2.5rem] p-12 md:p-20 text-center relative overflow-hidden group border border-gray-100 shadow-sm outline outline-1 outline-gray-200/50">
+        <div className="bg-[#f2f4f7] rounded-[2rem] md:rounded-[2.5rem] px-8 py-12 md:p-20 text-center relative overflow-hidden group border border-gray-100 shadow-sm outline outline-1 outline-gray-200/50">
           {/* Subtle Pinkish Corner Arcs */}
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#FBEBEB] rounded-full blur-[40px] opacity-60 transition-opacity duration-1000 group-hover:scale-105" />
           <div className="absolute -bottom-40 -left-40 w-[30rem] h-[30rem] bg-[#FBEBEB] rounded-full blur-[60px] opacity-60 transition-opacity duration-1000 group-hover:scale-105" />
 
           <div className="relative z-10 space-y-8">
-            <h2 className="text-4xl md:text-7xl font-black text-[#112135] tracking-tighter leading-[0.85] mb-4 uppercase italic max-w-5xl mx-auto">
+            <h2 className="text-3xl md:text-7xl font-black text-[#112135] tracking-tighter leading-[1] md:leading-[0.85] mb-4 uppercase italic max-w-5xl mx-auto">
               {title}
             </h2>
-            <p className="text-gray-500 font-medium italic text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed opacity-80">
+            <p className="text-gray-500 font-medium italic text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed opacity-80 px-2 md:px-0">
               {subtitle}
             </p>
             
