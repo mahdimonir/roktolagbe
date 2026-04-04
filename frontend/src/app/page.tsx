@@ -6,13 +6,12 @@ import { useQuery } from '@tanstack/react-query';
 import {
    Activity, ArrowRight,
    Award,
-   Droplets,
-   Globe,
+   Gauge,
+   Heart,
    HeartPulse,
    Hospital, MapPin,
-   ShieldCheck,
+   Sparkles,
    Target,
-   Thermometer,
    UserPlus, Users
 } from 'lucide-react';
 import Image from 'next/image';
@@ -74,84 +73,103 @@ export default function Home() {
    const displayRequests = urgentResponse || [];
 
    return (
-      <main className="min-h-screen bg-white pb-32 italic">
-         {/* 1. Hero Section */}
-         <section className="relative pt-24 pb-48 overflow-hidden bg-gray-50/50 border-b border-gray-100">
-            <div className="absolute top-0 right-0 -mt-32 -mr-32 w-[45rem] h-[45rem] bg-red-600/[0.05] rounded-full blur-[150px] pointer-events-none animate-pulse"></div>
+      <main className="min-h-screen bg-white pb-16 md:pb-28 italic font-black text-gray-900">
+         {/* 1. Hero Section - Elite Mobile Refinement */}
+         <section className="relative pt-20 pb-24 md:pt-24 md:pb-32 lg:pt-16 lg:pb-24 overflow-hidden lg:bg-white max-lg:bg-[url('/mobile-hero-1.png')] max-lg:min-h-[600px] max-lg:bg-no-repeat max-lg:bg-bottom max-lg:bg-[length:auto_85%] max-lg:bg-[#EDEDED]">
+            {/* Desktop-only pulse element */}
+            <div className="absolute top-0 right-0 -mt-32 -mr-32 w-[45rem] h-[45rem] bg-red-600/[0.05] rounded-full blur-[150px] pointer-events-none animate-pulse max-lg:hidden"></div>
             
+            {/* Mobile Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70 lg:hidden pointer-events-none" />
+
             <div className="max-w-7xl mx-auto px-6 relative z-10">
-               <div className="flex flex-col xl:flex-row items-center gap-24">
-                  <div className="flex-1 text-center xl:text-left space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-                     <div className="flex flex-wrap items-center justify-center xl:justify-start gap-4">
-                        <span className="bg-red-600 text-white px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl shadow-red-600/10">
-                           Reliable Blood Network
-                        </span>
-                        <div className="flex items-center gap-2 text-[10px] text-red-600 font-black uppercase tracking-widest bg-white px-5 py-2 rounded-full border border-red-100 shadow-sm">
-                           <Globe size={16} className="text-red-500" />
-                           Island-wide Coverage
-                        </div>
+               <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 xl:gap-32">
+                  <div className="flex-1 text-center lg:text-left space-y-8 lg:space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                     <div className="space-y-6 max-lg:space-y-4">
+                        {/* Bengali Heading - Red Branding with Razor-Sharp Glow */}
+                        <h1 className="text-red-600 text-5xl max-lg:text-6xl md:text-7xl font-black tracking-tighter leading-none mb-2 max-lg:drop-shadow-[0_0_10px_rgba(0,0,0,0.5)] scale-110 max-lg:scale-100 transition-transform">
+                           রক্ত লাগবে?
+                        </h1>
+                        {/* English Heading - Crisp White for Depth */}
+                        <h2 className="text-gray-900 max-lg:text-white text-4xl md:text-[3.5rem] xl:text-[4.5rem] font-black tracking-tighter leading-[1.1] italic max-lg:drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+                           The Pulse of Life.
+                        </h2>
                      </div>
-                     <h1 className="text-6xl md:text-8xl font-black text-gray-900 leading-[0.85] mb-6 tracking-tighter italic whitespace-pre-line leading-none">
-                        রক্ত দিন, <br /><span className="text-red-600 italic">জীবন</span> বাঁচান।
-                     </h1>
-                     <p className="text-xl md:text-2xl text-gray-500 mb-10 leading-relaxed max-w-2xl font-medium italic">
-                        Connect with donors & hospitals instantly. Helping you find blood when every second matters. Simple, fast, and secure.
-                     </p>
-                     <div className="flex flex-col sm:flex-row items-center justify-center xl:justify-start gap-8">
-                        <Link href="/urgent-requests" className="bg-red-600 text-white px-14 py-6 rounded-[2rem] text-[12px] font-black uppercase tracking-widest shadow-2xl shadow-red-600/20 flex items-center justify-center gap-4 w-full sm:w-auto hover:bg-red-700 transition-all active:scale-95 italic group/btn">
-                           I Need Blood <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-3 transition-transform" />
-                        </Link>
-                        <Link href="/register" className="bg-white border-2 border-gray-100 text-gray-900 px-14 py-6 rounded-[2rem] text-[12px] font-black uppercase tracking-widest hover:bg-gray-50 transition-all w-full sm:w-auto text-center italic active:scale-95 shadow-sm">
+                     
+                     {/* Description with enhanced backdrop logic */}
+                     <div className="relative max-w-xl mx-auto lg:mx-0">
+                        <p className="text-lg md:text-xl text-gray-500 max-lg:text-white/95 font-medium leading-relaxed italic max-lg:drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] px-4 sm:px-0">
+                           Bridging the gap between medical urgency and human empathy. Bangladesh&apos;s most trusted clinical network for emergency blood donation.
+                        </p>
+                     </div>
+                     
+                     <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 pt-4">
+                        <Link href="/register" className="bg-red-600 text-white px-12 py-5 rounded-full text-[11px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-red-600/20 flex items-center justify-center gap-3 w-full sm:w-auto hover:bg-red-700 transition-all active:scale-95 italic group/btn">
+                           <Heart className="w-5 h-5 fill-white group-hover/btn:scale-125 transition-transform" />
                            Become a Donor
                         </Link>
+                        <Link href="/urgent-requests" className="bg-white lg:border-2 lg:border-red-600 lg:text-red-600 max-lg:bg-transparent max-lg:border-2 max-lg:border-white max-lg:text-white px-12 py-5 rounded-full text-[11px] font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all w-full sm:w-auto text-center italic active:scale-95 flex items-center justify-center gap-3">
+                           <Sparkles className="w-5 h-5" />
+                           I Need Blood
+                        </Link>
                      </div>
-                     <p className="mt-12 text-[11px] font-black text-gray-400 uppercase tracking-widest flex items-center justify-center xl:justify-start gap-4 italic leading-none">
-                        <ShieldCheck className="w-6 h-6 text-green-500" />
-                        Verified network with 120+ Medical centers
-                     </p>
                   </div>
 
-                  <div className="flex-1 relative animate-in zoom-in duration-1000">
-                     <div className="relative rounded-[5rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.08)] border-8 border-white aspect-square group/visual">
+                  <div className="flex-1 relative w-full animate-in zoom-in duration-1000 group max-lg:hidden">
+                     {/* Main Hero Image - Visible on Desktop */}
+                     <div className="relative rounded-[4rem] overflow-hidden shadow-[0_60px_100px_rgba(0,0,0,0.12)] aspect-[1/1] xl:aspect-[4/3] w-full max-w-[640px] mx-auto border-8 border-white bg-gray-50">
                         <Image 
                            src="/hero-rebrand.png" 
-                           alt="Healthcare Hero" 
+                           alt="Healthcare Pulse" 
                            fill 
-                           className="object-cover group-hover:scale-105 transition-transform duration-1000"
+                           className="object-cover group-hover:scale-110 transition-transform duration-[2000ms]"
                            priority
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
                      </div>
-                     <div className="absolute -top-12 -right-12 w-48 h-48 bg-red-600/5 rounded-full blur-[80px] -z-10" />
-                     <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-red-600/5 blur-[100px] -z-10" />
+                     
+                     {/* Floating RESPONSE TIME Badge */}
+                     <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 bg-white p-4 rounded-[2.5rem] shadow-[0_30px_60px_rgba(0,0,0,0.15)] flex items-center gap-6 animate-in slide-in-from-bottom-12 duration-1000 delay-500 border border-gray-100 group-hover:translate-y-[-10px] transition-transform">
+                        <div className="w-16 h-16 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-red-600/20">
+                           <Gauge size={32} className="group-hover:rotate-45 transition-transform duration-700" />
+                        </div>
+                        <div className="text-left font-black italic">
+                           <div className="text-[9px] text-gray-400 uppercase tracking-[0.3em] mb-1">Response Time</div>
+                           <div className="text-2xl text-[#112135] tracking-tighter">Under 30 Mins</div>
+                        </div>
+                     </div>
+                     
+                     {/* Decorative Elements */}
+                     <div className="absolute -top-16 -right-16 w-64 h-64 bg-red-600/[0.03] rounded-full blur-[100px] -z-10 group-hover:scale-125 transition-transform duration-1000" />
+                     <div className="absolute -bottom-24 -right-12 w-80 h-80 bg-red-600/[0.04] rounded-full blur-[120px] -z-10" />
                   </div>
                </div>
             </div>
          </section>
 
-         {/* 2. How it Works */}
-         <section className="-mt-24 relative z-20">
-            <div className="max-w-7xl mx-auto px-6">
-               <div className="bg-white p-16 rounded-[4rem] border border-gray-100 shadow-2xl space-y-24">
+         {/* 2. How it Works - Improved Mobile Responsiveness */}
+         <section className="py-24 relative z-20">
+            <div className="max-w-7xl mx-auto px-4 md:px-6">
+               <div className="bg-white px-6 py-12 md:p-16 rounded-[2.5rem] md:rounded-[4rem] border border-gray-100 shadow-2xl space-y-12 md:space-y-24">
                   <div className="text-center space-y-4">
-                     <p className="text-red-600 font-black text-[11px] uppercase tracking-widest italic">How it works</p>
-                     <h2 className="text-5xl font-black text-gray-900 italic uppercase tracking-tighter leading-none">
+                     <p className="text-red-600 font-black text-[11px] uppercase tracking-widest italic leading-none">How it works</p>
+                     <h2 className="text-3xl md:text-5xl font-black text-gray-900 italic uppercase tracking-tighter leading-none px-4">
                         রক্ত দান কত <span className="text-red-600">সহজ!</span>
                      </h2>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
                      {steps.map((step, i) => (
-                        <div key={i} className="group relative flex flex-col items-center text-center space-y-8 p-10 rounded-[3rem] bg-gray-50/50 border-2 border-transparent hover:border-red-100 hover:bg-white hover:shadow-2xl transition-all duration-700">
-                           <div className="w-20 h-20 bg-white text-gray-900 rounded-[1.5rem] flex items-center justify-center shadow-xl border border-gray-100 group-hover:bg-red-600 group-hover:text-white transition-all duration-500">
+                        <div key={i} className="group relative flex flex-col items-center text-center space-y-6 md:space-y-8 p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] bg-gray-50/50 border-2 border-transparent hover:border-red-100 hover:bg-white hover:shadow-2xl transition-all duration-700">
+                           <div className="w-16 h-16 md:w-20 md:h-20 bg-white text-gray-900 rounded-2xl md:rounded-[1.5rem] flex items-center justify-center shadow-xl border border-gray-100 group-hover:bg-red-600 group-hover:text-white transition-all duration-500">
                               {step.icon}
                            </div>
-                           <div className="space-y-4">
-                              <h3 className="text-2xl font-black text-gray-900 italic tracking-tighter uppercase leading-none">{step.titleBn}</h3>
-                              <p className="text-[10px] font-black text-red-600 uppercase tracking-widest italic">{step.title}</p>
-                              <p className="text-gray-500 text-sm italic font-medium leading-relaxed max-w-[200px] mx-auto">{step.desc}</p>
+                           <div className="space-y-3 md:space-y-4">
+                              <h3 className="text-xl md:text-2xl font-black text-gray-900 italic tracking-tighter uppercase leading-none">{step.titleBn}</h3>
+                              <p className="text-gray-500 text-sm md:text-[14px] leading-relaxed font-medium italic">
+                                 {step.desc}
+                              </p>
                            </div>
-                           <div className="absolute top-8 right-10 text-gray-100 font-black text-7xl opacity-0 group-hover:opacity-20 transition-opacity font-mono">0{i+1}</div>
                         </div>
                      ))}
                   </div>
@@ -159,155 +177,106 @@ export default function Home() {
             </div>
          </section>
 
-         {/* 3. Impact Stats */}
-         <section className="py-32 overflow-hidden relative">
+         {/* 3. Urgent Requests - Full Mobile Refinement */}
+         <section className="py-20 md:py-32 italic">
             <div className="max-w-7xl mx-auto px-6">
-               <div className="bg-white p-16 lg:p-24 rounded-[4rem] border border-gray-100 shadow-2xl relative overflow-hidden group">
-                  <div className="flex flex-col xl:flex-row justify-between items-center gap-24 relative z-10">
-                     <div className="text-center xl:text-left space-y-8 max-w-md">
-                        <div className="flex items-center gap-3 justify-center xl:justify-start">
-                           <div className="w-3 h-3 bg-red-600 rounded-full animate-ping" />
-                           <p className="text-[11px] font-black text-red-600 uppercase tracking-widest italic">Platform Impact</p>
-                        </div>
-                        <h2 className="text-5xl font-black text-gray-900 italic uppercase tracking-tighter leading-[0.9]">
-                           Our <br /> <span className="text-red-600 italic">Lives</span> Impacted.
-                        </h2>
-                        <p className="text-gray-500 text-lg font-medium italic leading-relaxed">
-                           Live tracking of life-saving donations across helping thousands every month.
-                        </p>
-                     </div>
-
-                     <div className="grid grid-cols-2 gap-12 lg:gap-20 flex-1">
-                        {stats.map((stat, i) => (
-                           <div key={i} className="text-center xl:text-left group/stat">
-                              <div className="flex items-center gap-5 justify-center xl:justify-start mb-6">
-                                 <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-red-600 group-hover/stat:bg-red-600 group-hover/stat:text-white transition-all duration-500 shadow-sm border border-gray-100">
-                                    {stat.icon}
-                                 </div>
-                                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest italic">{stat.label}</p>
-                              </div>
-                              <p className="text-5xl lg:text-7xl font-black text-gray-900 tracking-tighter italic group-hover/stat:text-red-600 transition-colors uppercase">{stat.value}</p>
-                           </div>
-                        ))}
-                     </div>
-                  </div>
-                  <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-red-600/[0.01] blur-[100px] rounded-full -mr-48 -mt-48" />
-               </div>
-            </div>
-         </section>
-
-         {/* 4. Urgent Requests */}
-         <section className="py-24 bg-gray-50/50 border-y border-gray-100">
-            <div className="max-w-7xl mx-auto px-6">
-               <div className="flex flex-col md:flex-row justify-between items-end gap-12 mb-20 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+               <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 mb-16 text-center md:text-left">
                   <div className="space-y-4">
-                     <p className="text-red-600 font-black text-[11px] uppercase tracking-widest italic">Urgent Requests</p>
-                     <h2 className="text-5xl font-black text-gray-900 italic uppercase tracking-tighter leading-none">
-                        এখনই রক্ত <span className="text-red-600">দরকার</span>।
+                     <p className="text-red-600 font-black text-[11px] uppercase tracking-widest leading-none">Emergency Dashboard</p>
+                     <h2 className="text-4xl md:text-5xl font-black text-gray-900 uppercase italic tracking-tighter leading-none">
+                        Urgent <span className="text-red-600 italic">Needs</span>
                      </h2>
                   </div>
-                  <Link href="/urgent-requests" className="bg-white border text-gray-900 px-10 py-5 rounded-[2rem] text-[11px] font-black uppercase tracking-widest hover:bg-gray-900 hover:text-white transition-all shadow-xl italic flex items-center gap-4 group/link">
-                     View All Requests <ArrowRight size={18} className="group-hover/link:translate-x-3 transition-transform" />
+                  <Link href="/urgent-requests" className="text-xs md:text-sm font-black text-gray-400 hover:text-red-600 transition-all uppercase tracking-widest flex items-center gap-3 group">
+                     Explore Feed <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
                   </Link>
                </div>
 
-               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-                  {displayRequests.length > 0 ? displayRequests.map((req: any, i: number) => {
-                     const confirmed = req.donations?.filter((d: any) => d.status === 'VERIFIED').length || 0;
-                     const progress = Math.min(100, (confirmed / req.units) * 100);
-                     const deadlineDate = new Date(req.deadline);
-                     const isExpired = deadlineDate < new Date();
-
-                     return (
-                        <div key={i} className="bg-white p-10 rounded-[3.5rem] border border-gray-100 hover:shadow-2xl transition-all duration-700 group relative overflow-hidden flex flex-col" style={{ transitionDelay: `${i * 150}ms` }}>
-                           <div className="flex justify-between items-start mb-10">
-                              <div className="w-20 h-20 bg-red-600 text-white rounded-[1.5rem] flex flex-col items-center justify-center border-4 border-white shadow-xl">
-                                 <p className="text-3xl font-black mb-1 italic tracking-tighter italic leading-none">
-                                    {(req.bloodGroup || '').replace('_POS', '+').replace('_NEG', '-')}
-                                 </p>
-                                 <span className="text-[8px] font-black uppercase tracking-widest opacity-50 italic">Group</span>
-                              </div>
-                              <div className="flex flex-col items-end gap-2">
-                                 {(req.urgency === 'EMERGENCY' || req.isEmergency) && (
-                                    <span className="bg-red-600 text-white text-[10px] font-black px-6 py-2.5 rounded-full uppercase italic tracking-widest animate-pulse shadow-xl shadow-red-600/20">
-                                       Emergency
-                                    </span>
-                                 )}
-                                 <span className={`text-[9px] font-black uppercase px-4 py-1.5 rounded-full border italic ${isExpired ? 'bg-gray-100 text-gray-500 border-gray-200' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
-                                    {isExpired ? 'Mission Expired' : `Needed: ${deadlineDate.toLocaleDateString()}`}
-                                 </span>
+               {displayRequests.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                     {displayRequests.map((request: any) => (
+                        <div key={request.id} className="bg-[#FBFAFA] p-8 md:p-10 rounded-[2.5rem] md:rounded-[3rem] border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden">
+                           <div className="absolute top-0 right-0 p-6 md:p-8">
+                              <div className="w-14 h-14 md:w-16 md:h-16 bg-white text-red-600 rounded-2xl flex items-center justify-center font-black italic text-xl shadow-lg border border-red-50 group-hover:bg-red-600 group-hover:text-white transition-all duration-500">
+                                 {request.bloodGroup.replace('_POS', '+').replace('_NEG', '-')}
                               </div>
                            </div>
-
-                           <div className="space-y-6 mb-12 flex-1">
-                              <div className="space-y-2">
-                                 <h3 className="text-3xl font-black text-gray-900 italic uppercase tracking-tighter truncate leading-none group-hover:text-red-600 transition-colors">
-                                    {req.hospitalName || 'Hospital Center'}
-                                 </h3>
-                                 <div className="flex items-center gap-3 text-[11px] font-black text-gray-400 uppercase tracking-widest italic pt-1">
-                                    <MapPin className="w-4 h-4 text-red-500" />
-                                    <span className="truncate">{req.thana ? `${req.thana}, ` : ''}{req.district}</span>
-                                 </div>
+                           <div className="space-y-8">
+                              <div className="flex items-center gap-3 bg-white px-4 py-1.5 rounded-full border border-gray-50 w-fit text-[10px] font-black text-gray-400 uppercase tracking-widest italic leading-none">
+                                 <MapPin size={12} className="text-red-500" />
+                                 {request.district}
                               </div>
-                              
-                              <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden border border-gray-100">
-                                 <div className="h-full bg-red-600 rounded-full transition-all duration-1000" style={{ width: `${progress || 0}%` }} />
-                               </div>
-                               
-                               <div className="flex flex-wrap items-center gap-4 pt-2">
-                                  <div className="flex items-center gap-2.5 bg-gray-50 text-gray-500 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest italic border border-gray-100">
-                                     <Droplets className="w-4 h-4 text-red-500" />
-                                     <span>{req.units} Units</span>
-                                  </div>
-                                  {req.hemoglobin && (
-                                     <div className="flex items-center gap-2.5 bg-blue-50 text-blue-600 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest italic border border-blue-100">
-                                        <Thermometer className="w-4 h-4" />
-                                        <span>Hb: {req.hemoglobin}</span>
-                                     </div>
-                                  )}
-                                  <div className="flex items-center gap-2.5 bg-red-50 text-red-600 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest italic border border-red-100">
-                                     <HeartPulse className="w-4 h-4" />
-                                     <span>{req.urgency}</span>
-                                  </div>
-                               </div>
-                            </div>
-
-                           <Link href={`/urgent-requests/${req.id}`} className="w-full bg-gray-900 text-white py-6 rounded-[2rem] text-[11px] font-black uppercase tracking-widest hover:bg-red-600 transition-all flex items-center justify-center gap-4 active:scale-95 italic group/btn shadow-xl">
-                               Respond Now <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform" />
-                           </Link>
-                        </div>
-                     );
-}) : (
-                     <div className="col-span-full">
-                        <div className="bg-white border-4 border-dashed border-gray-100 rounded-[3.5rem] p-16 md:p-24 text-center space-y-8 animate-in fade-in duration-1000">
-                           <div className="max-w-3xl mx-auto space-y-8">
-                              <h3 className="text-4xl md:text-6xl font-black text-gray-200 tracking-tighter uppercase italic leading-[0.8] mb-4">
-                                 We&apos;re on standby. <br /> No urgent calls.
-                              </h3>
-                              <p className="text-gray-400 italic text-base md:text-lg font-medium max-w-xl mx-auto leading-relaxed opacity-80">
-                                 The blood network is currently stable with no matching emergencies. Join our verified donor community today and be ready to save a life when the next call comes.
-                              </p>
-                              <div className="pt-4">
-                                 <Link href="/register" className="inline-flex items-center justify-center bg-gray-50 text-gray-400 px-14 py-6 rounded-full text-[11px] font-black uppercase tracking-[0.3em] hover:bg-red-600 hover:text-white transition-all italic active:scale-95 shadow-sm border border-gray-100">
-                                    Join the network
+                              <div className="space-y-3">
+                                 <h3 className="text-2xl font-black text-gray-900 italic tracking-tighter uppercase leading-none">{request.patientName}</h3>
+                                 <p className="text-gray-500 text-sm italic font-medium">{request.hospitalName}</p>
+                              </div>
+                              <div className="pt-8 border-t border-gray-100 flex items-center justify-between">
+                                 <div className="flex flex-col">
+                                    <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest italic leading-none mb-2">Required by</span>
+                                    <span className="text-sm font-black text-gray-900 italic leading-none">{new Date(request.neededBy).toLocaleDateString()}</span>
+                                 </div>
+                                 <Link 
+                                    href={`/urgent-requests/${request.id}`}
+                                    className="bg-white text-gray-900 p-4 rounded-2xl border border-gray-100 group-hover:bg-[#112135] group-hover:text-white transition-all duration-500 shadow-sm"
+                                 >
+                                    <ArrowRight size={20} />
                                  </Link>
                               </div>
                            </div>
                         </div>
+                     ))}
+                  </div>
+               ) : (
+                  /* LOCAL EMPTY STATE - Enhanced Mobile Sizing */
+                  <div className="w-full bg-[#FBFAFA] rounded-[2.5rem] md:rounded-[3.52rem] p-12 md:p-24 border-4 border-dashed border-gray-100 text-center space-y-10 group overflow-hidden relative">
+                     <div className="relative z-10 space-y-8">
+                        <div className="w-20 h-20 md:w-24 md:h-24 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm group-hover:scale-110 group-hover:rotate-12 transition-transform duration-700">
+                           <Activity className="w-10 h-10 text-gray-200" />
+                        </div>
+                        <div className="space-y-3">
+                           <h3 className="text-3xl md:text-4xl font-black text-gray-200 uppercase tracking-tighter italic transition-colors group-hover:text-gray-300 px-4">On Standby.</h3>
+                           <p className="text-gray-400 text-base md:text-lg italic max-w-xl mx-auto font-medium leading-relaxed px-4 md:px-0">
+                              No urgent requests at the moment. Our network is in its stable, life-saving state waiting for the next update.
+                           </p>
+                        </div>
+                        <div className="pt-6 px-4 md:px-0">
+                           <Link href="/blood-requests" className="w-full sm:w-auto inline-block bg-white text-gray-300 border border-gray-100 px-8 md:px-12 py-4 rounded-full text-[11px] font-black uppercase tracking-widest hover:border-red-200 hover:text-red-500 transition-all italic shadow-sm hover:shadow-xl active:scale-95">
+                              View Full Dashboard
+                           </Link>
+                        </div>
                      </div>
-                  )}
+                     <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-red-600/[0.01] to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                  </div>
+               )}
+            </div>
+         </section>
+
+         {/* 4. Global Stats Area - Improved Mobile Legibility */}
+         <section className="py-20 md:py-24 bg-gray-50/50 italic font-black">
+            <div className="max-w-7xl mx-auto px-6">
+               <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-24">
+                  {stats.map((stat, i) => (
+                     <div key={i} className="space-y-4 md:space-y-6 text-center lg:text-left animate-in fade-in slide-in-from-bottom-8 duration-700" style={{ animationDelay: `${i * 100}ms` }}>
+                        <div className="w-16 h-16 bg-white rounded-[1.5rem] shadow-xl border border-red-50 flex items-center justify-center mx-auto lg:mx-0">
+                           {stat.icon}
+                        </div>
+                        <div className="space-y-2">
+                           <div className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter italic">{stat.value}</div>
+                           <div className="text-xs font-black text-gray-400 uppercase tracking-widest italic">{stat.label}</div>
+                        </div>
+                     </div>
+                  ))}
                </div>
             </div>
          </section>
 
-         {/* 5. CTA Section */}
          <CTASection 
-            title="START SAVING LIVES TODAY."
-            subtitle="Join our community of donors and make a difference. Every donation can save up to three lives. Whether you're looking to donate or you're in an emergency, our platform is built to help you instantly."
-            primaryBtnText="REGISTER NOW"
+            title="THE PULSE OF HOPE."
+            subtitle="Join thousands of heroes today. Your simple act of kindness ensures that the pulse of life never stops for someone in need."
+            primaryBtnText="BECOME A DONOR"
             primaryBtnLink="/register"
-            secondaryBtnText="LEARN MORE"
-            secondaryBtnLink="/how-it-works"
+            secondaryBtnText="REQUEST SUPPORT"
+            secondaryBtnLink="/urgent-requests"
          />
       </main>
    );
