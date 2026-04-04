@@ -296,11 +296,11 @@ export default function RequestDetailsPage() {
                     <h4 className="text-xl font-black italic uppercase text-gray-900 leading-tight">Mission Accepted</h4>
                     <p className="text-xs font-bold text-gray-400 italic mt-2">You are a true hero. The seeker has been notified of your commitment.</p>
                   </div>
-                ) : !authUser.donorProfile?.bloodGroup ? (
+                ) : !authUser.bloodGroup ? (
                    <Link href="/dashboard?tab=profile" className="block w-full py-4 bg-gray-100 text-gray-600 rounded-2xl font-black uppercase tracking-widest italic text-[10px] text-center">
                      Verify Blood Group to Help
                    </Link>
-                ) : canDonate(authUser.donorProfile.bloodGroup, request.bloodGroup) ? (
+                ) : canDonate(authUser.bloodGroup, request.bloodGroup) ? (
                   <>
                     <div className="flex items-center gap-3 text-red-600 mb-2">
                       <Heart className="w-5 h-5 fill-current" />
@@ -308,7 +308,7 @@ export default function RequestDetailsPage() {
                     </div>
                     <h4 className="text-xl font-black italic uppercase text-gray-900 leading-tight">Can you save this life?</h4>
                     <p className="text-xs font-bold text-gray-500 italic leading-relaxed">
-                      Your blood group ({authUser.donorProfile.bloodGroup.replace('_POS','+').replace('_NEG','-')}) is a match for this request.
+                      Your blood group ({authUser.bloodGroup.replace('_POS','+').replace('_NEG','-')}) is a match for this request.
                     </p>
                     <button
                       onClick={() => commitMutation.mutate()}
@@ -324,7 +324,7 @@ export default function RequestDetailsPage() {
                      <AlertCircle className="w-10 h-10 text-gray-300 mx-auto mb-4" />
                      <p className="text-[10px] font-black text-gray-400 uppercase italic">Incompatible Blood Group</p>
                      <p className="text-[9px] font-bold text-gray-400 mt-2 italic px-2">
-                        Only compatible donors ({authUser.donorProfile.bloodGroup.replace('_POS','+').replace('_NEG','-')} cannot give to {request.bloodGroup.replace('_POS','+').replace('_NEG','-')}) can accept this mission.
+                        Only compatible donors ({authUser.bloodGroup?.replace('_POS','+')?.replace('_NEG','-')} cannot give to {request.bloodGroup.replace('_POS','+').replace('_NEG','-')}) can accept this mission.
                      </p>
                   </div>
                 )}
