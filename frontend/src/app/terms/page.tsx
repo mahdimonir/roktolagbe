@@ -20,113 +20,129 @@ export default function TermsOfService() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <section className="py-20 bg-gray-50/30 border-b border-gray-100 italic">
-        <div className="max-w-7xl mx-auto px-4 text-center animate-fade-in">
-           <span className="text-red-600 font-black text-xs uppercase tracking-[0.3em] mb-4 block italic underline decoration-red-500/20 underline-offset-4 font-bold">Platform Governance</span>
-           <h1 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter mb-6 uppercase italic leading-none">
-              Terms of <span className="text-red-600 italic">Service</span>.
-           </h1>
-           <p className="text-gray-400 text-sm font-bold uppercase tracking-widest italic">Effective Date: March 26, 2026</p>
+    <main className="min-h-screen bg-white dark:bg-[#0a0a0d] transition-colors duration-500 pb-20 italic">
+      {/* 1. Header - Compact Glass */}
+      <section className="relative pt-24 pb-20 overflow-hidden border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-transparent px-4 md:px-0">
+        <div className="absolute top-0 right-0 -mt-24 -mr-24 w-[35rem] h-[35rem] bg-red-600/[0.05] dark:bg-red-600/[0.08] rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <div className="flex flex-col items-center gap-6">
+               <div className="bg-red-600 text-white px-5 py-1.5 rounded-full text-[9px] font-black tracking-[0.3em] uppercase italic shadow-xl shadow-red-600/10">
+                  Governance Protocol
+               </div>
+               <h1 className="text-5xl lg:text-7xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter leading-none">
+                 TERMS OF <span className="text-red-600">SERVICE</span>
+               </h1>
+               <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] italic mt-4">
+                 EFFECTIVE DATE: MARCH 26, 2026
+               </p>
+            </div>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4">
-           <div className="grid grid-cols-1 lg:grid-cols-4 gap-16">
-              
-              {/* Table of Contents */}
-              <div className="lg:col-span-1 border-r border-gray-100 pr-12 hidden lg:block sticky top-32 h-fit">
-                 <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-10 italic">Core Sections</h3>
-                 <nav className="space-y-6">
-                    {sections.map((s, i) => (
-                      <button 
-                        key={i} 
-                        onClick={() => scrollToSection(s.id)}
-                        className="flex items-center gap-4 text-sm font-black text-gray-600 hover:text-red-500 transition-all w-full text-left group italic uppercase tracking-tighter"
-                      >
-                         <div className="w-10 h-10 rounded-2xl bg-gray-50 flex items-center justify-center group-hover:bg-red-50 transition-colors border border-gray-100">
-                            {s.icon}
-                         </div>
-                         {s.title}
-                      </button>
-                    ))}
-                 </nav>
-              </div>
+      {/* 2. Content Structure */}
+      <section className="py-16 px-4 md:px-0">
+        <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+               
+               {/* Fixed Navigation Desk */}
+               <div className="lg:col-span-1 hidden lg:block sticky top-32 h-fit">
+                  <h3 className="text-[10px] font-black text-gray-300 dark:text-gray-700 uppercase tracking-[0.2em] mb-8 italic">PLATFORM RULES</h3>
+                  <nav className="space-y-4">
+                     {sections.map((s, i) => (
+                       <button 
+                         key={i} 
+                         onClick={() => scrollToSection(s.id)}
+                         className="flex items-center gap-4 text-[11px] font-black text-gray-400 dark:text-gray-600 hover:text-red-600 transition-all w-full text-left group italic uppercase tracking-widest"
+                       >
+                          <div className="w-10 h-10 rounded-2xl bg-gray-50 dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10 group-hover:bg-red-50 dark:group-hover:bg-red-600/20 group-hover:border-red-100 dark:group-hover:border-red-600/30 transition-all">
+                             <div className="text-gray-400 group-hover:text-red-600 transition-colors">
+                                {s.icon}
+                             </div>
+                          </div>
+                          {s.title}
+                       </button>
+                     ))}
+                  </nav>
+               </div>
 
-              {/* Main Text */}
-              <div className="lg:col-span-3 space-y-20 animate-fade-in">
-                 
-                 <div id="acceptance" className="prose prose-red max-w-none scroll-mt-32 italic">
-                    <h2 className="text-3xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 uppercase leading-none">
-                       <span className="text-red-600 italic">01.</span> Acceptance of Terms
-                    </h2>
-                    <div className="bg-white p-10 rounded-[3.5rem] border border-gray-100 shadow-sm leading-relaxed italic">
-                        <p className="text-gray-600 text-sm mb-6 underline decoration-red-500/10">
-                           By accessing or using the RoktoLagbe platform, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not use our services.
+               {/* Main Narrative */}
+               <div className="lg:col-span-3 space-y-20">
+                  
+                  {/* Section 01 */}
+                  <div id="acceptance" className="scroll-mt-32">
+                     <h2 className="text-2xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 dark:text-white uppercase leading-none">
+                        <span className="text-red-600 italic">01.</span> Acceptance of Terms
+                     </h2>
+                     <div className="p-10 rounded-[3rem] bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 shadow-sm backdrop-blur-[40px]">
+                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm italic font-medium">
+                            By accessing or using the RoktoLagbe platform, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not use our services.
+                         </p>
+                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm italic mt-6">
+                            We reserve the right to modify these terms at any time. Your continued use of the platform following the posting of changes constitutes your acceptance of such changes.
+                         </p>
+                     </div>
+                  </div>
+
+                  {/* Section 02 */}
+                  <div id="responsibilities" className="scroll-mt-32">
+                     <h2 className="text-2xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 dark:text-white uppercase leading-none">
+                        <span className="text-red-600">02.</span> User Responsibilities
+                     </h2>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {[
+                          { title: 'Data Accuracy', desc: 'Users must provide verified, current, and complete health data.' },
+                          { title: 'Mission Safety', desc: 'Donors must follow all safety protocols and eligibility criteria.' },
+                          { title: 'Emergency Use', desc: 'Requests should be made only for genuine life-saving requirements.' },
+                          { title: 'Platform Integrity', desc: 'Misuse of the system results in immediate unit termination.' },
+                        ].map((item, i) => (
+                          <div key={i} className="p-8 bg-red-50/30 dark:bg-white/5 rounded-[2.5rem] border border-red-100 dark:border-white/10 group hover:border-red-600 transition-all backdrop-blur-[40px]">
+                             <h4 className="font-black text-red-600 text-[11px] uppercase italic tracking-widest mb-3">{item.title}</h4>
+                             <p className="text-gray-500 dark:text-gray-500 text-[10px] italic leading-relaxed font-bold">{item.desc}</p>
+                          </div>
+                        ))}
+                     </div>
+                  </div>
+
+                  {/* Section 03 */}
+                  <div id="liability" className="scroll-mt-32">
+                     <h2 className="text-2xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 dark:text-white uppercase leading-none">
+                        <span className="text-red-600">03.</span> Limitation of Liability
+                     </h2>
+                     <div className="p-10 rounded-[4rem] border-2 border-dashed border-gray-100 dark:border-white/10 relative group overflow-hidden bg-white dark:bg-transparent">
+                        <p className="text-gray-500 dark:text-gray-400 text-sm italic leading-relaxed relative z-10 font-medium">
+                            RoktoLagbe acts as a facilitator connecting donors and organizations. We are not responsible for medical outcomes, donor conduct, or any individual's health status. Users utilize the mission platform at their own risk.
                         </p>
-                        <p className="text-gray-600 text-sm italic">
-                           We reserve the right to modify these terms at any time. Your continued use of the platform following the posting of changes constitutes your acceptance of such changes.
-                        </p>
-                    </div>
-                 </div>
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(239,68,68,0.02)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                     </div>
+                  </div>
 
-                 <div id="responsibilities" className="prose prose-red max-w-none scroll-mt-32">
-                    <h2 className="text-3xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 uppercase">
-                       <span className="text-red-600">02.</span> User Responsibilities
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                       {[
-                         { title: 'Accuracy', text: 'Users must provide accurate, current, and complete information.' },
-                         { title: 'Safety', text: 'Donors must follow all safety protocols and eligibility guidelines.' },
-                         { title: 'Emergency', text: 'Requests should be made only for genuine medical requirements.' },
-                         { title: 'Integrity', text: 'Misuse of the platform will result in immediate termination.' },
-                       ].map((item, i) => (
-                         <div key={i} className="p-8 bg-red-50/30 rounded-[2.5rem] border border-red-100 group hover:bg-white transition-all">
-                            <h4 className="font-black text-red-600 text-sm uppercase italic tracking-widest mb-3">{item.title}</h4>
-                            <p className="text-gray-500 text-xs italic leading-relaxed">{item.text}</p>
-                         </div>
-                       ))}
-                    </div>
-                 </div>
+                  {/* Section 04 */}
+                  <div id="termination" className="scroll-mt-32">
+                     <h2 className="text-2xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 dark:text-white uppercase leading-none">
+                        <span className="text-red-600">04.</span> Termination
+                     </h2>
+                     <div className="p-10 rounded-[3rem] bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 shadow-sm backdrop-blur-[40px]">
+                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm italic">
+                            We may terminate or suspend access to our Service immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms of our mission.
+                         </p>
+                     </div>
+                  </div>
+               </div>
 
-                 <div id="liability" className="prose prose-red max-w-none scroll-mt-32">
-                    <h2 className="text-3xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 uppercase">
-                       <span className="text-red-600">03.</span> Limitation of Liability
-                    </h2>
-                    <div className="p-10 bg-white rounded-[4rem] border-2 border-dashed border-gray-100 relative group overflow-hidden">
-                       <p className="text-gray-500 text-sm italic leading-relaxed relative z-10 font-medium">
-                           RoktoLagbe acts as a facilitator connecting donors and organizations. We are not responsible for medical outcomes, donor conduct, or any individual's health status. Users utilize the platform at their own risk.
-                       </p>
-                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(239,68,68,0.02)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                    </div>
-                 </div>
-
-                 <div id="termination" className="prose prose-red max-w-none scroll-mt-32 italic">
-                    <h2 className="text-3xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 uppercase">
-                       <span className="text-red-600 italic">04.</span> Termination of Service
-                    </h2>
-                    <p className="text-gray-600 text-sm leading-relaxed italic font-medium p-8 bg-gray-50 rounded-[3rem] border border-gray-100">
-                       We may terminate or suspend access to our Service immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.
-                    </p>
-                 </div>
-              </div>
-
-           </div>
+            </div>
         </div>
       </section>
 
-      {/* Help CTA */}
+      {/* 3. Global Call to Action */}
       <CTASection 
         title="CONFUSED ABOUT TERMS?"
-        subtitle="Our support team is available 24/7 to clarify any governance questions you may have. Your trust is our foundation."
+        subtitle="Our support team is available 24/7 to clarify any governance questions."
         primaryBtnText="SUPPORT DISPATCH"
         primaryBtnLink="/contact"
         secondaryBtnText="PRIVACY POLICY"
         secondaryBtnLink="/privacy"
       />
-    </div>
+    </main>
   );
 }

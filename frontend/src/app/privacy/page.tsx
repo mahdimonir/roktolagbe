@@ -20,125 +20,143 @@ export default function PrivacyPolicy() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/10">
-      {/* Header */}
-      <section className="py-20 bg-white border-b border-gray-100 italic">
-        <div className="max-w-7xl mx-auto px-4 text-center animate-fade-in">
-           <span className="text-red-600 font-black text-xs uppercase tracking-[0.3em] mb-4 block italic">Legal Compliance</span>
-           <h1 className="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter mb-6 uppercase">
-              Privacy <span className="text-red-600">Policy</span>.
-           </h1>
-           <p className="text-gray-400 text-sm font-bold uppercase tracking-widest italic">Last Updated: March 26, 2026</p>
+    <main className="min-h-screen bg-white dark:bg-[#0a0a0d] transition-colors duration-500 pb-20 italic">
+      {/* 1. Header - Compact Glass */}
+      <section className="relative pt-24 pb-20 overflow-hidden border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-transparent px-4 md:px-0">
+        <div className="absolute top-0 right-0 -mt-24 -mr-24 w-[35rem] h-[35rem] bg-red-600/[0.05] dark:bg-red-600/[0.08] rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <div className="flex flex-col items-center gap-6">
+               <div className="bg-red-600 text-white px-5 py-1.5 rounded-full text-[9px] font-black tracking-[0.3em] uppercase italic shadow-xl shadow-red-600/10">
+                  Mission Security
+               </div>
+               <h1 className="text-5xl lg:text-7xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter leading-none">
+                 PRIVACY <span className="text-red-600">POLICY</span>
+               </h1>
+               <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] italic mt-4">
+                 LAST UPDATED: MARCH 26, 2026
+               </p>
+            </div>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4">
-           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-              
-              {/* Table of Contents */}
-              <div className="lg:col-span-1 border-r border-gray-100 pr-8 hidden lg:block sticky top-32 h-fit">
-                 <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-8">Navigation</h3>
-                 <nav className="space-y-4">
-                    {sections.map((s, i) => (
-                      <button 
-                        key={i} 
-                        onClick={() => scrollToSection(s.id)}
-                        className="flex items-center gap-3 text-sm font-bold text-gray-600 hover:text-red-500 transition-colors w-full text-left group italic uppercase tracking-tight"
-                      >
-                         <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center group-hover:bg-red-50 transition-colors">
-                            {s.icon}
-                         </div>
-                         {s.title}
-                      </button>
-                    ))}
-                 </nav>
-              </div>
+      {/* 2. Content Structure */}
+      <section className="py-16 px-4 md:px-0">
+        <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+               
+               {/* Fixed Navigation Desk */}
+               <div className="lg:col-span-1 hidden lg:block sticky top-32 h-fit">
+                  <h3 className="text-[10px] font-black text-gray-300 dark:text-gray-700 uppercase tracking-[0.2em] mb-8 italic">CORE SECTIONS</h3>
+                  <nav className="space-y-4">
+                     {sections.map((s, i) => (
+                       <button 
+                         key={i} 
+                         onClick={() => scrollToSection(s.id)}
+                         className="flex items-center gap-4 text-[11px] font-black text-gray-400 dark:text-gray-600 hover:text-red-600 transition-all w-full text-left group italic uppercase tracking-widest"
+                       >
+                          <div className="w-10 h-10 rounded-2xl bg-gray-50 dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10 group-hover:bg-red-50 dark:group-hover:bg-red-600/20 group-hover:border-red-100 dark:group-hover:border-red-600/30 transition-all">
+                             <div className="text-gray-400 group-hover:text-red-600 transition-colors">
+                                {s.icon}
+                             </div>
+                          </div>
+                          {s.title}
+                       </button>
+                     ))}
+                  </nav>
+               </div>
 
-              {/* Main Text */}
-              <div className="lg:col-span-3 space-y-24 animate-fade-in">
-                 
-                 <div id="introduction" className="prose prose-red max-w-none scroll-mt-32">
-                    <h2 className="text-3xl font-black mb-8 tracking-tight flex items-center gap-3 italic text-gray-900 uppercase">
-                       <span className="text-red-600">01.</span> Introduction
-                    </h2>
-                    <div className="p-8 bg-white rounded-[3rem] border border-gray-100 shadow-sm space-y-6">
-                        <p className="text-gray-600 leading-relaxed text-sm italic font-medium">
-                           At RoktoLagbe, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our platform to donate blood or request assistance.
-                        </p>
-                        <p className="text-gray-600 leading-relaxed text-sm italic">
-                           By using the platform, you agree to the collection and use of information in accordance with this policy. We prioritize transparency and empower you with full control over your data.
-                        </p>
-                    </div>
-                 </div>
+               {/* Main Narrative */}
+               <div className="lg:col-span-3 space-y-20">
+                  
+                  {/* Section 01 */}
+                  <div id="introduction" className="scroll-mt-32">
+                     <h2 className="text-2xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 dark:text-white uppercase leading-none">
+                        <span className="text-red-600 italic">01.</span> Introduction
+                     </h2>
+                     <div className="p-10 rounded-[3rem] bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 shadow-sm backdrop-blur-[40px]">
+                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm italic font-medium">
+                            At RoktoLagbe, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our platform to donate blood or request assistance.
+                         </p>
+                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm italic mt-6">
+                            By using the platform, you agree to the collection and use of information in accordance with this policy. We prioritize transparency and empower you with full control over your data.
+                         </p>
+                     </div>
+                  </div>
 
-                 <div id="data-collection" className="prose prose-red max-w-none scroll-mt-32">
-                    <h2 className="text-3xl font-black mb-8 tracking-tight flex items-center gap-3 italic text-gray-900 uppercase">
-                       <span className="text-red-600">02.</span> Information We Collect
-                    </h2>
-                    <p className="text-gray-600 leading-relaxed text-sm mb-8 italic italic font-medium">
-                       To facilitate life-saving connections, we collect essential data point which include but are not limited to:
-                    </p>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 list-none p-0">
-                       {[
-                         { label: 'Identity Data', desc: 'Full name, blood group, and profile imagery.' },
-                         { label: 'Contact Data', desc: 'Phone number and email address for emergency notifications.' },
-                         { label: 'Medical Data', desc: 'Last donation date and self-declared health eligibility.' },
-                       ].map((item, i) => (
-                         <li key={i} className="flex gap-4 p-8 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm">
-                            <ChevronRight className="w-5 h-5 text-red-500 shrink-0 mt-1" />
-                            <div>
-                               <p className="font-bold text-gray-900 uppercase italic tracking-tighter">{item.label}</p>
-                               <p className="text-xs text-gray-500 italic mt-1">{item.desc}</p>
-                            </div>
-                         </li>
-                       ))}
-                    </ul>
-                 </div>
+                  {/* Section 02 */}
+                  <div id="data-collection" className="scroll-mt-32">
+                     <h2 className="text-2xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 dark:text-white uppercase leading-none">
+                        <span className="text-red-600">02.</span> Information We Collect
+                     </h2>
+                     <p className="text-gray-500 dark:text-gray-400 leading-relaxed text-[11px] mb-8 italic font-black uppercase tracking-widest">
+                        To facilitate life-saving connections, we collect essential data points.
+                     </p>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {[
+                          { label: 'Identity Data', desc: 'Full name, blood group, and verification imagery.' },
+                          { label: 'Contact Data', desc: 'Phone number and secure email for emergency alerts.' },
+                          { label: 'Medical Data', desc: 'Last donation date and health eligibility status.' },
+                          { label: 'Location Data', desc: 'City and zone for optimized donor matching.' },
+                        ].map((item, i) => (
+                          <div key={i} className="flex gap-4 p-8 bg-white dark:bg-white/5 rounded-[2.5rem] border border-gray-100 dark:border-white/10 shadow-sm hover:border-red-100 dark:hover:border-red-500/30 transition-all group backdrop-blur-[40px]">
+                             <ChevronRight className="w-5 h-5 text-red-500 mt-1 shrink-0" />
+                             <div>
+                                <p className="font-black text-gray-900 dark:text-white uppercase italic tracking-tighter text-sm mb-1">{item.label}</p>
+                                <p className="text-[10px] text-gray-400 dark:text-gray-500 italic font-medium leading-relaxed">{item.desc}</p>
+                             </div>
+                          </div>
+                        ))}
+                     </div>
+                  </div>
 
-                 <div id="security" className="prose prose-red max-w-none scroll-mt-32">
-                    <h2 className="text-3xl font-black mb-8 tracking-tight flex items-center gap-3 italic text-gray-900 uppercase">
-                       <span className="text-red-600">03.</span> Data Security
-                    </h2>
-                    {/* Refactored from bg-gray-900 */}
-                    <div className="p-12 bg-red-50 rounded-[4rem] text-gray-900 relative overflow-hidden group border border-red-100">
-                       <div className="relative z-10">
-                          <Lock className="w-12 h-12 text-red-500 mb-6 animate-bounce" />
-                          <h3 className="text-xl font-black uppercase italic tracking-tight mb-4 text-red-600">Encryption First Protocol</h3>
-                          <p className="text-base leading-relaxed italic font-bold opacity-80 max-w-2xl">
-                             "We implement industry-standard AES-256 encryption for all sensitive data stored in our databases. We never sell your personal information to third parties."
-                          </p>
-                       </div>
-                       <div className="absolute top-0 right-0 w-64 h-64 bg-white/40 rounded-full blur-[100px] -mr-32 -mt-32" />
-                    </div>
-                 </div>
+                  {/* Section 03 - High Impact Glass */}
+                  <div id="security" className="scroll-mt-32">
+                     <h2 className="text-2xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 dark:text-white uppercase leading-none">
+                        <span className="text-red-600">03.</span> Data Security
+                     </h2>
+                     <div className="p-12 bg-red-600 text-white rounded-[3.5rem] relative overflow-hidden group shadow-2xl shadow-red-600/20">
+                        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-8">
+                           <div className="w-20 h-20 bg-white/10 rounded-[1.5rem] flex items-center justify-center shrink-0 border border-white/20">
+                              <Lock className="w-10 h-10 text-white animate-pulse" />
+                           </div>
+                           <div>
+                              <h3 className="text-xl font-black uppercase italic tracking-widest mb-3">ENCRYPTION FIRST PROTOCOL</h3>
+                              <p className="text-sm leading-relaxed italic font-medium opacity-90 max-w-2xl">
+                                 We implement industry-standard AES-256 encryption for all sensitive data stored in our mission databases. We never sell your personal information to third parties.
+                              </p>
+                           </div>
+                        </div>
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/[0.05] rounded-full blur-[100px] -mr-32 -mt-32" />
+                     </div>
+                  </div>
 
-                 <div id="rights" className="prose prose-red max-w-none scroll-mt-32">
-                    <h2 className="text-3xl font-black mb-8 tracking-tight flex items-center gap-3 italic text-gray-900 uppercase">
-                       <span className="text-red-600">04.</span> Your Data Rights
-                    </h2>
-                    <div className="p-8 bg-white rounded-[3rem] border border-gray-100 shadow-sm italic">
-                        <p className="text-gray-600 leading-relaxed text-sm italic">
-                           Under the modern data protection laws, you have the right to access, rectify, or erase your personal data. You can perform these actions directly from your account dashboard or by contacting our support team at <span className="text-red-600 font-bold hover:underline cursor-pointer">privacy@roktolagbe.com</span>.
-                        </p>
-                    </div>
-                 </div>
-              </div>
+                  {/* Section 04 */}
+                  <div id="rights" className="scroll-mt-32">
+                     <h2 className="text-2xl font-black mb-8 tracking-tighter flex items-center gap-4 italic text-gray-900 dark:text-white uppercase leading-none">
+                        <span className="text-red-600">04.</span> Your Data Rights
+                     </h2>
+                     <div className="p-10 rounded-[3rem] bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 shadow-sm backdrop-blur-[40px]">
+                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm italic">
+                            Under the modern data protection laws, you have the right to access, rectify, or erase your personal data. You can perform these actions directly from your account dashboard or by contacting our support team at <span className="text-red-600 font-black hover:underline cursor-pointer italic px-1">privacy@roktolagbe.com</span>.
+                         </p>
+                     </div>
+                  </div>
+               </div>
 
-           </div>
+            </div>
         </div>
       </section>
 
-      {/* Quick Contact CTA */}
+      {/* 3. Global Call to Action */}
       <CTASection 
         title="HAVE PRIVACY QUESTIONS?"
-        subtitle="If you have any questions about our data practices, our privacy hero is here to help. Your security is our highest priority."
+        subtitle="If you have any questions about our data practices, our privacy hero is here to help."
         primaryBtnText="CONTACT SUPPORT"
         primaryBtnLink="/contact"
         secondaryBtnText="LEGAL TERMS"
         secondaryBtnLink="/terms"
       />
-    </div>
+    </main>
   );
 }

@@ -27,49 +27,52 @@ export default function DonorSettingsPage() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="max-w-4xl mx-auto px-6 py-12 pb-40 space-y-20 italic">
       {/* Header */}
-      <div className="flex items-center gap-4 mb-16 animate-fade-in">
-         <div className="w-16 h-16 bg-gray-50 text-gray-900 rounded-[2rem] flex items-center justify-center shadow-2xl shadow-gray-200/50 border border-gray-100">
-            <Settings className="w-8 h-8" />
+      <div className="flex items-center gap-6 animate-in fade-in slide-in-from-left-8 duration-1000">
+         <div className="w-16 h-16 bg-gray-50/20 dark:bg-white/[0.02] backdrop-blur-[40px] text-gray-900 dark:text-white rounded-[2rem] flex items-center justify-center shadow-sm border border-gray-100 dark:border-white/10">
+            <Settings className="w-8 h-8 text-red-600" />
          </div>
-         <div>
-            <h1 className="text-3xl font-black text-gray-900 tracking-tight italic uppercase">Account Settings</h1>
-            <p className="text-gray-400 text-sm font-bold tracking-widest uppercase italic border-r-4 border-red-500 pr-4 inline-block">Configuration</p>
+         <div className="space-y-1">
+            <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter italic uppercase leading-none">Command Center</h1>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] italic leading-none">Account Configuration</p>
          </div>
       </div>
 
-      <div className="space-y-12">
+      <div className="space-y-16">
         {settingsGroups.map((group, groupIdx) => (
-          <section key={groupIdx} className="animate-fade-in" style={{ animationDelay: `${groupIdx * 100}ms` }}>
+          <section key={groupIdx} className="animate-in fade-in slide-in-from-bottom-8 duration-1000" style={{ animationDelay: `${groupIdx * 150}ms` }}>
              <div className="flex items-center gap-4 mb-8">
-                <div className="p-3 bg-white rounded-2xl shadow-sm border border-gray-50">
-                   {group.icon}
+                <div className="p-3 bg-red-50 dark:bg-red-500/10 rounded-2xl border border-red-100 dark:border-red-500/20">
+                   {/* Wrap icon to handle coloring */}
+                   <div className="text-red-600">
+                      {group.icon}
+                   </div>
                 </div>
-                <h2 className="text-xl font-black text-gray-900 uppercase tracking-tight italic">{group.title}</h2>
+                <h2 className="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-tighter italic">{group.title}</h2>
              </div>
 
-             <div className="glass rounded-[3rem] border-gray-100 bg-white overflow-hidden shadow-xl shadow-gray-200/20">
+             <div className="bg-gray-50/20 dark:bg-white/[0.02] backdrop-blur-[40px] rounded-[3rem] border border-gray-100 dark:border-white/[0.08] overflow-hidden shadow-sm">
                 {group.items.map((item, itemIdx) => (
-                  <div key={itemIdx} className="p-8 border-b border-gray-50 last:border-0 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group hover:bg-red-50/5 transition-colors">
-                     <div className="flex-1">
-                        <h3 className="font-bold text-gray-900 uppercase italic tracking-tight flex items-center gap-2 group-hover:text-red-500 transition-colors">
+                  <div key={itemIdx} className="p-10 border-b border-gray-50 dark:border-white/[0.05] last:border-0 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 group hover:bg-white/50 dark:hover:bg-white/5 transition-all duration-500 relative overflow-hidden">
+                     <div className="flex-1 relative z-10">
+                        <h3 className="text-sm font-black text-gray-900 dark:text-gray-100 uppercase italic tracking-widest flex items-center gap-3">
                            {item.label}
-                           {'status' in item && item.status && <span className="text-[8px] font-black bg-gray-100 text-gray-400 px-2 py-0.5 rounded-full uppercase italic tracking-widest ml-2">{item.status}</span>}
+                           {'status' in item && item.status && <span className="text-[7px] font-black bg-red-50 dark:bg-red-500/10 text-red-600 px-3 py-1 rounded-full uppercase italic tracking-[0.2em]">{item.status}</span>}
                         </h3>
-                        <p className="text-sm text-gray-500 italic mt-1">{item.desc}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 italic mt-2 font-medium leading-relaxed max-w-lg">{item.desc}</p>
                      </div>
                      
-                     <div className="shrink-0 w-full md:w-auto">
+                     <div className="shrink-0 w-full md:w-auto relative z-10">
                         {'toggle' in item && item.toggle ? (
                           <label className="relative inline-flex items-center cursor-pointer group/toggle">
                              <input type="checkbox" defaultChecked={item.checked} className="sr-only peer" />
-                             <div className="w-14 h-8 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-500 transition-all"></div>
+                             <div className="w-16 h-8 bg-gray-200 dark:bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-600 transition-all duration-500 shadow-inner"></div>
                           </label>
                         ) : 'action' in item ? (
-                          <button className="bg-gray-50 border border-gray-100 text-gray-900 px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white hover:border-red-500 transition-all flex items-center gap-2">
+                          <button className="bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 text-gray-900 dark:text-white px-10 py-4 rounded-2xl text-[9px] font-black uppercase tracking-[0.3em] hover:bg-red-600 hover:text-white hover:border-red-600 dark:hover:bg-red-600 transition-all flex items-center gap-4 italic shadow-sm hover:shadow-xl hover:shadow-red-600/20">
                              {item.action}
-                             <ChevronRight className="w-3 h-3" />
+                             <ChevronRight className="w-4 h-4" />
                           </button>
                         ) : null}
                      </div>
@@ -80,23 +83,23 @@ export default function DonorSettingsPage() {
         ))}
 
         {/* Danger Zone */}
-        <section className="pt-8 animate-fade-in" style={{ animationDelay: '300ms' }}>
+        <section className="pt-12 animate-in fade-in slide-in-from-bottom-8 duration-1000" style={{ animationDelay: '450ms' }}>
            <div className="flex items-center gap-4 mb-8">
-              <div className="p-3 bg-red-50 rounded-2xl shadow-sm border border-red-100">
-                 <Trash2 className="w-5 h-5 text-red-600" />
+              <div className="p-3 bg-red-100 dark:bg-red-500/20 rounded-2xl border border-red-200 dark:border-red-500/40">
+                 <Trash2 className="w-6 h-6 text-red-600" />
               </div>
-              <h2 className="text-xl font-black text-red-600 uppercase tracking-tight italic">Danger Zone</h2>
+              <h2 className="text-2xl font-black text-red-600 uppercase tracking-tighter italic">Termination Protocol</h2>
            </div>
 
-           <div className="p-8 md:p-12 rounded-[3.5rem] bg-red-50/30 border-2 border-dashed border-red-200 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(239,68,68,0.05)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-              <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
-                 <div className="text-center md:text-left">
-                    <h3 className="text-xl font-black text-gray-900 mb-2 italic">Delete Donor Account</h3>
-                    <p className="text-sm text-gray-500 italic max-w-md">Once you delete your account, there is no going back. All your donation history and points will be permanently erased.</p>
+           <div className="p-12 md:p-16 rounded-[4rem] bg-gray-50/30 dark:bg-red-500/[0.01] border-2 border-dashed border-red-200 dark:border-red-500/20 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.05)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+              <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-10">
+                 <div className="text-center md:text-left space-y-4">
+                    <h3 className="text-2xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">Deactivate Identity</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 italic max-w-md leading-relaxed font-medium">Once initiated, this protocol is irreversible. All donation history, merit badges, and matrix credits will be permanently purged from the global network.</p>
                  </div>
-                 <button className="bg-red-600 text-white px-10 py-5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-gray-900 transition-all shadow-xl shadow-red-600/20 whitespace-nowrap italic">
-                    Delete Account
+                 <button className="bg-red-600 text-white px-12 py-6 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] hover:bg-black dark:hover:bg-white dark:hover:text-red-600 transition-all shadow-2xl shadow-red-600/30 whitespace-nowrap italic active:scale-95">
+                    Execute Purge
                  </button>
               </div>
            </div>

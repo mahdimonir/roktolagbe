@@ -101,60 +101,60 @@ export default function AdminUsersPage() {
   const userData = userDetail?.data;
 
   if (isLoading) return (
-    <div className="min-h-[60vh] flex flex-col justify-center items-center">
-       <div className="w-12 h-12 border-4 border-red-50 border-t-red-600 rounded-full animate-spin"></div>
-       <p className="mt-4 text-[10px] font-black text-gray-400 uppercase tracking-widest animate-pulse italic">Loading users...</p>
+    <div className="min-h-[60vh] flex flex-col justify-center items-center bg-white dark:bg-[#0a0a0d] italic">
+       <div className="w-16 h-16 border-4 border-red-50 dark:border-red-500/20 border-t-red-600 rounded-full animate-spin"></div>
+       <p className="mt-8 text-[11px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest animate-pulse italic">Scanning user database...</p>
     </div>
   );
 
   return (
-    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20 px-4 md:px-0 italic">
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-40 px-4 md:px-0 italic">
       {/* Header */}
-      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-8">
-         <div className="flex items-center gap-5">
-            <div className="w-16 h-16 bg-white rounded-[1.5rem] flex items-center justify-center shadow-xl border border-gray-50 text-red-600">
-               <Shield className="w-8 h-8" />
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-12 bg-gray-50/20 dark:bg-white/[0.02] backdrop-blur-[40px] p-12 lg:p-14 rounded-[3.5rem] border border-gray-100 dark:border-white/[0.08] shadow-sm italic">
+         <div className="flex items-center gap-8">
+            <div className="w-20 h-20 bg-red-600 rounded-[2rem] flex items-center justify-center shadow-2xl shadow-red-600/30 text-white italic">
+               <Shield className="w-10 h-10" />
             </div>
-            <div>
-               <h1 className="text-4xl font-black text-gray-900 tracking-tight italic uppercase italic leading-none">User Management</h1>
-               <p className="text-gray-400 font-bold tracking-widest uppercase text-[10px] mt-2 bg-gray-100 px-3 py-1 rounded-full inline-block italic">Manage all platform users and roles</p>
+            <div className="space-y-2">
+               <h1 className="text-4xl lg:text-5xl font-black text-gray-900 dark:text-white tracking-tighter italic uppercase leading-none">Intelligence</h1>
+               <p className="text-[9px] text-gray-400 dark:text-gray-500 font-black tracking-[0.3em] uppercase italic bg-white dark:bg-white/5 px-5 py-2 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm">GLOBAL USER REGISTRY</p>
             </div>
          </div>
 
          <div className="flex flex-wrap gap-4 w-full xl:w-auto">
             <button 
                onClick={handleExport}
-               className="flex-1 xl:flex-none px-8 py-4 bg-white text-gray-900 border-2 border-gray-100 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-gray-50 transition-all shadow-sm italic"
+               className="flex-1 xl:flex-none px-10 py-5 bg-white dark:bg-white/5 text-gray-900 dark:text-white border border-gray-100 dark:border-white/10 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-gray-50 dark:hover:bg-red-600 transition-all shadow-sm italic active:scale-95"
             >
-               <Download size={14} className="text-red-600" /> Export CSV
+               <Download size={16} className="text-red-600 dark:text-inherit" /> PORT LOGS
             </button>
             <button 
                onClick={() => setIsAdding(true)}
-               className="flex-1 xl:flex-none px-8 py-4 bg-gray-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-red-600 transition-all shadow-xl active:scale-95 italic"
+               className="flex-1 xl:flex-none px-10 py-5 bg-gray-900 dark:bg-white text-white dark:text-black rounded-2xl text-[9px] font-black uppercase tracking-[0.25em] flex items-center justify-center gap-4 hover:bg-red-600 transition-all shadow-2xl active:scale-95 italic"
             >
-               <User size={16} /> Add New User
+               <User size={18} /> INITIALIZE USER
             </button>
          </div>
       </div>
 
       {/* Control Module */}
-      <div className="bg-white p-4 rounded-[2.5rem] border border-gray-100 shadow-sm flex flex-col xl:flex-row gap-4 items-center">
-        <div className="relative group flex-1 w-full">
-           <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-red-600 transition-colors" size={20} />
+      <div className="bg-gray-50/20 dark:bg-white/[0.02] backdrop-blur-[40px] p-6 rounded-[2.5rem] border border-gray-100 dark:border-white/[0.08] shadow-sm flex flex-col xl:flex-row gap-6 items-center italic">
+        <div className="relative group flex-1 w-full italic">
+           <Search className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600 group-focus-within:text-red-600 transition-colors" size={20} />
            <input 
              type="text" 
-             placeholder="Search users by email or ID..." 
-             className="w-full bg-gray-50 border border-transparent rounded-[1.8rem] py-4 pl-16 pr-8 outline-none font-bold italic text-sm focus:bg-white focus:border-red-600 focus:ring-4 focus:ring-red-600/5 transition-all shadow-inner placeholder:text-gray-400"
+             placeholder="SCANNING BY IDENTITY..." 
+             className="w-full bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-[1.8rem] py-5 pl-16 pr-10 outline-none font-black italic text-[11px] uppercase tracking-[0.2em] focus:border-red-600 focus:ring-8 focus:ring-red-600/5 transition-all shadow-sm placeholder:text-gray-400 dark:placeholder:text-gray-700"
              value={searchTerm}
              onChange={(e) => setSearchTerm(e.target.value)}
            />
         </div>
-        <div className="flex bg-gray-50 p-1.5 rounded-[1.8rem] border border-gray-100 w-full xl:w-auto shadow-inner overflow-x-auto no-scrollbar">
+        <div className="flex bg-white dark:bg-white/5 p-2 rounded-[2rem] border border-gray-100 dark:border-white/10 w-full xl:w-auto shadow-sm overflow-x-auto no-scrollbar italic">
            {['ALL', 'DONOR', 'MANAGER', 'ADMIN'].map((r) => (
              <button 
                key={r}
                onClick={() => { setRoleFilter(r); setPage(1); }}
-               className={`px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${roleFilter === r ? 'bg-gray-900 text-white shadow-xl italic' : 'text-gray-400 hover:text-gray-900'}`}
+               className={`px-8 py-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap italic ${roleFilter === r ? 'bg-red-600 text-white shadow-xl shadow-red-600/20' : 'text-gray-400 dark:text-gray-600 hover:text-gray-900 dark:hover:text-white'}`}
              >
                 {r}
              </button>
@@ -163,95 +163,95 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Users List */}
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 gap-10">
         {users.length > 0 ? (
           users.map((user: UserType) => (
             <div 
               key={user.id} 
-              className="bg-white p-8 rounded-[3rem] border border-gray-100 hover:shadow-2xl transition-all duration-500 group flex flex-col lg:flex-row items-center gap-10 relative overflow-hidden"
+              className="bg-gray-50/20 dark:bg-white/[0.02] backdrop-blur-[40px] p-10 lg:p-12 rounded-[3.5rem] border border-gray-100 dark:border-white/[0.08] hover:bg-white dark:hover:bg-white/[0.05] transition-all duration-700 group flex flex-col lg:flex-row items-center gap-12 relative overflow-hidden italic"
             >
-               <div className={`shrink-0 w-20 h-20 rounded-[1.2rem] flex items-center justify-center border-2 transition-all duration-500 ${!user.isActive ? 'bg-red-50 border-red-100 text-red-600 shadow-sm' : 'bg-gray-50 border-gray-50 text-gray-400 group-hover:bg-red-50 group-hover:border-red-100 group-hover:text-red-600 shadow-sm'}`}>
-                  {user.role === 'ADMIN' ? <ShieldCheck size={32} /> : user.role === 'MANAGER' ? <Building2 size={32} /> : <User size={32} />}
+               <div className={`shrink-0 w-24 h-24 rounded-[1.8rem] flex items-center justify-center border transition-all duration-700 shadow-2xl ${!user.isActive ? 'bg-red-500/10 border-red-500/20 text-red-600' : 'bg-white dark:bg-white/5 border-gray-100 dark:border-white/10 text-gray-400 dark:text-gray-600 group-hover:border-red-500/20 group-hover:text-red-600 italic'}`}>
+                  {user.role === 'ADMIN' ? <ShieldCheck size={40} /> : user.role === 'MANAGER' ? <Building2 size={40} /> : <User size={40} />}
                </div>
 
-               <div className="flex-1 w-full text-center lg:text-left min-w-0">
-                  <div className="flex items-center gap-3 justify-center lg:justify-start mb-4">
-                     <span className={`text-[8px] font-black px-4 py-1.5 rounded-lg uppercase italic tracking-widest shadow-sm ${user.role === 'ADMIN' ? 'bg-red-600 text-white' : user.role === 'MANAGER' ? 'bg-blue-600 text-white' : 'bg-gray-900 text-white'}`}>
+               <div className="flex-1 w-full text-center lg:text-left min-w-0 italic">
+                  <div className="flex items-center gap-3 justify-center lg:justify-start mb-6 italic">
+                     <span className={`text-[8px] font-black px-6 py-2 rounded-xl uppercase italic tracking-[0.3em] shadow-lg border ${user.role === 'ADMIN' ? 'bg-red-600 text-white border-red-600' : user.role === 'MANAGER' ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-900 dark:bg-white text-white dark:text-black border-gray-900 dark:border-white'}`}>
                         {user.role}
                      </span>
                      {!user.isActive && (
-                        <span className="bg-red-50 text-red-600 text-[8px] font-black px-4 py-1.5 rounded-lg uppercase italic tracking-widest border border-red-100 animate-pulse">
-                           Account Banned
+                        <span className="bg-red-600/10 text-red-600 border border-red-600/20 text-[8px] font-black px-6 py-2 rounded-xl uppercase italic tracking-[0.3em] animate-pulse">
+                           SYSTEM BANNED
                         </span>
                       )}
                   </div>
-                  <h3 className="text-2xl font-black text-gray-900 italic tracking-tighter uppercase truncate leading-none mb-3 group-hover:text-red-600 transition-colors">
+                  <h3 className="text-3xl font-black text-gray-900 dark:text-white italic tracking-tighter uppercase truncate leading-none mb-6 group-hover:text-red-600 transition-colors">
                      {user.email}
                   </h3>
-                  <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-[10px] font-black text-gray-400 uppercase tracking-widest italic font-mono">
-                     <span className="flex items-center gap-2"><Phone size={14} className="text-red-500" /> {user.phone || 'No phone'}</span>
-                     <span className="flex items-center gap-2"><Clock size={14} className="text-gray-300" /> JOINED: {new Date(user.createdAt).toLocaleDateString()}</span>
+                  <div className="flex flex-wrap items-center justify-center lg:justify-start gap-10 text-[9px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.25em] italic">
+                     <span className="flex items-center gap-3"><Phone size={16} className="text-red-600" /> {user.phone || 'NO SECURE LINE'}</span>
+                     <span className="flex items-center gap-3"><Clock size={16} /> LOGGED: {new Date(user.createdAt).toLocaleDateString()}</span>
                   </div>
                </div>
 
-               <div className="flex items-center gap-4 w-full lg:w-auto shrink-0 border-t lg:border-t-0 lg:border-l border-gray-50 pt-8 lg:pt-0 lg:pl-10">
+               <div className="flex items-center gap-6 w-full lg:w-auto shrink-0 border-t lg:border-t-0 lg:border-l border-gray-100 dark:border-white/5 pt-10 lg:pt-0 lg:pl-12 italic">
                   <button 
                     onClick={() => setSelectedUser(user)}
-                    className="flex-1 lg:w-52 py-4.5 bg-gray-50 text-gray-900 text-[10px] font-black uppercase tracking-widest rounded-2xl hover:bg-gray-900 hover:text-white transition-all shadow-sm border border-gray-100 italic flex items-center justify-center gap-3"
+                    className="flex-1 lg:w-60 py-5 bg-white dark:bg-white/5 text-gray-900 dark:text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-[1.8rem] hover:bg-gray-900 dark:hover:bg-red-600 hover:text-white transition-all shadow-sm border border-gray-100 dark:border-white/10 italic flex items-center justify-center gap-4 active:scale-95"
                   >
-                     View Profile <ChevronRight size={16} />
+                     OPEN DOSSIER <ChevronRight size={18} />
                   </button>
                   <button 
                     disabled={user.role === 'ADMIN' || isBanning}
                     onClick={() => toggleBan(user.id)}
-                    className={`p-4 rounded-xl transition-all active:scale-90 border ${!user.isActive ? 'bg-green-600 text-white border-green-500 shadow-xl shadow-green-600/20' : 'bg-red-50 text-red-600 hover:bg-red-600 hover:text-white border-red-100 shadow-xl shadow-red-600/5 disabled:opacity-30'}`}
+                    className={`p-5 rounded-2xl transition-all active:scale-90 border shadow-2xl ${!user.isActive ? 'bg-green-600 text-white border-green-500 shadow-green-600/20' : 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-500 hover:bg-red-600 hover:text-white border-red-100 dark:border-red-500/20 shadow-red-600/5 disabled:opacity-30'}`}
                   >
-                     {!user.isActive ? <UserCheck size={20} /> : <Ban size={20} />}
+                     {!user.isActive ? <UserCheck size={24} /> : <Ban size={24} />}
                   </button>
                </div>
             </div>
           ))
         ) : (
-          <div className="py-48 text-center bg-gray-50 rounded-[4rem] border-4 border-dashed border-gray-200">
-             <ShieldAlert size={64} className="mx-auto text-gray-200 mb-8" />
-             <h3 className="text-3xl font-black text-gray-900 uppercase italic tracking-tighter">No users found</h3>
-             <p className="text-gray-400 italic text-[11px] font-black uppercase tracking-widest mt-3">Try resetting filters or searching for someone else.</p>
+          <div className="py-60 text-center bg-gray-50/20 dark:bg-white/[0.02] backdrop-blur-[40px] rounded-[4rem] border-4 border-dashed border-gray-200 dark:border-white/5 italic">
+             <ShieldAlert size={80} className="mx-auto text-gray-200 dark:text-gray-800 mb-10 animate-pulse" />
+             <h3 className="text-4xl font-black text-gray-900 dark:text-white uppercase italic tracking-tighter">Negative Detection</h3>
+             <p className="text-gray-400 dark:text-gray-600 italic text-[10px] font-black uppercase tracking-[0.4em] mt-6">NO AGENTS MATCHING SEARCH PARAMETERS</p>
           </div>
         )}
       </div>
 
       {/* Pagination */}
       {meta && meta.totalPages > 1 && (
-        <div className="flex justify-between items-center bg-gray-900 p-8 rounded-[3rem] text-white shadow-2xl relative overflow-hidden group">
-           <div className="flex items-center gap-6 relative z-10">
-              <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-red-600 border border-white/10">
-                 <Users size={20} />
+        <div className="flex justify-between items-center bg-gray-900 dark:bg-white/[0.05] p-10 rounded-[4rem] text-white shadow-2xl relative overflow-hidden group border border-white/5 italic">
+           <div className="flex items-center gap-8 relative z-10">
+              <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-red-600 border border-white/10 shadow-inner">
+                 <Users size={24} />
               </div>
-              <div>
-                 <p className="text-[10px] font-black uppercase tracking-widest text-red-500 italic">Platform Users</p>
-                 <p className="text-xs font-bold text-gray-400 leading-none mt-1">{meta.total} Total Users</p>
+              <div className="space-y-1">
+                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-red-500 italic">PLATFORM AGENTS</p>
+                 <p className="text-[11px] font-black uppercase tracking-tighter text-gray-400">{meta.total} ENTRIES RECORDED</p>
               </div>
            </div>
 
-           <div className="flex items-center gap-8 relative z-10">
+           <div className="flex items-center gap-10 relative z-10">
               <button 
                 disabled={page === 1}
                 onClick={() => setPage(p => p - 1)}
-                className="p-4 bg-white/5 rounded-xl text-white hover:bg-red-600 transition-all disabled:opacity-20 active:scale-95 border border-white/5 italic font-black text-[10px] uppercase tracking-widest"
+                className="px-8 py-4 bg-white/5 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] text-white hover:bg-red-600 transition-all disabled:opacity-20 active:scale-95 border border-white/5 italic"
               >
-                Previous
+                PREVIOUS
               </button>
-              <div className="text-center">
-                 <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest leading-none mb-2">Page Index</p>
-                 <span className="text-2xl font-black italic uppercase tracking-tighter">PAGE {page}</span>
-                 <p className="text-[8px] font-black text-gray-600 uppercase tracking-widest mt-2 italic">OF {meta.totalPages}</p>
+              <div className="text-center italic">
+                 <p className="text-[8px] font-black text-gray-600 uppercase tracking-[0.4em] mb-2">INDEX</p>
+                 <span className="text-3xl font-black italic uppercase tracking-tighter text-white">{page}</span>
+                 <p className="text-[9px] font-black text-gray-600 uppercase tracking-[0.2em] mt-2 italic">OF {meta.totalPages}</p>
               </div>
               <button 
                 disabled={page === meta.totalPages}
                 onClick={() => setPage(p => p + 1)}
-                className="p-4 bg-white/5 rounded-xl text-white hover:bg-red-600 transition-all disabled:opacity-20 active:scale-95 border border-white/5 italic font-black text-[10px] uppercase tracking-widest"
+                className="px-8 py-4 bg-white/5 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] text-white hover:bg-red-600 transition-all disabled:opacity-20 active:scale-95 border border-white/5 italic"
               >
-                Next
+                NEXT
               </button>
            </div>
         </div>
@@ -260,104 +260,109 @@ export default function AdminUsersPage() {
       {/* User Detail Drawer */}
       {selectedUser && (
         <>
-          <div className="fixed inset-0 bg-gray-900/40 backdrop-blur-3xl z-[100] transition-all duration-500" onClick={() => setSelectedUser(null)} />
-          <div className="fixed top-0 right-0 h-screen w-full md:w-[45rem] bg-white z-[110] shadow-2xl p-0 flex flex-col animate-in slide-in-from-right duration-700">
-             <div className="p-10 border-b border-gray-50 flex items-center justify-between shrink-0">
-                <div className="flex items-center gap-5">
-                   <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center text-red-600 shadow-xl">
-                      <Shield size={22} />
+          <div className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-[60px] z-[100] transition-all duration-700" onClick={() => setSelectedUser(null)} />
+          <div className="fixed top-0 right-0 h-screen w-full md:w-[50rem] bg-white dark:bg-[#0a0a0d] z-[110] shadow-2xl p-0 flex flex-col animate-in slide-in-from-right duration-1000 border-l border-gray-100 dark:border-white/5 italic">
+             <div className="p-10 lg:p-12 border-b border-gray-100 dark:border-white/5 flex items-center justify-between shrink-0 italic">
+                <div className="flex items-center gap-6 italic">
+                   <div className="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-2xl shadow-red-600/30">
+                      <Shield size={26} />
                    </div>
-                   <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 italic">User Profile Analysis</p>
+                   <div className="space-y-1">
+                      <h2 className="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-tighter italic leading-none">Intelligence</h2>
+                      <p className="text-[8px] font-black uppercase tracking-[0.4em] text-gray-400 dark:text-gray-600 italic">CORE PROFILE ANALYSIS</p>
+                   </div>
                 </div>
-                <button onClick={() => setSelectedUser(null)} className="p-4 hover:bg-red-50 hover:text-red-600 text-gray-400 rounded-xl transition-all active:scale-90">
-                   <X size={22} />
+                <button onClick={() => setSelectedUser(null)} className="p-5 hover:bg-red-50 dark:hover:bg-red-600/10 hover:text-red-600 text-gray-400 dark:text-gray-700 rounded-2xl transition-all active:scale-90 italic">
+                   <X size={26} />
                 </button>
              </div>
 
-             <div className="flex-1 overflow-y-auto custom-scrollbar p-12 space-y-16">
+             <div className="flex-1 overflow-y-auto no-scrollbar p-12 lg:p-16 space-y-16 italic">
                 {isDetailLoading ? (
-                   <div className="h-full flex flex-col items-center justify-center space-y-8 animate-pulse text-gray-400">
-                     <Loader2 size={48} className="text-red-600 animate-spin" />
-                     <p className="text-[11px] font-black uppercase tracking-widest italic">Loading profile data...</p>
+                   <div className="h-full flex flex-col items-center justify-center space-y-10 animate-pulse text-gray-400 dark:text-gray-700 italic">
+                     <Loader2 size={60} className="text-red-600 animate-spin" />
+                     <p className="text-[12px] font-black uppercase tracking-[0.4em] italic leading-none">RETRIEVING ENCRYPTED DATA...</p>
                    </div>
                 ) : (
                   <>
-                    <div className="flex flex-col items-center text-center space-y-8 bg-gray-900 rounded-[4rem] p-16 text-white relative overflow-hidden shadow-2xl">
-                       <div className="relative z-10 w-36 h-36 bg-white p-2 rounded-[3.5rem] shadow-2xl">
-                          <div className="w-full h-full bg-red-50 rounded-[3rem] flex items-center justify-center text-red-600 overflow-hidden font-black italic text-5xl border-2 border-red-100">
+                    <div className="flex flex-col items-center text-center space-y-10 bg-gray-900 dark:bg-white/[0.03] backdrop-blur-[40px] rounded-[4.5rem] p-16 lg:p-20 text-white relative overflow-hidden shadow-2xl border border-white/5 italic">
+                       <div className="absolute top-0 right-0 w-80 h-80 bg-red-600/[0.05] rounded-full blur-[100px]"></div>
+                       <div className="relative z-10 w-44 h-44 bg-white dark:bg-white/10 p-2.5 rounded-[4rem] shadow-2xl border border-white/10">
+                          <div className="w-full h-full bg-red-50 dark:bg-black rounded-[3.5rem] flex items-center justify-center text-red-600 overflow-hidden font-black italic text-6xl border-2 border-red-100 dark:border-white/10">
                              {userData?.donorProfile?.profileImage || userData?.managerProfile?.logoUrl ? (
                                <img src={userData?.donorProfile?.profileImage || userData?.managerProfile?.logoUrl} className="w-full h-full object-cover" />
                              ) : (userData?.donorProfile?.name || userData?.email)?.slice(0, 1).toUpperCase()}
                           </div>
                        </div>
-                       <div className="relative z-10">
-                          <h2 className="text-4xl font-black italic uppercase tracking-tighter mb-4 leading-tight">{userData?.donorProfile?.name || userData?.managerProfile?.name || userData?.email}</h2>
-                          <div className="flex items-center justify-center gap-4">
-                             <span className={`text-[10px] font-black px-6 py-2 rounded-xl uppercase italic tracking-widest shadow-lg ${userData?.role === 'ADMIN' ? 'bg-red-600' : userData?.role === 'MANAGER' ? 'bg-blue-600' : 'bg-green-600'} text-white`}>{userData?.role}</span>
-                             <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest bg-white/5 px-6 py-2 rounded-xl border border-white/10 font-mono italic">ID: #{userData?.id?.slice(-8).toUpperCase()}</span>
+                       <div className="relative z-10 space-y-6">
+                          <h2 className="text-4xl lg:text-6xl font-black italic uppercase tracking-tighter leading-none">{userData?.donorProfile?.name || userData?.managerProfile?.name || userData?.email}</h2>
+                          <div className="flex items-center justify-center gap-5">
+                             <span className={`text-[10px] font-black px-8 py-3 rounded-2xl uppercase italic tracking-[0.3em] shadow-2xl ${userData?.role === 'ADMIN' ? 'bg-red-600' : userData?.role === 'MANAGER' ? 'bg-blue-600' : 'bg-green-600'} text-white`}>{userData?.role}</span>
+                             <span className="text-[10px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.4em] bg-white/5 px-8 py-3 rounded-2xl border border-white/10 font-mono italic shadow-inner">ID: #{userData?.id?.slice(-8).toUpperCase()}</span>
                           </div>
                        </div>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-6">
-                       <div className="bg-gray-50 p-8 rounded-[2.5rem] text-center border border-gray-100 shadow-inner group transition-all hover:bg-white">
-                          <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-4 italic group-hover:text-red-600 transition-colors">Donation Points</p>
-                          <p className="text-3xl font-black italic tracking-tighter text-gray-900">{userData?.donorProfile?.points || 0} <span className="text-[10px] uppercase text-gray-400">PTS</span></p>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 italic">
+                       <div className="bg-gray-50/50 dark:bg-white/[0.02] p-10 rounded-[3rem] text-center border border-gray-100 dark:border-white/5 shadow-sm group transition-all hover:bg-white dark:hover:bg-white/5 italic">
+                          <p className="text-[9px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.3em] mb-6 italic group-hover:text-red-600 transition-colors">CREDITS</p>
+                          <p className="text-4xl font-black italic tracking-tighter text-gray-900 dark:text-white leading-none">{userData?.donorProfile?.points || 0}</p>
                        </div>
-                       <div className="bg-gray-50 p-8 rounded-[2.5rem] text-center border border-gray-100 shadow-inner group transition-all hover:bg-white">
-                          <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-4 italic group-hover:text-red-600 transition-colors">Lives Impacted</p>
-                          <p className="text-3xl font-black italic tracking-tighter text-gray-900">{userData?.donorProfile?.totalDonations || 0}</p>
+                       <div className="bg-gray-50/50 dark:bg-white/[0.02] p-10 rounded-[3rem] text-center border border-gray-100 dark:border-white/5 shadow-sm group transition-all hover:bg-white dark:hover:bg-white/5 italic">
+                          <p className="text-[9px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.3em] mb-6 italic group-hover:text-red-600 transition-colors">IMPACT</p>
+                          <p className="text-4xl font-black italic tracking-tighter text-gray-900 dark:text-white leading-none">{userData?.donorProfile?.totalDonations || 0}</p>
                        </div>
-                       <div className="bg-gray-50 p-8 rounded-[2.5rem] text-center border border-gray-100 shadow-inner group transition-all hover:bg-white">
-                          <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-4 italic group-hover:text-red-600 transition-colors">Account Status</p>
-                          <p className={`text-xl font-black italic tracking-widest italic ${userData?.isActive ? 'text-green-600' : 'text-red-600'}`}>{userData?.isActive ? 'ACTIVE' : 'BANNED'}</p>
+                       <div className="bg-gray-50/50 dark:bg-white/[0.02] p-10 rounded-[3rem] text-center border border-gray-100 dark:border-white/5 shadow-sm group transition-all hover:bg-white dark:hover:bg-white/5 italic">
+                          <p className="text-[9px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.3em] mb-6 italic group-hover:text-red-600 transition-colors">STATUS</p>
+                          <p className={`text-xl font-black italic tracking-[0.3em] ${userData?.isActive ? 'text-green-600' : 'text-red-600'}`}>{userData?.isActive ? 'NOMINAL' : 'INACTIVE'}</p>
                        </div>
                     </div>
 
-                    <div className="space-y-8">
-                       <h4 className="text-[11px] font-black uppercase tracking-widest text-gray-400 border-b border-gray-100 pb-5 italic">Contact Information</h4>
-                       <div className="grid grid-cols-1 gap-4">
-                          <div className="flex items-center justify-between p-8 bg-white border border-gray-100 rounded-[2.5rem] shadow-xl group hover:border-red-100 transition-all">
-                             <div className="flex items-center gap-6">
-                                <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-red-600 border border-gray-100 group-hover:bg-red-600 group-hover:text-white transition-all">
-                                   <Mail size={20} />
+                    <div className="space-y-10 italic">
+                       <h4 className="text-[12px] font-black uppercase tracking-[0.4em] text-gray-400 dark:text-gray-700 border-b border-gray-100 dark:border-white/5 pb-8 italic text-center lg:text-left">COMMUNICATIONS CHANNEL</h4>
+                       <div className="grid grid-cols-1 gap-6 italic">
+                          <div className="flex flex-col md:flex-row items-center justify-between p-10 bg-white dark:bg-white/[0.02] border border-gray-100 dark:border-white/5 rounded-[3.5rem] shadow-xl group hover:border-red-600 transition-all gap-8 italic">
+                             <div className="flex flex-col md:flex-row items-center gap-8 italic text-center md:text-left">
+                                <div className="w-16 h-16 bg-gray-50 dark:bg-white/5 rounded-2xl flex items-center justify-center text-red-600 border border-gray-100 dark:border-white/10 group-hover:bg-red-600 group-hover:text-white transition-all shadow-inner">
+                                   <Mail size={24} />
                                 </div>
                                 <div className="min-w-0">
-                                   <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">Email Address</p>
-                                   <span className="text-sm font-black text-gray-900 truncate block lowercase italic leading-none">{userData?.email}</span>
+                                   <p className="text-[9px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.3em] mb-2 italic">ENCRYPTED MAIL</p>
+                                   <span className="text-xl font-black text-gray-900 dark:text-white truncate block lowercase italic leading-none">{userData?.email}</span>
                                 </div>
                              </div>
-                             <button onClick={() => { if (userData?.email) { navigator.clipboard.writeText(userData.email); toast.success('Email Copied 📋'); } }} className="text-[9px] font-black uppercase tracking-widest bg-gray-100 text-gray-900 px-6 py-3 rounded-xl hover:bg-gray-900 hover:text-white transition-all italic">Copy</button>
+                             <button onClick={() => { if (userData?.email) { navigator.clipboard.writeText(userData.email); toast.success('Frequency Copied 📋'); } }} className="w-full md:w-auto px-10 py-5 bg-gray-900 dark:bg-white text-white dark:text-black rounded-[1.5rem] text-[10px] font-black uppercase tracking-[0.3em] hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-all italic active:scale-95 shadow-xl">COPY PORT</button>
                           </div>
-                          <div className="flex items-center justify-between p-8 bg-gray-50 border border-gray-100 rounded-[2.5rem] shadow-inner group hover:bg-white hover:border-red-100 transition-all">
-                             <div className="flex items-center gap-6">
-                                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-red-600 border border-gray-100 shadow-sm">
-                                   <Phone size={20} />
+                          
+                          <div className="flex flex-col md:flex-row items-center justify-between p-10 bg-gray-50/50 dark:bg-white/[0.01] border border-gray-100 dark:border-white/5 rounded-[3.5rem] shadow-inner group hover:bg-white dark:hover:bg-white/[0.03] hover:border-red-600 transition-all gap-8 italic">
+                             <div className="flex flex-col md:flex-row items-center gap-8 italic text-center md:text-left">
+                                <div className="w-16 h-16 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center text-red-600 border border-gray-100 dark:border-white/10 shadow-sm">
+                                   <Phone size={24} />
                                 </div>
                                 <div>
-                                   <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">Phone Number</p>
-                                   <span className="text-sm font-black text-gray-900 font-mono tracking-widest">{userData?.phone || 'Not available'}</span>
+                                   <p className="text-[9px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.3em] mb-2 italic">SECURE LINE</p>
+                                   <span className="text-xl font-black text-gray-900 dark:text-white font-mono tracking-tighter">{userData?.phone || 'UNREGISTERED'}</span>
                                 </div>
                              </div>
-                             <span className="text-[8px] font-black text-gray-400 bg-white px-4 py-2 rounded-lg border border-gray-100 uppercase tracking-widest italic">Verified</span>
+                             <span className="text-[9px] font-black text-gray-400 dark:text-gray-600 bg-white dark:bg-white/5 px-8 py-3 rounded-2xl border border-gray-100 dark:border-white/10 uppercase tracking-[0.3em] italic shadow-sm">AUTHENTICATED</span>
                           </div>
                        </div>
                     </div>
 
-                    <div className="pb-16 pt-8">
+                    <div className="pb-20 pt-10 italic">
                        <button 
-                         onClick={() => { if(userData?.id && confirm('Are you sure you want to delete this user PERMANENTLY? This cannot be undone.')) { deleteUser(userData.id); } }}
-                         className="w-full py-8 bg-red-50 text-red-600 rounded-[3rem] text-[11px] font-black uppercase tracking-widest flex items-center justify-center gap-4 hover:bg-red-600 hover:text-white transition-all italic shadow-xl shadow-red-600/5 group"
+                         onClick={() => { if(userData?.id && confirm('EXECUTE TERMINATION? THIS ACTION IS FINAL.')) { deleteUser(userData.id); } }}
+                         className="w-full py-10 bg-red-500/10 text-red-600 rounded-[4rem] text-[12px] font-black uppercase tracking-[0.4em] flex items-center justify-center gap-6 hover:bg-red-600 hover:text-white transition-all italic shadow-2xl shadow-red-600/10 group border border-red-500/20"
                        >
-                          <Trash2 size={24} className="group-hover:rotate-12 transition-transform" /> Delete User Permanently
+                          <Trash2 size={28} className="group-hover:rotate-12 transition-transform" /> TERMINATE ENTITY PERMANENTLY
                        </button>
                     </div>
                   </>
                 )}
              </div>
 
-             <div className="p-10 border-t border-gray-100 bg-white shrink-0 pb-12 shadow-[0_-20px_40px_rgba(0,0,0,0.02)]">
-                <div className="flex gap-4">
+             <div className="p-10 lg:p-14 border-t border-gray-100 dark:border-white/5 bg-white dark:bg-[#0a0a0d] shrink-0 pb-16 shadow-[0_-25px_50px_rgba(0,0,0,0.05)] italic">
+                <div className="flex flex-col sm:flex-row gap-6 italic">
                    <button 
                       onClick={() => {
                          if (userData) {
@@ -365,17 +370,17 @@ export default function AdminUsersPage() {
                             setIsEditing(true);
                          }
                       }}
-                      className="flex-1 py-6 bg-gray-900 text-white rounded-[2rem] text-[12px] font-black uppercase tracking-widest flex items-center justify-center gap-4 transition-all shadow-xl italic"
+                      className="flex-1 py-8 bg-gray-900 dark:bg-white text-white dark:text-black rounded-[2.5rem] text-[11px] font-black uppercase tracking-[0.3em] flex items-center justify-center gap-6 transition-all shadow-2xl hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white active:scale-95 italic"
                    >
-                      <History size={20} className="text-red-600" /> Edit User Profile
+                      <History size={24} className="text-red-600" /> MODIFY LOGS
                    </button>
                    <button 
                       onClick={() => userData?.id && toggleBan(userData.id)}
                       disabled={userData?.role === 'ADMIN' || isBanning}
-                      className={`flex-1 py-6 rounded-[2rem] text-[12px] font-black uppercase tracking-widest flex items-center justify-center gap-4 transition-all shadow-xl italic disabled:opacity-30 ${!userData?.isActive ? 'bg-green-600 text-white' : 'bg-red-50 text-red-600 border border-red-100'}`}
+                      className={`flex-1 py-8 rounded-[2.5rem] text-[11px] font-black uppercase tracking-[0.3em] flex items-center justify-center gap-6 transition-all shadow-2xl italic disabled:opacity-30 active:scale-95 ${!userData?.isActive ? 'bg-green-600 text-white' : 'bg-red-500/10 text-red-600 border border-red-500/20'}`}
                    >
-                      {userData?.isActive ? <Ban size={20} /> : <UserCheck size={20} />}
-                      {userData?.isActive ? 'Ban User' : 'Unban User'}
+                      {userData?.isActive ? <Ban size={24} /> : <UserCheck size={24} />}
+                      {userData?.isActive ? 'EXECUTE BAN' : 'RESTORE ACCESS'}
                    </button>
                 </div>
              </div>
@@ -386,30 +391,30 @@ export default function AdminUsersPage() {
       {/* Form Modal */}
       {(isAdding || isEditing) && (
         <>
-          <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-3xl z-[200]" onClick={() => { setIsAdding(false); setIsEditing(false); }} />
-          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl bg-white z-[210] shadow-2xl rounded-[4rem] p-16 animate-in zoom-in duration-500 max-h-[90vh] overflow-y-auto custom-scrollbar flex flex-col items-center">
-             <div className="w-24 h-24 bg-gray-900 rounded-[2.5rem] flex items-center justify-center text-red-600 shadow-2xl mb-8">
-                {isAdding ? <UserPlus size={44} className="text-red-600" /> : <UserCheck size={44} className="text-red-600" />}
+          <div className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-[60px] z-[200] transition-all duration-700" onClick={() => { setIsAdding(false); setIsEditing(false); }} />
+          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl bg-white dark:bg-[#0a0a0d] z-[210] shadow-2xl rounded-[4rem] p-12 lg:p-20 animate-in zoom-in duration-700 max-h-[90vh] overflow-y-auto no-scrollbar flex flex-col items-center border border-gray-100 dark:border-white/5 italic">
+             <div className="w-24 h-24 bg-red-600 rounded-[2.5rem] flex items-center justify-center text-white shadow-2xl shadow-red-600/30 mb-10">
+                {isAdding ? <UserPlus size={44} /> : <UserCheck size={44} />}
              </div>
-             <h2 className="text-4xl font-black italic uppercase text-gray-900 tracking-tighter mb-4 text-center leading-none">
-                {isAdding ? 'Add New User' : 'Edit User Profile'}
+             <h2 className="text-4xl font-black italic uppercase text-gray-900 dark:text-white tracking-tighter mb-4 text-center leading-none">
+                {isAdding ? 'INITIALIZE USER' : 'MODIFY CREDENTIALS'}
              </h2>
-             <p className="text-[11px] font-black text-gray-400 uppercase tracking-widest mb-16 italic text-center underline decoration-red-500 decoration-2 underline-offset-8">Administrative Tool</p>
+             <p className="text-[10px] font-black text-gray-400 dark:text-gray-700 uppercase tracking-[0.4em] mb-16 italic text-center">ADMINISTRATIVE OVERRIDE</p>
 
-             <div className="space-y-8 w-full">
+             <div className="space-y-10 w-full italic">
                 {[
-                  { label: 'Email Address', type: 'email', val: userForm.email, key: 'email', icon: <Mail size={16} /> },
-                  { label: 'Phone Number', type: 'text', val: userForm.phone, key: 'phone', icon: <Phone size={16} /> },
-                  ...(isAdding ? [{ label: 'Account Password', type: 'password', val: userForm.password, key: 'password', icon: <LockIcon size={16} /> }] : [])
+                   { label: 'NETWORK IDENTITY (EMAIL)', type: 'email', val: userForm.email, key: 'email', icon: <Mail size={18} /> },
+                   { label: 'SECURE LINE (PHONE)', type: 'text', val: userForm.phone, key: 'phone', icon: <Phone size={18} /> },
+                   ...(isAdding ? [{ label: 'ACCESS PROTOCOL (PASSWORD)', type: 'password', val: userForm.password, key: 'password', icon: <LockIcon size={18} /> }] : [])
                 ].map((input, idx) => (
-                  <div key={idx} className="space-y-3">
-                     <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic px-2">{input.label}</label>
-                     <div className="relative">
-                        <div className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 transition-colors">{input.icon}</div>
+                  <div key={idx} className="space-y-4 italic">
+                     <label className="text-[9px] font-black text-gray-400 dark:text-gray-700 uppercase tracking-[0.3em] ml-8 italic">{input.label}</label>
+                     <div className="relative group italic">
+                        <div className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-700 group-focus-within:text-red-600 transition-colors">{input.icon}</div>
                         <input 
                            type={input.type} 
-                           className="w-full bg-gray-50 border border-transparent rounded-[1.8rem] py-5 pl-16 pr-8 outline-none font-bold italic focus:bg-white focus:border-red-600 transition-all shadow-inner"
-                           placeholder="Required"
+                           className="w-full bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-[2rem] py-6 pl-16 pr-10 outline-none font-black italic text-xs tracking-tighter placeholder:text-gray-300 dark:placeholder:text-gray-800 focus:border-red-600 focus:ring-8 focus:ring-red-600/5 transition-all shadow-inner dark:text-white"
+                           placeholder="REQUIRED ENTRY..."
                            value={input.val}
                            onChange={(e) => setUserForm({...userForm, [input.key]: e.target.value})}
                         />
@@ -417,37 +422,37 @@ export default function AdminUsersPage() {
                   </div>
                 ))}
                 
-                <div className="space-y-3">
-                   <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-4 italic px-2">System Role</label>
-                   <div className="relative">
-                      <div className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300"><Shield size={16} /></div>
+                <div className="space-y-4 italic">
+                   <label className="text-[9px] font-black text-gray-400 dark:text-gray-700 uppercase tracking-[0.3em] ml-8 italic">ASSIGNED ROLE</label>
+                   <div className="relative group italic">
+                      <div className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-700"><Shield size={18} /></div>
                       <select 
-                         className="w-full bg-gray-50 border border-transparent rounded-[1.8rem] py-5 pl-16 pr-8 outline-none font-black italic uppercase tracking-widest text-xs appearance-none cursor-pointer focus:bg-white focus:border-red-600 transition-all shadow-inner"
+                         className="w-full bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-[2rem] py-6 pl-16 pr-12 outline-none font-black italic uppercase tracking-[0.3em] text-[10px] appearance-none cursor-pointer focus:border-red-600 focus:ring-8 focus:ring-red-600/5 transition-all shadow-inner dark:text-white"
                          value={userForm.role}
                          onChange={(e) => setUserForm({...userForm, role: e.target.value as Role})}
                       >
-                         <option value="DONOR">Blood Donor</option>
-                         <option value="MANAGER">Hospital Manager</option>
-                         <option value="ADMIN">System Admin</option>
+                         <option className="bg-white dark:bg-[#0a0a0d]" value="DONOR">BLOOD DONOR [ACCESS: STANDARD]</option>
+                         <option className="bg-white dark:bg-[#0a0a0d]" value="MANAGER">HOSPITAL MANAGER [ACCESS: PARTNER]</option>
+                         <option className="bg-white dark:bg-[#0a0a0d]" value="ADMIN">SYSTEM ADMIN [ACCESS: GLOBAL]</option>
                       </select>
                    </div>
                 </div>
              </div>
 
-             <div className="mt-20 w-full flex gap-4">
+             <div className="mt-20 w-full flex flex-col sm:flex-row gap-6 italic">
                 <button 
                   onClick={() => { setIsAdding(false); setIsEditing(false); }}
-                  className="flex-1 py-6 bg-gray-100 text-gray-400 rounded-[2.5rem] text-[12px] font-black uppercase tracking-widest italic hover:text-gray-900 transition-all"
+                  className="flex-1 py-6 bg-gray-100 dark:bg-white/5 text-gray-400 dark:text-gray-600 rounded-[2rem] text-[10px] font-black uppercase tracking-[0.3em] italic hover:bg-gray-200 dark:hover:bg-white/10 dark:hover:text-white transition-all active:scale-95 shadow-sm border border-transparent dark:border-white/5"
                 >
-                   Cancel
+                   ABORT 
                 </button>
                 <button 
                    onClick={() => isAdding ? createUser(userForm) : (userData?.id && updateUser({ id: userData.id, data: userForm }))}
                    disabled={isCreating || isUpdating}
-                   className="flex-[2] py-6 bg-red-600 text-white rounded-[2.5rem] text-[12px] font-black uppercase tracking-widest shadow-2xl hover:bg-red-700 transition-all active:scale-95 flex items-center justify-center gap-4 italic"
+                   className="flex-[2] py-6 bg-red-600 text-white rounded-[2rem] text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl shadow-red-600/30 hover:bg-red-700 transition-all active:scale-95 flex items-center justify-center gap-6 italic"
                 >
                    {isCreating || isUpdating ? <Loader2 size={24} className="animate-spin" /> : <ShieldCheck size={24} />}
-                   {isAdding ? 'Create User' : 'Save Changes'}
+                   {isAdding ? 'COMMIT USER' : 'UPKEEP DATA'}
                 </button>
              </div>
           </div>

@@ -53,7 +53,7 @@ export default function NotFound() {
         <div className="mt-20 pt-12 border-t border-gray-50">
            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-6 italic underline decoration-red-500/10">Help Resources</p>
            <div className="flex justify-center gap-10 text-xs font-bold text-gray-400 uppercase italic">
-              <Link href="/faq" className="hover:text-red-500 transition-colors">Help Center</Link>
+              <Link href="/help" className="hover:text-red-500 transition-colors">Help Center</Link>
               <Link href="/contact" className="hover:text-red-500 transition-colors">Emergency Support</Link>
               <Link href="/how-it-works" className="hover:text-red-500 transition-colors">Process Guide</Link>
            </div>

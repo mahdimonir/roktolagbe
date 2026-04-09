@@ -10,7 +10,10 @@ export const getRequests = async (req: Request, res: Response, next: NextFunctio
     const district = typeof req.query.district === 'string' ? req.query.district : undefined;
     const thana = typeof req.query.thana === 'string' ? req.query.thana : undefined;
     const bloodGroup = typeof req.query.bloodGroup === 'string' ? req.query.bloodGroup : undefined;
-    res.json(await bloodRequestService.getRequests(page, limit, district, bloodGroup, thana));
+    const search = typeof req.query.search === 'string' ? req.query.search : undefined;
+    const sortBy = typeof req.query.sortBy === 'string' ? req.query.sortBy : 'newest';
+    
+    res.json(await bloodRequestService.getRequests(page, limit, district, bloodGroup, thana, search, sortBy));
   } catch (err) { next(err); }
 };
 

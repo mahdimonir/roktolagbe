@@ -129,191 +129,209 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto px-4 py-12">
-      {/* ... header ... */}
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-2">Join the Mission 🩸</h1>
-        <p className="text-gray-500">Pick your role and start saving lives today.</p>
-        {formData.orgRef && (
-          <div className="mt-4 inline-block px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold animate-pulse">
-            Organization Invite Active 🏥
-          </div>
-        )}
-      </div>
+    <main className="min-h-screen bg-white dark:bg-[#0a0a0d] py-20 px-4 relative overflow-hidden transition-colors duration-500 italic">
+      {/* Background Decorative - Pulse Logic */}
+      <div className="absolute top-0 right-0 -mt-32 -mr-32 w-[40rem] h-[40rem] bg-red-600/[0.05] dark:bg-red-600/[0.08] rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
+      <div className="absolute bottom-0 left-0 -mb-32 -ml-32 w-[30rem] h-[30rem] bg-red-600/[0.03] rounded-full blur-[100px] pointer-events-none"></div>
 
-      <div className="glass p-8 rounded-3xl shadow-2xl relative overflow-hidden">
-        {/* Step Indicator */}
-        <div className="flex gap-2 mb-8 justify-center">
-          {[1, 2, 3].map(s => (
-            <div key={s} className={`h-1 rounded-full transition-all ${step >= s ? 'w-8 bg-red-500' : 'w-4 bg-gray-200'}`}></div>
-          ))}
+      <div className="max-w-md mx-auto relative z-10">
+        {/* Header - Mission Scale */}
+        <div className="text-center mb-10">
+          <h1 className="text-4xl lg:text-5xl font-black mb-3 text-gray-900 dark:text-white italic tracking-tighter uppercase leading-none">
+            JOIN THE <span className="text-red-600 italic">MISSION</span>
+          </h1>
+          <p className="text-gray-400 dark:text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] italic">PICK YOUR ROLE AND START SAVING LIVES.</p>
+          {formData.orgRef && (
+            <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-red-600/10 dark:bg-red-600/20 text-red-600 rounded-full text-[8px] font-black uppercase tracking-widest animate-pulse border border-red-600/10">
+              ORGANIZATION INVITE ACTIVE 🏥
+            </div>
+          )}
         </div>
 
-        {/* Step 1: Role Selection */}
-        {/* ... same step 1 ... */}
-        {step === 1 && (
-          <div className="space-y-4 animate-fade-in">
-            <h2 className="text-xl font-bold mb-6 text-center">I want to join as a...</h2>
-            <button
-              onClick={() => { setRole('DONOR'); setStep(2); }}
-              className="w-full p-6 border-2 border-gray-100 rounded-2xl hover:border-red-500 hover:bg-red-50 transition-all text-left flex items-center gap-4 group"
-            >
-              <div className="text-3xl">🩸</div>
-              <div>
-                <p className="font-bold group-hover:text-red-500">Volunteer Donor</p>
-                <p className="text-xs text-gray-500 uppercase">Saving lives personally</p>
-              </div>
-            </button>
-            <button
-              onClick={() => { setRole('MANAGER'); setStep(2); }}
-              className="w-full p-6 border-2 border-gray-100 rounded-2xl hover:border-red-500 hover:bg-red-50 transition-all text-left flex items-center gap-4 group"
-            >
-              <div className="text-3xl">🏥</div>
-              <div>
-                <p className="font-bold group-hover:text-red-500">Hospital / Org Manager</p>
-                <p className="text-xs text-gray-500 uppercase">Managing blood requests</p>
-              </div>
-            </button>
+        <div className="bg-white dark:bg-white/5 border border-gray-100 dark:border-white/10 p-8 md:p-10 rounded-[3rem] shadow-2xl dark:shadow-black/50 backdrop-blur-[40px] transition-all duration-700">
+          {/* Step Indicator - Premium Glass */}
+          <div className="flex gap-2 mb-10 justify-center">
+            {[1, 2, 3].map(s => (
+              <div 
+                key={s} 
+                className={`h-1.5 rounded-full transition-all duration-700 ${
+                  step >= s ? 'w-10 bg-red-600 shadow-lg shadow-red-600/20' : 'w-4 bg-gray-100 dark:bg-white/10'
+                }`}
+              ></div>
+            ))}
           </div>
-        )}
 
-        {/* Combined Step 2: Account Creation (Email, Password, Phone) */}
-        {step === 2 && (
-          <form onSubmit={handleAccountSubmit} className="space-y-6 animate-fade-in">
-            <h2 className="text-xl font-bold text-center">Set up your account</h2>
-
-            <div>
-              <label className="block text-xs font-bold uppercase text-gray-400 mb-2">Phone Number</label>
-              <input
-                type="tel"
-                placeholder="e.g. 01712345678"
-                className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold uppercase text-gray-400 mb-2">Email Address</label>
-              <input
-                type="email"
-                placeholder="hero@example.com"
-                className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-              />
-            </div>
-
-            <div className="relative">
-              <label className="block text-xs font-bold uppercase text-gray-400 mb-2">Password</label>
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="••••••••"
-                className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-red-500 pr-12"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                required
-              />
+          {/* Step 1: Role Selection - High Density */}
+          {step === 1 && (
+            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <h2 className="text-[10px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.3em] text-center mb-6 italic">SELECT THE CLEARANCE TYPE</h2>
               <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-[38px] text-gray-400 hover:text-red-500 transition-colors"
+                onClick={() => { setRole('DONOR'); setStep(2); }}
+                className="w-full p-6 bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-3xl hover:border-red-600 dark:hover:border-red-600/30 transition-all text-left flex items-center gap-5 group backdrop-blur-[40px]"
               >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                <div className="w-12 h-12 rounded-2xl bg-red-600/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🩸</div>
+                <div>
+                  <p className="font-black text-sm text-gray-900 dark:text-white uppercase italic tracking-tighter">VOLUNTEER DONOR</p>
+                  <p className="text-[9px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-widest mt-1">SAVING LIVES PERSONALLY</p>
+                </div>
+              </button>
+              <button
+                onClick={() => { setRole('MANAGER'); setStep(2); }}
+                className="w-full p-6 bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-3xl hover:border-red-600 dark:hover:border-red-600/30 transition-all text-left flex items-center gap-5 group backdrop-blur-[40px]"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-red-600/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🏥</div>
+                <div>
+                  <p className="font-black text-sm text-gray-900 dark:text-white uppercase italic tracking-tighter">MISSION MANAGER</p>
+                  <p className="text-[9px] text-gray-400 dark:text-gray-500 font-bold uppercase tracking-widest mt-1">COORDINATING UNIT REQUESTS</p>
+                </div>
               </button>
             </div>
+          )}
 
-            <button
-              type="submit"
-              disabled={checkPhoneMutation.isPending}
-              className="w-full btn-primary py-4"
-            >
-              {checkPhoneMutation.isPending ? 'Verifying...' : 'Next Step'}
-            </button>
-            <button onClick={() => setStep(1)} className="w-full text-gray-400 text-sm hover:text-gray-600">Back</button>
-          </form>
-        )}
+          {/* Step 2: Account Activation */}
+          {step === 2 && (
+            <form onSubmit={handleAccountSubmit} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-700">
+              <h2 className="text-[10px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.3em] text-center mb-6 italic">MISSION ACCOUNT SETUP</h2>
 
-        {/* Combined Step 3: Profile Details */}
-        {step === 3 && (
-          <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in">
-            <h2 className="text-xl font-bold text-center">Personal Details</h2>
-            <div>
-              <label className="block text-xs font-bold uppercase text-gray-400 mb-2">Full Name / Org Name</label>
-              <input
-                type="text"
-                className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
-              />
-            </div>
-
-            <div className="bg-gray-50 p-3 rounded-xl border border-dashed border-gray-200">
-              <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1">Verified Phone</label>
-              <p className="text-sm font-bold text-gray-600">{formData.phone}</p>
-            </div>
-
-            {role === 'DONOR' ? (
-              <div>
-                <label className="block text-xs font-bold uppercase text-gray-400 mb-2">Blood Group</label>
-                <select
-                  className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
-                  value={formData.bloodGroup}
-                  onChange={(e) => setFormData({ ...formData, bloodGroup: e.target.value })}
+              <div className="space-y-2">
+                <label className="block text-[9px] font-black uppercase text-gray-400 dark:text-gray-600 mb-1 tracking-[0.3em] italic ml-1">MISSION PHONE</label>
+                <input
+                  type="tel"
+                  placeholder="e.g. 017XXXXXXXX"
+                  className="w-full bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-600 transition-all font-black text-[10px] italic placeholder:text-gray-300 dark:placeholder:text-gray-700 uppercase tracking-widest text-gray-900 dark:text-white"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   required
-                >
-                  <option value="">Select Group</option>
-                  {['A_POS', 'A_NEG', 'B_POS', 'B_NEG', 'AB_POS', 'AB_NEG', 'O_POS', 'O_NEG'].map(g => <option key={g} value={g}>{g.replace('_POS', '+')}</option>)}
-                </select>
+                />
               </div>
-            ) : (
-              <div>
-                <label className="block text-xs font-bold uppercase text-gray-400 mb-2">Type</label>
-                <select
-                  className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-red-500"
-                  value={formData.managerType}
-                  onChange={(e) => setFormData({ ...formData, managerType: e.target.value })}
+
+              <div className="space-y-2">
+                <label className="block text-[9px] font-black uppercase text-gray-400 dark:text-gray-600 mb-1 tracking-[0.3em] italic ml-1">SECURE EMAIL</label>
+                <input
+                  type="email"
+                  placeholder="HERO@ROKTOLAGBE.ORG"
+                  className="w-full bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-600 transition-all font-black text-[10px] italic placeholder:text-gray-300 dark:placeholder:text-gray-700 uppercase tracking-widest text-gray-900 dark:text-white"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
-                >
-                  <option value="hospital">Hospital</option>
-                  <option value="organization">Organization</option>
-                </select>
+                />
               </div>
-            )}
 
-            <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100">
-              <label className="block text-xs font-black uppercase text-gray-400 mb-4 tracking-widest italic">Hub Location</label>
-              <LocationSelector
-                division={formData.division}
-                district={formData.district}
-                thana={formData.thana}
-                onChange={(field, value) => {
-                  if (field === 'division') setFormData(prev => ({ ...prev, division: value, district: '', thana: '' }));
-                  else if (field === 'district') setFormData(prev => ({ ...prev, district: value, thana: '' }));
-                  else setFormData(prev => ({ ...prev, [field]: value }));
-                }}
-                required={true}
-              />
-            </div>
+              <div className="space-y-2 relative">
+                <label className="block text-[9px] font-black uppercase text-gray-400 dark:text-gray-600 mb-1 tracking-[0.3em] italic ml-1">MISSION KEY</label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  className="w-full bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-600 transition-all font-black text-[10px] italic placeholder:text-gray-300 dark:placeholder:text-gray-700 uppercase tracking-widest text-gray-900 dark:text-white pr-14"
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-5 top-[34px] text-gray-400 hover:text-red-600 transition-colors"
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
 
-            <button
-              type="submit"
-              disabled={mutation.isPending}
-              className="w-full btn-primary py-4"
-            >
-              {mutation.isPending ? 'Joining...' : 'Complete Registration 🩸'}
-            </button>
-            <button onClick={() => setStep(2)} className="w-full text-gray-400 text-sm hover:text-gray-600">Back</button>
-          </form>
-        )}
+              <button
+                type="submit"
+                disabled={checkPhoneMutation.isPending}
+                className="w-full bg-red-600 text-white py-5 rounded-[1.5rem] font-black text-[10px] uppercase tracking-[0.3em] italic shadow-xl shadow-red-600/20 hover:bg-red-700 transition-all active:scale-[0.98] disabled:opacity-50"
+              >
+                {checkPhoneMutation.isPending ? 'VERIFYING IDENTITY...' : 'SECURE IDENTITY ->'}
+              </button>
+              <button type="button" onClick={() => setStep(1)} className="w-full text-gray-400 dark:text-gray-600 text-[9px] font-black uppercase tracking-widest hover:text-red-600 transition-colors italic">BACK TO ROLES</button>
+            </form>
+          )}
+
+          {/* Step 3: Mission Profile */}
+          {step === 3 && (
+            <form onSubmit={handleSubmit} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-700">
+              <h2 className="text-[10px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.3em] text-center mb-6 italic">MISSION PROFILE DATA</h2>
+              
+              <div className="space-y-2">
+                <label className="block text-[9px] font-black uppercase text-gray-400 dark:text-gray-600 mb-1 tracking-[0.3em] italic ml-1">FULL IDENTITY NAME</label>
+                <input
+                  type="text"
+                  placeholder="FULL NAME..."
+                  className="w-full bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-600 transition-all font-black text-[10px] italic placeholder:text-gray-300 dark:placeholder:text-gray-700 uppercase tracking-widest text-gray-900 dark:text-white"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-1 space-y-2">
+                  <label className="block text-[9px] font-black uppercase text-gray-400 dark:text-gray-600 mb-1 tracking-[0.3em] italic ml-1">
+                    {role === 'DONOR' ? 'BLOOD TYPE' : 'MISSION TYPE'}
+                  </label>
+                  <select
+                    className="w-full bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-red-600 transition-all font-black text-[10px] italic uppercase tracking-widest text-gray-900 dark:text-white appearance-none h-[54px]"
+                    value={role === 'DONOR' ? formData.bloodGroup : formData.managerType}
+                    onChange={(e) => setFormData({ ...formData, [role === 'DONOR' ? 'bloodGroup' : 'managerType']: e.target.value })}
+                    required
+                  >
+                    {role === 'DONOR' ? (
+                      <>
+                        <option value="">SELECT GROUP</option>
+                        {['A_POS', 'A_NEG', 'B_POS', 'B_NEG', 'AB_POS', 'AB_NEG', 'O_POS', 'O_NEG'].map(g => <option key={g} value={g}>{g.replace('_POS', '+')}</option>)}
+                      </>
+                    ) : (
+                      <>
+                        <option value="hospital">HOSPITAL</option>
+                        <option value="organization">ORGANIZATION</option>
+                      </>
+                    )}
+                  </select>
+                </div>
+                <div className="flex-1 space-y-2">
+                  <label className="block text-[9px] font-black uppercase text-gray-400 dark:text-gray-600 mb-1 tracking-[0.3em] italic ml-1">PHONE LINKED</label>
+                  <div className="w-full bg-red-600/5 dark:bg-red-600/10 border border-red-600/10 rounded-2xl px-4 py-4 flex items-center justify-center h-[54px]">
+                    <span className="text-[10px] font-black text-red-600 italic tracking-widest">{formData.phone}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-50/30 dark:bg-white/5 p-6 rounded-3xl border border-gray-100 dark:border-white/10 italic">
+                <label className="block text-[9px] font-black uppercase text-gray-400 dark:text-gray-600 mb-6 tracking-[0.3em] italic text-center">MISSION DEPLOYMENT ZONE</label>
+                <div className="space-y-4">
+                  <LocationSelector
+                    division={formData.division}
+                    district={formData.district}
+                    thana={formData.thana}
+                    onChange={(field, value) => {
+                      if (field === 'division') setFormData(prev => ({ ...prev, division: value, district: '', thana: '' }));
+                      else if (field === 'district') setFormData(prev => ({ ...prev, district: value, thana: '' }));
+                      else setFormData(prev => ({ ...prev, [field]: value }));
+                    }}
+                    required={true}
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={mutation.isPending}
+                className="w-full bg-red-600 text-white py-5 rounded-[1.5rem] font-black text-[10px] uppercase tracking-[0.3em] italic shadow-xl shadow-red-600/20 hover:bg-red-700 transition-all active:scale-[0.98] disabled:opacity-50"
+              >
+                {mutation.isPending ? 'JOINING NETWORK...' : 'COMPLETE DEPLOYMENT 🩸'}
+              </button>
+              <button type="button" onClick={() => setStep(2)} className="w-full text-gray-400 dark:text-gray-600 text-[9px] font-black uppercase tracking-widest hover:text-red-600 transition-colors italic">RE-VERIFY IDENTITY</button>
+            </form>
+          )}
+        </div>
+
+        <p className="mt-10 text-center text-[9px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-[0.2em] italic">
+          ALREADY IN THE NETWORK? <br />
+          <Link href="/login" className="text-red-600 mt-2 inline-block hover:underline decoration-2 underline-offset-4 tracking-widest">
+            LOGIN TO MISSION HUB
+          </Link>
+        </p>
       </div>
-
-      <p className="mt-8 text-center text-sm text-gray-500">
-        Already have an account? <Link href="/login" className="text-red-500 font-bold">Login here</Link>
-      </p>
-    </div>
+    </main>
   );
 }

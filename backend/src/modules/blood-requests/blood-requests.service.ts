@@ -4,14 +4,59 @@ import { getPagination, paginatedResponse } from '../../utils/helpers';
 import { CreateRequestInput, UpdateRequestInput, EmergencyRequestInput } from './blood-requests.schema';
 import { sendNotificationsToMatchingDonors, createNotification } from '../notifications/notifications.service';
 
-export const getRequests = async (page: number, limit: number, district?: string, bloodGroup?: string, thana?: string) => {
+export const getRequests = async (
+  page: number, 
+  limit: number, 
+  district?: string, 
+  bloodGroup?: string, 
+  thana?: string,
+  search?: string,
+  sortBy: string = 'newest'
+) => {
   const { skip, take } = getPagination(page, limit);
-  const where = { 
-    status: 'OPEN' as const, 
-    ...(district && { district: { contains: district, mode: 'insensitive' as const } }),
-    ...(thana && { thana: { contains: thana, mode: 'insensitive' as const } }),
+  
+  // Base filters
+  const where: any = { 
+    status: 'OPEN' as const,
     ...(bloodGroup && { bloodGroup: bloodGroup as any })
   };
+
+  // Unified Search logic (OR)
+  if (search) {
+    where.OR = [
+      { hospitalName: { contains: search, mode: 'insensitive' as const } },
+      { district: { contains: search, mode: 'insensitive' as const } },
+      { thana: { contains: search, mode: 'insensitive' as const } },
+      { patientName: { contains: search, mode: 'insensitive' as const } },
+      { patientCondition: { contains: search, mode: 'insensitive' as const } },
+    ];
+  } else {
+    // Individual filters
+    if (district) where.district = { contains: district, mode: 'insensitive' as const };
+    if (thana) where.thana = { contains: thana, mode: 'insensitive' as const };
+  }
+
+  // Sort logic
+  let orderBy: any = [
+    { isEmergency: 'desc' },
+    { createdAt: 'desc' },
+  ];
+
+  if (sortBy === 'urgency') {
+    orderBy = [
+      { isEmergency: 'desc' },
+      { urgency: 'asc' },
+      { createdAt: 'desc' },
+    ];
+  } else if (sortBy === 'deadline') {
+    orderBy = [
+      { deadline: 'asc' },
+      { isEmergency: 'desc' },
+    ];
+  } else if (sortBy === 'oldest') {
+    orderBy = { createdAt: 'asc' };
+  }
+
   const [requests, total] = await Promise.all([
     prisma.bloodRequest.findMany({
       skip,
@@ -21,11 +66,7 @@ export const getRequests = async (page: number, limit: number, district?: string
         manager: { select: { name: true, type: true, district: true } },
         donations: { select: { status: true } }
       },
-      orderBy: [
-        { isEmergency: 'desc' }, // Emergency first
-        { urgency: 'asc' },
-        { createdAt: 'desc' },
-      ],
+      orderBy,
     }),
     prisma.bloodRequest.count({ where }),
   ]);

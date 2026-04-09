@@ -14,41 +14,43 @@ interface CTASectionProps {
 }
 
 export default function CTASection({
-  title = "START SAVING LIVES TODAY.",
-  subtitle = "Whether you're looking to donate or you're in an emergency, our platform is built to help you instantly.",
-  primaryBtnText = "REGISTER NOW",
+  title = "ACTIVATE LIFE-SAVING PROTOCOL.",
+  subtitle = "Immediate action mandatory. The network depends on your vital contribution to maintain grid stability.",
+  primaryBtnText = "INITIALIZE REGISTRY",
   primaryBtnLink = "/register",
-  secondaryBtnText = "LEARN MORE",
+  secondaryBtnText = "ACCESS PROTOCOLS",
   secondaryBtnLink = "/how-it-works",
   className = "",
   noPadding = false
 }: CTASectionProps) {
   return (
-    <section className={`${noPadding ? 'py-0' : 'py-12 md:py-16'} px-4 md:px-6 relative overflow-hidden bg-white ${className}`}>
-      <div className="max-w-7xl mx-auto">
-        <div className="bg-[#f2f4f7] rounded-[2rem] md:rounded-[2.5rem] px-8 py-12 md:p-20 text-center relative overflow-hidden group border border-gray-100 shadow-sm outline outline-1 outline-gray-200/50">
-          {/* Subtle Pinkish Corner Arcs */}
-          <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#FBEBEB] rounded-full blur-[40px] opacity-60 transition-opacity duration-1000 group-hover:scale-105" />
-          <div className="absolute -bottom-40 -left-40 w-[30rem] h-[30rem] bg-[#FBEBEB] rounded-full blur-[60px] opacity-60 transition-opacity duration-1000 group-hover:scale-105" />
+    <section className={`${noPadding ? 'py-0' : 'py-8 md:py-12'} px-4 md:px-0 relative overflow-hidden bg-white dark:bg-[#0a0a0d] transition-colors duration-500 ${className} italic`}>
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="bg-gray-50/30 dark:bg-white/[0.02] backdrop-blur-[40px] rounded-[4.5rem] px-8 py-16 md:py-24 md:px-20 text-center relative overflow-hidden group border border-gray-100 dark:border-white/[0.08] shadow-sm italic">
+          {/* Subtle Pinkish/Reddish Corner Arcs */}
+          <div className="absolute top-0 right-0 -mt-24 -mr-24 w-[35rem] h-[35rem] bg-red-600/[0.05] rounded-full blur-[140px] pointer-events-none transition-all duration-1000 group-hover:scale-110 italic" />
+          <div className="absolute bottom-0 left-0 -mb-32 -ml-32 w-[40rem] h-[40rem] bg-red-600/[0.03] rounded-full blur-[160px] pointer-events-none transition-all duration-1000 group-hover:scale-110 italic" />
 
-          <div className="relative z-10 space-y-8">
-            <h2 className="text-3xl md:text-7xl font-black text-[#112135] tracking-tighter leading-[1] md:leading-[0.85] mb-4 uppercase italic max-w-5xl mx-auto">
-              {title}
-            </h2>
-            <p className="text-gray-500 font-medium italic text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed opacity-80 px-2 md:px-0">
-              {subtitle}
-            </p>
+          <div className="relative z-10 space-y-10 md:space-y-14 italic">
+             <div className="space-y-6 md:space-y-8 italic">
+               <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-gray-900 dark:text-white tracking-tighter leading-none mb-4 uppercase italic italic mx-auto">
+                 {title}
+               </h2>
+               <p className="text-gray-500 dark:text-gray-400 font-medium italic text-sm md:text-xl max-w-2xl mx-auto leading-relaxed px-4 md:px-0 italic">
+                 {subtitle}
+               </p>
+             </div>
             
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-8 italic">
               <Link 
                 href={primaryBtnLink} 
-                className="w-full sm:w-auto bg-[#CC0000] text-white px-12 py-5 rounded-full text-[11px] font-black uppercase tracking-[0.3em] shadow-[0_15px_40px_rgba(204,0,0,0.25)] hover:bg-[#B30000] hover:-translate-y-1 transition-all active:scale-95 italic flex items-center justify-center"
+                className="w-full sm:w-auto bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-14 py-8 rounded-full text-[11px] font-black uppercase tracking-[0.4em] shadow-2xl hover:bg-red-600 dark:hover:bg-red-600 dark:hover:text-white transition-all active:scale-95 italic flex items-center justify-center italic"
               >
                 {primaryBtnText}
               </Link>
               <Link 
                 href={secondaryBtnLink} 
-                className="w-full sm:w-auto bg-white text-gray-900 px-12 py-5 rounded-full text-[11px] font-black uppercase tracking-[0.3em] shadow-[0_15px_30px_rgba(0,0,0,0.04)] hover:bg-gray-50 hover:-translate-y-1 transition-all active:scale-95 border border-gray-100 italic flex items-center justify-center"
+                className="w-full sm:w-auto bg-white dark:bg-white/10 text-gray-900 dark:text-white px-14 py-8 rounded-full text-[11px] font-black uppercase tracking-[0.4em] shadow-sm hover:bg-gray-50 dark:hover:bg-white/20 transition-all active:scale-95 border border-gray-100 dark:border-white/10 italic flex items-center justify-center italic"
               >
                 {secondaryBtnText}
               </Link>

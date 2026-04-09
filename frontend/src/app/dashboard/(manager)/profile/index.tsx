@@ -76,9 +76,9 @@ export default function ManagerProfilePage() {
   };
 
   if (profileLoading) return (
-    <div className="min-h-[60vh] flex flex-col justify-center items-center bg-white italic">
-       <div className="w-16 h-16 border-4 border-red-50 border-t-red-600 rounded-full animate-spin"></div>
-       <p className="mt-8 text-[11px] font-black text-gray-400 uppercase tracking-widest animate-pulse italic">Loading profile...</p>
+    <div className="min-h-[60vh] flex flex-col justify-center items-center bg-white dark:bg-[#0a0a0d] italic">
+       <div className="w-16 h-16 border-4 border-red-50 dark:border-red-500/20 border-t-red-600 rounded-full animate-spin"></div>
+       <p className="mt-8 text-[11px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest animate-pulse italic">Retrieving hospital credentials...</p>
     </div>
   );
 
@@ -86,11 +86,12 @@ export default function ManagerProfilePage() {
     <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 pb-32 px-4 md:px-0 italic">
       
       {/* Header */}
-      <div className="bg-white rounded-[3rem] p-10 lg:p-14 border border-gray-100 shadow-xl relative overflow-hidden group">
+      <div className="bg-gray-50/20 dark:bg-white/[0.02] backdrop-blur-[40px] rounded-[3rem] p-10 lg:p-14 border border-gray-100 dark:border-white/[0.08] shadow-sm relative overflow-hidden group">
+         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-48 h-48 bg-red-600/[0.03] rounded-full blur-[80px] pointer-events-none"></div>
          <div className="relative z-10 flex flex-col xl:flex-row justify-between items-center gap-10">
             <div className="flex flex-col md:flex-row items-center gap-10 text-center md:text-left">
                <div className="relative">
-                  <div className="w-36 h-36 bg-gray-50 rounded-[2.5rem] border border-gray-100 flex items-center justify-center shadow-lg overflow-hidden group-hover:scale-105 transition-transform duration-700">
+                  <div className="w-36 h-36 bg-gray-50/50 dark:bg-white/5 rounded-[2.5rem] border border-gray-100 dark:border-white/10 flex items-center justify-center shadow-2xl overflow-hidden group-hover:scale-105 transition-transform duration-700">
                      {manager?.logoUrl ? (
                        <img src={manager.logoUrl} alt="Logo" className="w-full h-full object-cover" />
                      ) : (
@@ -100,7 +101,7 @@ export default function ManagerProfilePage() {
                   <button 
                      type="button"
                      onClick={() => document.getElementById('org-logo-upload')?.click()}
-                     className="absolute -bottom-2 -right-2 w-12 h-12 bg-gray-900 text-white rounded-2xl flex items-center justify-center hover:bg-red-600 transition-all active:scale-90 shadow-xl border-4 border-white"
+                     className="absolute -bottom-2 -right-2 w-12 h-12 bg-gray-900 dark:bg-red-600 text-white rounded-2xl flex items-center justify-center hover:bg-red-600 dark:hover:bg-white dark:hover:text-red-600 transition-all active:scale-90 shadow-xl border-4 border-white dark:border-[#0a0a0d]"
                   >
                      {isUploading ? <Loader2 size={18} className="animate-spin" /> : <Camera size={18} />}
                   </button>
@@ -109,28 +110,30 @@ export default function ManagerProfilePage() {
 
                <div className="space-y-3">
                   <div className="flex items-center gap-4 justify-center md:justify-start">
-                     <h1 className="text-4xl font-black text-gray-900 tracking-tighter italic uppercase leading-tight italic">{manager?.name}</h1>
+                     <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter uppercase italic leading-tight">{manager?.name}</h1>
                      {manager?.isVerified && (
-                        <div className="w-8 h-8 bg-green-500 rounded-xl flex items-center justify-center shadow-sm">
+                        <div className="w-8 h-8 bg-green-500 rounded-xl flex items-center justify-center shadow-lg">
                            <ShieldCheck size={18} className="text-white" />
                         </div>
                      )}
                   </div>
                   <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-                     <span className="text-[9px] font-black uppercase tracking-widest text-red-600 bg-red-50 px-5 py-2 rounded-xl border border-red-100 italic">District: {manager?.district}</span>
-                     <span className="text-[9px] font-black uppercase tracking-widest text-gray-400 italic bg-gray-50 px-5 py-2 rounded-xl border border-gray-100">ID: #{manager?.id?.slice(-8).toUpperCase()}</span>
+                     <div className="flex items-center gap-2 bg-red-50 dark:bg-red-500/10 text-red-600 px-5 py-2 rounded-xl border border-red-100 dark:border-red-500/20 text-[8px] font-black uppercase tracking-[0.3em] italic">
+                       DISTRICT: {manager?.district}
+                     </div>
+                     <span className="text-[9px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 italic bg-gray-50 dark:bg-white/5 px-5 py-2 rounded-xl border border-gray-100 dark:border-white/10">ID: #{manager?.id?.slice(-8).toUpperCase()}</span>
                   </div>
                </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-6 w-full xl:w-auto">
-               <div className="bg-gray-50 p-6 rounded-[2rem] border border-gray-100 text-center sm:text-right min-w-[14rem] shadow-sm">
-                  <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-2 italic">Fulfilled Requests</p>
-                  <p className="text-3xl font-black text-gray-900 tracking-tighter italic leading-none">{stats?.fulfilledRequests || 0} Total</p>
+               <div className="bg-white/50 dark:bg-white/5 p-6 rounded-[2rem] border border-gray-100 dark:border-white/10 text-center sm:text-right min-w-[14rem] shadow-sm group/stat">
+                  <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-2 italic">Fulfilled Ops</p>
+                  <p className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter italic leading-none group-hover/stat:text-red-600 transition-colors uppercase">{stats?.fulfilledRequests || 0} TOTAL</p>
                </div>
-               <div className="bg-gray-50 p-6 rounded-[2rem] border border-gray-100 text-center sm:text-right min-w-[14rem] shadow-sm">
-                  <p className="text-[9px] font-black uppercase tracking-widest text-red-600 mb-2 italic">Open Requests</p>
-                  <p className="text-3xl font-black text-gray-900 tracking-tighter italic leading-none">{stats?.openRequests || 0} Active</p>
+               <div className="bg-white/50 dark:bg-white/5 p-6 rounded-[2rem] border border-gray-100 dark:border-white/10 text-center sm:text-right min-w-[14rem] shadow-sm group/stat">
+                  <p className="text-[9px] font-black uppercase tracking-widest text-red-600 mb-2 italic">Active Missions</p>
+                  <p className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter italic leading-none group-hover/stat:text-red-600 transition-colors uppercase">{stats?.openRequests || 0} OPEN</p>
                </div>
             </div>
          </div>
@@ -139,61 +142,61 @@ export default function ManagerProfilePage() {
       <form onSubmit={handleSubmit((data) => mutation.mutate(data))} className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         {/* Hospital Details */}
         <div className="lg:col-span-8 space-y-10">
-           <section className="bg-white p-10 lg:p-14 rounded-[3rem] border border-gray-100 shadow-sm space-y-10 group">
-              <div className="flex items-center gap-5 border-b border-gray-50 pb-8">
-                 <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center text-red-600 border border-red-100">
+           <section className="bg-gray-50/20 dark:bg-white/[0.02] backdrop-blur-[40px] p-10 lg:p-14 rounded-[3rem] border border-gray-100 dark:border-white/[0.08] shadow-sm space-y-10 group">
+              <div className="flex items-center gap-5 border-b border-gray-50 dark:border-white/[0.05] pb-8">
+                 <div className="w-12 h-12 bg-red-50 dark:bg-red-500/10 rounded-xl flex items-center justify-center text-red-600 border border-red-100 dark:border-red-500/20">
                     <Activity size={24} />
                  </div>
-                 <h2 className="text-2xl font-black text-gray-900 tracking-tight italic uppercase italic">Hospital Profile</h2>
+                 <h2 className="text-2xl font-black text-gray-900 dark:text-white tracking-tighter uppercase italic">Operational Data</h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                  <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-4 italic px-2">Hospital Name</label>
+                    <label className="text-[9px] font-black uppercase text-gray-400 dark:text-gray-500 tracking-widest ml-4 italic px-2">HOSPITAL NAME</label>
                     <div className="relative">
                        <input 
                          {...register('name')}
-                         className="w-full bg-gray-50 border border-transparent rounded-[1.8rem] py-5 px-8 outline-none font-bold italic text-sm focus:bg-white focus:border-red-600 transition-all shadow-inner" 
+                         className="w-full bg-white/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-[1.8rem] py-5 px-8 outline-none font-black italic text-gray-900 dark:text-white uppercase tracking-wider focus:border-red-600 transition-all shadow-sm" 
                        />
-                       <Building className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
+                       <Building className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600" size={18} />
                     </div>
                  </div>
 
                  <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-4 italic px-2">Hospital Type</label>
+                    <label className="text-[9px] font-black uppercase text-gray-400 dark:text-gray-500 tracking-widest ml-4 italic px-2">FACILITY TYPE</label>
                     <div className="relative">
                        <select 
                          {...register('type')}
-                         className="w-full bg-gray-50 border border-transparent rounded-[1.8rem] py-5 px-8 outline-none font-black italic uppercase tracking-widest text-[10px] appearance-none cursor-pointer focus:bg-white focus:border-red-600 transition-all shadow-inner"
+                         className="w-full bg-white/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-[1.8rem] py-5 px-8 outline-none font-black italic uppercase tracking-[0.2em] text-[10px] appearance-none cursor-pointer text-gray-900 dark:text-white focus:border-red-600 transition-all shadow-sm"
                        >
-                         <option value="HOSPITAL">General Hospital</option>
-                         <option value="BLOOD_BANK">Blood Bank</option>
-                         <option value="CLINIC">Medical Clinic</option>
-                         <option value="NGO">Non-Profit / NGO</option>
+                         <option value="HOSPITAL" className="bg-white dark:bg-[#0a0a0d]">General Hospital</option>
+                         <option value="BLOOD_BANK" className="bg-white dark:bg-[#0a0a0d]">Blood Bank</option>
+                         <option value="CLINIC" className="bg-white dark:bg-[#0a0a0d]">Medical Clinic</option>
+                         <option value="NGO" className="bg-white dark:bg-[#0a0a0d]">Non-Profit / NGO</option>
                        </select>
-                       <Target className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none" size={18} />
+                       <Target className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600 pointer-events-none" size={18} />
                     </div>
                  </div>
 
                  <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-4 italic px-2">Contact Hotline</label>
+                    <label className="text-[9px] font-black uppercase text-gray-400 dark:text-gray-500 tracking-widest ml-4 italic px-2">COMM HOTLINE</label>
                     <div className="relative">
                        <input 
                          {...register('contactPhone')}
-                         className="w-full bg-gray-50 border border-transparent rounded-[1.8rem] py-5 px-8 outline-none font-bold italic text-sm focus:bg-white focus:border-red-600 transition-all shadow-inner" 
+                         className="w-full bg-white/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-[1.8rem] py-5 px-8 outline-none font-black italic text-gray-900 dark:text-white uppercase tracking-wider focus:border-red-600 transition-all shadow-sm" 
                        />
-                       <Phone className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
+                       <Phone className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600" size={18} />
                     </div>
                  </div>
 
                  <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest ml-4 italic px-2">District</label>
+                    <label className="text-[9px] font-black uppercase text-gray-400 dark:text-gray-500 tracking-widest ml-4 italic px-2">DISTRICT BASE</label>
                     <div className="relative">
                        <input 
                          {...register('district')}
-                         className="w-full bg-gray-50 border border-transparent rounded-[1.8rem] py-5 px-8 outline-none font-bold italic text-sm focus:bg-white focus:border-red-600 transition-all shadow-inner" 
+                         className="w-full bg-white/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-[1.8rem] py-5 px-8 outline-none font-black italic text-gray-900 dark:text-white uppercase tracking-wider focus:border-red-600 transition-all shadow-sm" 
                        />
-                       <MapPin className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
+                       <MapPin className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600" size={18} />
                     </div>
                  </div>
               </div>
@@ -202,43 +205,43 @@ export default function ManagerProfilePage() {
 
         {/* Action Sidebar */}
         <div className="lg:col-span-4 space-y-10">
-           <section className="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-xl space-y-8 group">
-              <div className="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center shadow-lg">
+           <section className="bg-gray-50/20 dark:bg-white/[0.02] backdrop-blur-[40px] p-10 rounded-[3rem] border border-gray-100 dark:border-white/[0.08] shadow-sm space-y-10 group">
+              <div className="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-red-600/20">
                  <ShieldCheck className="text-white" size={28} />
               </div>
               <div>
-                 <h3 className="text-2xl font-black mb-3 italic uppercase tracking-tighter">Save Changes</h3>
-                 <p className="text-gray-400 text-[11px] leading-relaxed italic font-black uppercase tracking-widest">
-                   Update your hospital profile information to ensure accurate donor matching.
+                 <h3 className="text-2xl font-black mb-3 italic uppercase tracking-tighter dark:text-white">Save Changes</h3>
+                 <p className="text-gray-400 dark:text-gray-500 text-[9px] leading-relaxed italic font-black uppercase tracking-[0.25em]">
+                   Sync your hospital credentials with Global Blood Matrix.
                  </p>
               </div>
               
               <button 
                 type="submit"
                 disabled={mutation.isPending || isUploading}
-                className="w-full bg-gray-900 text-white hover:bg-red-600 py-6 rounded-[2rem] font-black text-[12px] uppercase tracking-widest transition-all shadow-xl active:scale-95 italic group/btn flex items-center justify-center gap-4"
+                className="w-full bg-gray-900 dark:bg-white/10 text-white hover:bg-black dark:hover:bg-red-600 py-6 rounded-[2rem] font-black text-[12px] uppercase tracking-widest transition-all shadow-xl active:scale-95 italic group/btn flex items-center justify-center gap-4"
               >
                 {mutation.isPending || isUploading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
                   <>
                     <Save size={20} className="group-hover/btn:scale-110 transition-transform" />
-                    Save Profile
+                    Secure Updates
                   </>
                 )}
               </button>
            </section>
 
-           <div className="bg-gray-50 p-10 rounded-[3rem] border border-gray-100 shadow-inner space-y-6 flex flex-col items-center text-center group">
-              <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border border-gray-100 shadow-sm">
+           <div className="bg-gray-50/30 dark:bg-white/[0.03] p-10 rounded-[3rem] border border-gray-100 dark:border-white/10 space-y-8 flex flex-col items-center text-center group">
+              <div className="w-16 h-16 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center shadow-lg border border-gray-100 dark:border-white/10 group-hover:scale-110 transition-transform">
                  <Users className="text-red-500" size={28} />
               </div>
-              <div className="space-y-1">
-                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest italic">Donor Network</p>
-                 <p className="text-xl font-black text-gray-900 tracking-tighter italic uppercase leading-none">{stats?.totalMembers || 0} Registered Donors</p>
+              <div className="space-y-2">
+                 <p className="text-[10px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-widest italic">Donor Matrix</p>
+                 <p className="text-2xl font-black text-gray-900 dark:text-white tracking-tighter italic uppercase leading-none">{stats?.totalMembers || 0} TOTAL</p>
               </div>
-              <div className="text-[8px] font-black text-gray-400 uppercase tracking-widest bg-white px-5 py-2 rounded-full border border-gray-100 italic">
-                Regional Coordination
+              <div className="text-[8px] font-black text-gray-400 dark:text-gray-600 uppercase tracking-widest bg-white dark:bg-white/5 px-6 py-2.5 rounded-full border border-gray-100 dark:border-white/10 italic">
+                REGIONAL COORDINATION
               </div>
            </div>
         </div>

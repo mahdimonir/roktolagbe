@@ -60,8 +60,8 @@ export const getMyHistory = async (req: AuthRequest, res: Response, next: NextFu
 export const searchDonors = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { page, limit } = paginationSchema.parse(req.query);
-    const { bloodGroup, division, district, thana, name, phone } = req.query;
-    // Check if requester is authenticated (has a valid JWT in header)
+    const { bloodGroup, division, district, thana, name, phone, search, sortBy } = req.query;
+    // Keep it flexible: if user is logged in, show phone numbers
     const isAuthenticated = !!(req as any).user;
     const result = await donorService.searchDonors(
       bloodGroup as string,
@@ -72,7 +72,9 @@ export const searchDonors = async (req: Request, res: Response, next: NextFuncti
       limit,
       name as string,
       phone as string,
-      isAuthenticated
+      isAuthenticated,
+      search as string,
+      sortBy as string
     );
     res.json(result);
   } catch (err) { next(err); }

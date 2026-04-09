@@ -15,6 +15,8 @@ import { mediaRouter } from './modules/media/media.routes';
 import { messageRouter } from './modules/messages/messages.routes';
 import { notificationRouter } from './modules/notifications/notifications.routes';
 import rewardsRouter from './modules/rewards/rewards.routes';
+import { searchRouter } from './modules/search/search.routes';
+import { aiRouter } from './modules/ai/ai.routes';
 
 const app = express();
 
@@ -45,6 +47,8 @@ app.use('/api/rewards', rewardsRouter);
 app.use('/api/messages', messageRouter);
 app.use('/api/public', statsRouter);
 app.use('/api/media', mediaRouter);
+app.use('/api/search', searchRouter);
+app.use('/api/ai', aiRouter);
 
 // Welcome
 app.get('/', (_req, res) => {

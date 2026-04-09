@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --color-primary: #EF4444;
   --color-primary-hover: #DC2626;
@@ -11,6 +13,24 @@
   --foreground-rgb: 31, 41, 55;
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 249, 250, 251;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: rgba(31, 38, 135, 0.07);
+  --card-bg: #ffffff;
+  --card-border: #f3f4f6;
+  --section-alt: #f9fafb;
+}
+
+.dark {
+  --foreground-rgb: 245, 245, 245;
+  --background-start-rgb: 10, 10, 13;
+  --background-end-rgb: 15, 15, 20;
+  --glass-bg: rgba(20, 20, 28, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: rgba(0, 0, 0, 0.4);
+  --card-bg: rgba(20, 20, 28, 0.6);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --section-alt: rgba(15, 15, 20, 0.5);
 }
 
 body {
@@ -22,6 +42,7 @@ body {
     )
     rgb(var(--background-start-rgb));
   min-height: 100vh;
+  transition: background 0.5s ease, color 0.3s ease;
 }
 
 /* Premium Animations */
@@ -35,16 +56,35 @@ body {
   100% { background-position: 200% 0; }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
 }
 
-/* Glassmorphism */
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Glassmorphism - Light */
 .glass {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+}
+
+/* Glassmorphism - Dark-specific */
+.glass-dark {
+  background: rgba(20, 20, 28, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 /* Custom Buttons */
@@ -62,3 +102,26 @@ body {
 .btn-secondary {
   @apply bg-white text-red-500 border-2 border-red-500 hover:bg-red-50 font-semibold py-2 px-6 rounded-full transition-all duration-300;
 }
+
+/* Dark mode overrides for common patterns */
+.dark .bg-white { background-color: rgb(var(--background-start-rgb)); }
+.dark .bg-gray-50 { background-color: rgba(20, 20, 28, 0.4); }
+.dark .bg-gray-50\/50 { background-color: rgba(20, 20, 28, 0.25); }
+.dark .bg-gray-50\/30 { background-color: rgba(20, 20, 28, 0.15); }
+.dark .border-gray-100 { border-color: rgba(255, 255, 255, 0.06); }
+.dark .border-gray-200 { border-color: rgba(255, 255, 255, 0.08); }
+.dark .border-gray-50 { border-color: rgba(255, 255, 255, 0.04); }
+.dark .text-gray-900 { color: #f5f5f5; }
+.dark .text-gray-600 { color: #a1a1aa; }
+.dark .text-gray-500 { color: #71717a; }
+.dark .text-gray-400 { color: #52525b; }
+.dark .text-gray-300 { color: #3f3f46; }
+.dark .shadow-sm { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); }
+.dark .shadow-xl { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+.dark .shadow-2xl { box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
+
+/* Scrollbar styling for dark mode */
+.dark ::-webkit-scrollbar { width: 8px; }
+.dark ::-webkit-scrollbar-track { background: rgba(10, 10, 13, 0.5); }
+.dark ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+.dark ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }

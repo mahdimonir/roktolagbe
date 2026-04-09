@@ -240,18 +240,40 @@ export const searchDonors = async (
   limit: number,
   name?: string,
   phone?: string,
-  isAuthenticated?: boolean
+  isAuthenticated?: boolean,
+  search?: string,
+  sortBy: string = 'newest'
 ) => {
   const { skip, take } = getPagination(page, limit);
+  
+  // Base filters
   const where: any = {
-    ...(bloodGroup && { bloodGroup: bloodGroup as any }),
-    ...(division && { division: { contains: division, mode: 'insensitive' as const } }),
-    ...(district && { district: { contains: district, mode: 'insensitive' as const } }),
-    ...(thana && { thana: { contains: thana, mode: 'insensitive' as const } }),
-    ...(name && { name: { contains: name, mode: 'insensitive' as const } }),
-    ...(phone && { user: { phone: { contains: phone } } }),
     isAvailable: true,
+    ...(bloodGroup && { bloodGroup: bloodGroup as any }),
   };
+
+  // Unified Search logic (OR)
+  if (search) {
+    where.OR = [
+      { name: { contains: search, mode: 'insensitive' as const } },
+      { district: { contains: search, mode: 'insensitive' as const } },
+      { thana: { contains: search, mode: 'insensitive' as const } },
+      { division: { contains: search, mode: 'insensitive' as const } },
+      { user: { phone: { contains: search } } },
+    ];
+  } else {
+    // Legacy individual filters (backwards compatibility)
+    if (division) where.division = { contains: division, mode: 'insensitive' as const };
+    if (district) where.district = { contains: district, mode: 'insensitive' as const };
+    if (thana) where.thana = { contains: thana, mode: 'insensitive' as const };
+    if (name) where.name = { contains: name, mode: 'insensitive' as const };
+    if (phone) where.user = { phone: { contains: phone } };
+  }
+
+  // Sort logic
+  let orderBy: any = { lastDonationDate: 'desc' };
+  if (sortBy === 'donations') orderBy = { totalDonations: 'desc' };
+  if (sortBy === 'points') orderBy = { points: 'desc' };
 
   const [donors, total] = await Promise.all([
     prisma.donorProfile.findMany({
@@ -268,13 +290,13 @@ export const searchDonors = async (
         lastDonationDate: true,
         totalDonations: true,
         isAvailable: true,
+        profileImage: true,
         badges: { take: 3, include: { badge: true } },
-        // Only include phone for authenticated users
         ...(isAuthenticated && {
           user: { select: { phone: true } }
         }),
       },
-      orderBy: { lastDonationDate: 'desc' },
+      orderBy,
     }),
     prisma.donorProfile.count({ where }),
   ]);
